@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STADY</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <style>
+    .title-center {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .wrap {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-area {
+      margin-top: 25px;
+    }
+
+    .timeline-container {
+      margin-top: 25px;
+    }
+
+    /* 곰돌이 사진 크기 */
+    .img {
+      width: 200px;
+    }
+
+    .img2 {
+      width: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <link href="/static/css/join_style.css?" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+
+  <main>
+    <div class="page">
+      <div class="header">
+        <!-- 곰돌이 사진 -->
+        <img class="img2" src="/static/images/stady_bear_head.png" />
+        <img class="img" src="/static/images/stady_logo_1.png" />
+        <p></p>
+        <!-- 구글 카카오 구조 변형함 사진도 넣을 수 있다. -->
+
+        <div>
+          <hr>
+          <hr>
+        </div>
+      </div>
+      <div class="container">
+        <form>
+
+          <input type="text" placeholder="이메일" name="email" id="email">
+          <!-- <input type="text" placeholder="아이디" name="nickname"> -->
+          <input type="text" placeholder="이름" name="username" id="username">
+          <input type="password" placeholder="비밀번호" name="password" id="password">
+          <input type="password" placeholder="비밀번호 확인" name="password2">
+          <p></p>
+          <div class="alert alert-danger" role="alert">
+          </div>
+          <hr>
+          <input type="button" onclick ="handleSignin()" value="회원가입 완료" class="btn"/>
+
+        </form>
+      </div>
+    </div>
+    </div>
+    <div class="option">
+      <a>계정이 있으신가요?</a>
+      <h></h>
+      <a href="/user/login">로그인</a>
+    </div>
+    <div class="footer">
+    </div>
+  </main>
+
+  <script src="/static/js/user.js"></script>
+</body>
+
+</html>

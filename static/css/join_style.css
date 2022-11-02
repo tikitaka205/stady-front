@@ -1,0 +1,345 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 배경화면 색 */
+body {
+  background-color: #00b395;
+}
+
+.btn {
+  box-shadow: #00b395;
+}
+
+input[type='submit'].btn:hover {
+  background-color: #00b395;
+}
+
+input[type='button'].btn:hover {
+  background-color: #00b395;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  border-radius: 50px;
+}
+
+/* header style */
+.page .header {
+  text-align: center;
+}
+
+.page .header .logo,
+.page .header p,
+.page .header button {
+  margin-bottom: 15px;
+}
+
+.page .header > p {
+  font-weight: bold;
+  color: #8e8e8e;
+  font-size: 18px;
+}
+
+.google {
+  width: inherit;
+  border-radius: 5px;
+  border: none;
+  background-color: #4285f4;
+  color: #000000;
+}
+
+.kakao {
+  width: inherit;
+  border-radius: 5px;
+  border: none;
+  background-color: #fce300;
+  color: #000000;
+}
+
+/* 카카오 구글 버튼색 */
+/* .page .header > button{
+  width: inherit;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ff857a;
+  color: #ffffff;
+} */
+
+.page .header div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #8e8e8e;
+}
+
+.page .header div p {
+  padding: 0 20px;
+}
+
+.page .header div hr {
+  width: 200px;
+}
+
+/* container style*/
+/* 입력칸 비틀림 수정 처음부터 기울어져서 받아짐 */
+.page .container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 55px 30px 30px;
+}
+
+.page .container form,
+input {
+  width: inherit;
+}
+
+/* input박스 */
+.page .container form input {
+  border: 1px solid #dbdbdb;
+  background-color: #fafafa;
+  padding: 10px 5px;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.page .container form input:last-of-type {
+  margin-bottom: 10px;
+}
+
+/* 버튼 */
+.page .container form button {
+  width: inherit;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 7px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #000000a8;
+  color: #ffffff;
+}
+/* 버튼색 추가 */
+.button {
+  width: inherit;
+  margin-bottom: 20px;
+  padding: 7px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0095f6;
+  color: #ffffff;
+}
+
+.page .container ul {
+  list-style: none;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.page .container ul li {
+  display: inline;
+  color: #8e9096;
+}
+
+.page .container ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #8e9096;
+}
+
+/* option style */
+.option p > a {
+  text-decoration: none;
+  color: #00a0f7;
+  height: 10px;
+}
+
+/* otherapps style */
+.otherapps {
+  text-align: center;
+}
+
+.otherapps p {
+  margin-bottom: 15px;
+}
+
+.otherapps > button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* footer style */
+.footer {
+  bottom: 0;
+  height: 2.5rem;
+  margin-top: 50px;
+}
+
+.footer ul {
+  text-align: center;
+  font-size: 12px;
+}
+/* 참조 글자 크기 */
+.footer ul li {
+  display: inline;
+  margin-right: 5px;
+}
+/* 참조 */
+.footer ul li a {
+  text-decoration: none;
+  font-size: 12px;
+  color: #ffffff;
+}
+/* visang */
+.footer p {
+  margin-top: 10px;
+  text-align: center;
+  color: #000000;
+  font-size: 15px;
+}
+
+/* Mobile Styles */
+
+@media only screen and (max-width: 400px) {
+  body {
+    font-family: Freight Sans;
+  }
+
+  .page {
+    width: 250px;
+    background-color: #fafafa;
+  }
+
+  .page .header {
+    width: inherit;
+    margin-top: 10px;
+  }
+
+  .page .container {
+    width: inherit;
+  }
+
+  .option {
+    margin: 80px 0;
+  }
+
+  .page .container input {
+    padding: 10px 5px;
+    margin: 5px 0;
+  }
+
+  .page .footer {
+    width: inherith;
+  }
+}
+
+@media only screen and (min-width: 401px) {
+  body {
+    font-family: Neue Helvetica;
+  }
+  .page {
+    border: 1px solid #dbdbdb;
+    width: 350px;
+    background-color: white;
+    margin: 100px 40px 10px 40px;
+    border-radius: 20px;
+  }
+
+  .page .header {
+    width: 270px;
+    margin-top: 15px;
+  }
+
+  .page .container {
+    width: 270px;
+  }
+
+  .option {
+    border: 1px solid #dbdbdb;
+    background-color: white;
+    width: 350px;
+    height: 70px;
+    margin-top: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+  }
+
+  .otherapps {
+    margin: 20px 0;
+  }
+
+  .otherapps button {
+    margin-right: 5px;
+  }
+
+  .otherapps button:after-of-type {
+    margin-right: none;
+  }
+
+  .page .footer {
+    width: 100%;
+  }
+  .title-center {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .wrap {
+    width: 400px;
+    margin: 0 auto;
+  }
+  .form-area {
+    margin-top: 25px;
+  }
+  .timeline-container {
+    margin-top: 25px;
+  }
+  /* 곰돌이 사진 크기 */
+  .img {
+    width: 200px;
+  }
+  .img2 {
+    width: 70px;
+  }
+  .btn_sns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn_sns svg {
+    height: 20px;
+    width: auto;
+  }
+  .btn_sns span {
+    width: 100%;
+  }
+
+  .btn_sns .sns_image_cover {
+    padding: 10px 20px;
+    background: #fff;
+    border: solid 1px #4285f4;
+    border-radius: 5px 0px 0px 5px;
+  }
+
+  /* btn_sns와 kakao 클래스를 동시에 가진 element의 하위에 있는 .sns_image_cover의 스타일 .classA.classB */
+  .kakao.btn_sns .sns_image_cover {
+    background: inherit;
+    border-color: transparent;
+  }
+}

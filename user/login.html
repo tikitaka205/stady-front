@@ -1,0 +1,152 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STADY</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <style>
+    .title-center {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .wrap {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-area {
+      margin-top: 25px;
+    }
+
+    .timeline-container {
+      margin-top: 25px;
+    }
+
+    /* 곰돌이 사진 크기 */
+    .img {
+      width: 200px;
+    }
+
+    .img2 {
+      width: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <link href="/static/css/login_style.css?after" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+
+  <main>
+    <div class="page">
+      <div class="header">
+        <!-- 곰돌이 사진 -->
+        <img class="img2" src="/static/images/stady_bear_head.png" />
+        <img class="img" src="/static/images/stady_logo_1.png" />
+        <p></p>
+        <!-- 구글 카카오 구조 변형함 사진도 넣을 수 있다. -->
+
+
+        <button class="kakao btn_sns" onclick="location.href=`{% url 'kakao_login' %}`">
+          <div class="sns_image_cover">
+            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" viewBox="0 0 99.61801 92.147011"
+              height="92.147011" width="99.618011" xml:space="preserve" id="svg2" version="1.1"
+              inkscape:version="0.91 r13725" sodipodi:docname="Kakao_corp.svg">
+              <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10"
+                gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2"
+                inkscape:window-width="1680" inkscape:window-height="988" id="namedview349" showgrid="false"
+                inkscape:zoom="3.3640075" inkscape:cx="41.067253" inkscape:cy="21.64234" inkscape:window-x="-8"
+                inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="svg2" fit-margin-top="1"
+                fit-margin-left="1" fit-margin-bottom="1" fit-margin-right="1" />
+              <defs id="defs6">
+                <clipPath id="clipPath692" clipPathUnits="userSpaceOnUse">
+                  <path id="path690" d="m 0,595.28 841.89,0 L 841.89,0 0,0 Z" inkscape:connector-curvature="0" />
+                </clipPath>
+              </defs>
+              <g id="g686" transform="matrix(1,0,0,-1,-362.26358,234.09895)">
+                <g clip-path="url(#clipPath692)" id="g688">
+                  <g transform="translate(163.2612,376.6777)" id="g694">
+                    <path id="path696" style="fill:#3c1e1e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                      d="m 248.81039,-143.57875 c -26.953,0 -48.80801,-17.256 -48.80801,-38.555 0,-13.68101 9.05201,-25.69301 22.64601,-32.54901 l -4.599,-17.167 c -0.176,-0.527 -0.03,-1.085 0.352,-1.465 0.263,-0.265 0.614,-0.411 0.995,-0.411 0.294,0 0.586,0.117 0.85,0.322 l 19.775,13.36 c 2.872,-0.41 5.802,-0.644 8.789,-0.644 26.953,0 48.81,17.255 48.81,38.55401 0,21.299 -21.857,38.555 -48.81,38.555"
+                      inkscape:connector-curvature="0" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span>카카오톡 로그인</span>
+        </button>
+        <form method="post" action="{% provider_login_url 'google' %}" style="width: 100%;">
+          <button class="google btn_sns">
+            <div class="sns_image_cover">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48"
+                style=" fill:#000000;">
+                <path fill="#fbc02d"
+                  d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z">
+                </path>
+                <path fill="#e53935"
+                  d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z">
+                </path>
+                <path fill="#4caf50"
+                  d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z">
+                </path>
+                <path fill="#1565c0"
+                  d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z">
+                </path>
+              </svg>
+            </div>
+            <span style="color: #000000;">구글 로그인</span>
+          </button>
+        </form>
+        <div>
+          <hr>
+          <hr>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="container">
+        <form action='/user/login/' method="post">
+          <input type="text" placeholder="이메일" name="email">
+          <input type="password" placeholder="비밀번호" name="password">
+          <div class="alert alert-danger" role="alert">
+          </div>
+          <p></p>
+          <hr>
+          <input type="submit" value="로그인" / class="btn">
+          <input type="button" value="회원가입" onclick="location.href='/user/signin.html'" / class="btn">
+
+        </form>
+      </div>
+
+    </div>
+
+    </div>
+    <p></p>
+    <div class="option">
+      <a>비밀번호를 잊으셨나요?</a>
+      <h></h>
+      <a href="/reset_password/">
+
+        이메일로 비밀번호 리셋</a>
+    </div>
+
+
+
+    <div class="footer">
+    </div>
+  </main>
+</body>
