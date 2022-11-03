@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-100">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.104.2" />
+    <title>STADY</title>
+    <!-- css 파일 -->
+    <link href="/static/css/bootstrap.min.css?after" rel="stylesheet" />
+    <link href="/static/css/base.css?after" rel="stylesheet" />
+    <!-- bootstrap css cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" />
+
+    <!-- JS 파일 -->
+    <script src="/static/js/bootstrap.bundle.min.js?after"></script>
+
+    <style>
+        .stady_btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .stady_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cam_size {
+            width: 375px;
+            height: 375px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            background-color: #e9ecef;
+            margin-bottom: 10px;
+        }
+
+        .nav_logo {
+            width: 100px;
+            height: 40px;
+        }
+
+        #category-wrap>div>span:hover {
+            background-color: #1AB4AC;
+        }
+
+
+        #main_nav {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: #fff;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body class="h-100 text-center" style="background-color: #00b395;">
+    <div class="w-100 h-100 p-3 mx-auto">
+        <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
+            <div class="contain">
+                <div class="fixed-top" id="main_nav">
+                    <h3 class="float-md-start mb-0">
+                        <a href="/">
+                            <img class="nav_logo" src="/static/images/stady_1.png" />
+                        </a>
+                    </h3>
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="{% url 'studies:studies' %}">스터디
+                            모임</a>
+                        <div style="margin-left: 20px; margin-right: 10px">
+                            <div class="post_header_more_btn_box">
+                                <div class="btn-group">
+                                    <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                                        src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown"
+                                        aria-expanded="false" />
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'profile:profile' %}">프로필</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'user:update' %}">회원정보수정</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'user:logout' %}">로그아웃</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="container" style="height: 500px; margin-top : 100px;">
+
+
+            <h2 style="color: white;" class="m-3 pt-3 text-center" >테디의 공부 분야가 궁금해요!</h2>
+            <div id="category-wrap" class="p-3" style="background-color: white; border-radius: 10px;">
+                <div id="notice" style="display: none;">
+                    <h5>
+                        하나를 골라주세용
+                    </h5>
+                </div>
+                <!-- <div class="mb-2">
+                    <h4>큰 카</h4>
+                    <span id="class-{{sub_class}}" class="btn mb-2" style="border: 1px solid gray;"
+                        onclick="putIn(`{{sub_class}}`)">
+                    </span>
+                </div> -->
+            </div>
+            <button class="btn btn-primary" onclick="submitClass()">완료</button>
+
+        </main>
+    </div>
+    
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRFToken': '{{csrf_token}}',
+        //     },
+        // });
+        $( document ).ready(function() {
+            test()
+        });
+
+        var selectedClass = '';
+        var notice = document.getElementById('notice')
+
+
+
+
+        function putIn(seletClass) {
+            if (selectedClass !== '') {
+                var sub = document.getElementById(`class-${selectedClass}`)
+                sub.setAttribute('style', 'background-color : white; border : 1px solid black;')
+            }
+            document.getElementById(`class-${seletClass}`).setAttribute('style', 'background-color : #fffb00; border : 1px solid black;')
+            selectedClass = seletClass;
+        }
+
+        function submitClass() {
+            if (selectedClass === '') {
+                notice.setAttribute('style', 'display: block; background-color: #fffb00; border-radius : 10px;')
+            } else {
+                $.ajax({
+                    type: 'POST',
+
+                    data: { subClass: selectedClass },
+                    headers : {
+                        "Authorization" : "Bearer " + localStorage.getItem("access"),
+                    },
+                    url: 'http://127.0.0.1:8000/api/study/category/',
+
+                    success: function (result) {
+                        alert('성공띠')
+                        window.location = '/';
+
+                    },
+                });
+            }
+        }
+        function test(){
+            $.ajax({
+                    type: 'GET',
+
+                    data: {},
+                    headers : {
+                        "Authorization" : "Bearer " + localStorage.getItem("access"),
+                    },
+
+                    url: 'http://127.0.0.1:8000/api/study/category/',
+
+                    success: function (result) {
+                        for (let i = 0; i < result.length; i++){
+                            var high = result[i];
+                            for (const [key, value] of Object.entries(high)){
+                                var temp = `
+                                <div class="mb-2">
+                                    <h4>${key}</h4>     
+                                `
+                                for (let j = 0; j < value.length; j ++){
+                                    console.log(value[j])
+                                    temp += `
+                                    <span id="class-${value[j]}" class="btn mb-2" style="border: 1px solid gray;" onclick="putIn('${value[j]}')">
+                                        ${value[j]}
+                                    </span>             
+                                    `
+                                }
+                                temp += `</div>`
+                                $('#category-wrap').append(temp)
+                            }
+                        };
+
+                    },
+                });
+        }
+    </script>
+</body>
+
+</html>

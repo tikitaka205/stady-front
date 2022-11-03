@@ -86,7 +86,7 @@
                       <a class="dropdown-item" href="{% url 'profile:profile' %}">프로필</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{% url 'user:update' %}">회원정보수정</a>
+                      <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="{% url 'user:logout' %}">로그아웃</a>
@@ -121,24 +121,20 @@
         
             <div class="col-xl-8" style="height: 400px; overflow-y: scroll; border-radius: 5px; background-color: aliceblue; ">
                 <div>
-                    <h3 class="text-center" id="today-date"></h3>
+                    <h3 class="text-center" ><span id="today-date"></span> <small>(<span id="day-total-time"></span>분)</small></h3>
                     <div id="today-log">
-                        {% for log in study_log_list %}
                         <div class="row mb-2">
-                            <div class="col-4">{{log.start_time}} ~ {{log.end_time}}({{log.sub_time}}분)</div>
+                            <div class="col-4"></div>
                             <div class="col-8 row">
-                                <div class="col-8" id="memo-{{log.id}}">{{log.memo}}</div>
+                                <div class="col-8" id="memo-{{log.id}}"></div>
                                 <div class=" col-4 text-end">
                                     <button onclick="writeMemo(`{{log.id}}`)" type="button" class="btn btn-success"
                                         style="font-size : 12px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        메모/수정
                                     </button>
         
                                 </div>
                             </div>
                         </div>
-        
-                        {% endfor %}
                     </div>
                 </div>
             </div>
