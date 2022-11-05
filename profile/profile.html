@@ -21,6 +21,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
+
+a { 
+  text-decoration: none; 
+  }
+  a:link {
+  color : white;
+}
+a:visited {
+  color : white;
+}
+
     .stady_btn {
       display: flex;
       flex-direction: column;
@@ -169,11 +180,13 @@
     <div class="col-4 px-0">
       
       <div id="study_day" style="background-color: #1d7d78; color: white; min-height: 130px; overflow-y : scroll; border-radius: 10px">
-      <!-- 여기에 데이터 넣기 -->
+        <h5>날짜</h5>
+        <!-- 여기에 데이터 넣기 -->
       </div>
     </div>
     <div id ="study_log" class="col-8" style="background-color: white; border-radius: 10px;">
       <!-- 여기에 데이터  -->
+      <h5 id="today-date">날짜</h5>
       <!-- <h5 id="today-date">{{date}}</h5>
       <div id="today-log" style="max-height: 800px; overflow-y : scroll; ">
       {% for log in study_log_list %}

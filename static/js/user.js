@@ -24,17 +24,18 @@ async function handleSignin(){
 }
 
 async function handleLogin(){
+    console.log('핸들')
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
 
 
-    const response = await fetch('http://127.0.0.1:8000/api/token/', {
+    const response = await fetch('http://127.0.0.1:8000/user/api/token/', {
         headers : {
             'content-type' : 'application/json',
         },
         method : 'POST',
         body : JSON.stringify({
-            "email" : email,
+            "username" : email,
             "password" : password
         })
     })
