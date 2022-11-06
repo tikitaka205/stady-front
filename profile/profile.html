@@ -86,6 +86,14 @@ a:visited {
     flex-direction: row;
     justify-content: space-around;
   }
+
+  .top-menu-wrap{
+    margin-top:100px;
+  }
+
+  .nav-link{
+    color: black;
+  }
 </style>
 
 
@@ -151,32 +159,23 @@ a:visited {
     </div>
 </div>
 
-<!--  상단 -->
-<div class="container" >
-  <div class="top-menu-wrap">
-    <div class="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
-      <div class="col-3">
-        <img src="#" width="30px" height="30px" alt="">
-        <span>{{user.username}}</span>
-      </div>
-      <div class="col-5 text-start">
-        <span>{{user.username}}의 다짐 :</span>
-        <span>{{user.bio}}</span>
-      </div>
 
-        <div class="col-4 text-start">
-          <span>총 공부 시간 :</span>
-          <span>{{user.total_time}} 분</span>
-        </div>
+<div class="container" >
+  <!--  상단 -->
+  <div class="top-menu-wrap">
+    <div id = "userinfo" class="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
+    
     </div>
     <div>
       <div class="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
           <span>내 공부로그</span>
-          <a href="{% url 'profile:study_list' %}">내 스터디</a>   
+          <a href="/stady-front/profile/profile_study.html">내 스터디</a>   
       </div>
     </div>
 </div>
-  <div class="row" style="max-height: 800px;">
+ 
+
+<div class="row" style="max-height: 800px;">
     <div class="col-4 px-0">
       
       <div id="study_day" style="background-color: #1d7d78; color: white; min-height: 130px; overflow-y : scroll; border-radius: 10px">
@@ -187,23 +186,7 @@ a:visited {
     <div id ="study_log" class="col-8" style="background-color: white; border-radius: 10px;">
       <!-- 여기에 데이터  -->
       <h5 id="today-date">날짜</h5>
-      <!-- <h5 id="today-date">{{date}}</h5>
-      <div id="today-log" style="max-height: 800px; overflow-y : scroll; ">
-      {% for log in study_log_list %}
-      <div class="row mb-2">
-        <div class="col-4">{{log.start_time}} ~ {{log.end_time}}({{log.sub_time}}분)</div>
-        <div class="col-8 row">
-            <div class="col-8" id="memo-{{log.id}}"">{{log.memo}}</div>
-            <div class=" col-4 text-end">
-                <button onclick="writeMemo(`{{log.id}}`)" type="button" class="btn btn-success" style="font-size : 12px;"
-                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    메모/수정
-                </button>
-            </div>
-        </div>
-    </div>
-      {% endfor %}
-      </div> -->
+      
     
     </div>
   </div>

@@ -5,9 +5,6 @@ $( document ).ready(function() {
 });
 
 
-
-
-
 function day_log(date){ 
     $('#study_log').empty()
     $.ajax({
@@ -24,17 +21,19 @@ function day_log(date){
                 let end_time = log[i]['end_time']
                 let memo = log[i]['memo']
                 let sub_time = log[i]['sub_time']
+                let id = log[i]['id']
+                console.log('데이로그 memo,id'+id)
                 console.log('실행되니?')
                 // let date = log[i]['date']
 
                 let temp_html = `
-                <div id="today-log" style="max-height: 800px; overflow-y : scroll; ">
+                <div id="today-log" style="max-height: 800px; ">
                 <div class="row mb-2">
                   <div class="col-4">${start_time} ~ ${end_time}(${sub_time}분)</div>
                   <div class="col-8 row">
-                    <div class="col-8" id="memo-{{log.id}}"">${memo}</div>
+                    <div class="col-8" id="memo-${id}"">${memo}</div>
                       <div class=" col-4 text-end">
-                          <button onclick="writeMemo(${log.id})" type="button" class="btn btn-success" style="font-size : 12px;"
+                          <button onclick="writeMemo(${id})" type="button" class="btn btn-success" style="font-size : 12px;"
                               data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                               메모/수정/dd
                           </button>
@@ -62,6 +61,8 @@ function study_log(){
         data: {},
         success: function (response) {
             let log = response['log']
+            let id = log[0]['user']
+            userinfo(id)
             
             date_arr =[]
         
@@ -89,16 +90,16 @@ function study_log(){
                 let end_time = log[i]['end_time']
                 let memo = log[i]['memo']
                 let sub_time = log[i]['sub_time']
+                let id = log[i]['id']
                 // let date = log[i]['date']
-
                 let temp_html = `
-                <div id="today-log" style="max-height: 800px; overflow-y : scroll; ">
+                <div id="today-log" style="max-height: 800px; ">
                 <div class="row mb-2">
                   <div class="col-4">${start_time} ~ ${end_time}(${sub_time}분)</div>
                   <div class="col-8 row">
-                    <div class="col-8" id="memo-{{log.id}}"">${memo}</div>
+                    <div class="col-8" id="memo-${id}"">${memo}</div>
                       <div class=" col-4 text-end">
-                          <button onclick="writeMemo(${log.id})" type="button" class="btn btn-success" style="font-size : 12px;"
+                          <button onclick="writeMemo(${id})" type="button" class="btn btn-success" style="font-size : 12px;"
                               data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                               메모/수정
                           </button>
@@ -109,11 +110,46 @@ function study_log(){
                 </div> 
                 `
                     $('#study_log').append(temp_html)
+
                 }
         }   
 }) 
 }
 
+function userinfo(id){
+     // user_log
+     $.ajax({
+       
+        type: "GET",
+        url: "http://127.0.0.1:8000/my_profile/"+ id +"/",
+        // headers : {
+        //     "Authorization" : "Bearer " + localStorage.getItem("access"),
+        //     },
+        data: {},
+        success: function (response) {
+        let info = response
+        let name = info['username']
+        let bio = info['bio']
+        let total_time = info['total_time']
+        let temp_html =`
+            <div class="col-3">
+            <img src="#" width="30px" height="30px" alt="">
+            <span>${name}</span>
+            </div>
+            <div class="col-5 text-start">
+                <span>${name}의 다짐 :</span>
+                <span>${bio}</span>
+            </div>
+
+            <div class="col-4 text-start">
+            <span>총 공부 시간 :</span>
+            <span>${total_time} 분</span>
+            </div>
+        `
+        $('#userinfo').append(temp_html)
+        }   
+    }) 
+}
 
 
 function writeMemo(logId) {
@@ -128,6 +164,7 @@ function writeMemo(logId) {
     modal.setAttribute('style', 'display: block;');
     submitButton.setAttribute('onclick', `submitMemo(${logId})`)
     memoTitle.value = memo.innerText;
+    console.log(logId)
 
     $('#staticBackdrop').modal('show')
 
@@ -135,28 +172,43 @@ function writeMemo(logId) {
     // modal.removeAttribute('style');
 }
 
-function submitMemo(logId) {
+async function submitMemo(logId) {
+    //fetch로 전달해볼까?
+    console.log(logId)
     console.log('submitmemo function')
     var memoTitle = document.getElementById('memo-title').value; // 모달 인풋 값에 입력한 값
     var memo = document.getElementById(`memo-${logId}`); // 공부 로그에 남긴 메모
-    console.log(memoTitle, memo)
+    console.log('메모 타이틀: '+memoTitle)
+    console.log('메모: '+memo)
+
 
     $.ajax({
-        type: 'POST',
-
-        data: { memoTitle: memoTitle, logId: logId },
-
-        url: '/study/memo/',
-
-        success: function (result) {
-            console.log('성공:', result);
-            memo.innerText = ''; // 텍스트 지우기
-            memo.append(memoTitle);
-
+        type: "GET",
+        url: "http://127.0.0.1:8000/my_profile/memolog/"+logId+"/",
+        // headers : {
+        //     "Authorization" : "Bearer " + localStorage.getItem("access"),
+        //     },
+        data: {},
+        success: function (response) {
+            let user = response['user']
+            makememo(logId)
+            
         }
-    });
-
-    closeMemo()
+    })
+    async function makememo(logId){
+        const response = await fetch("http://127.0.0.1:8000/my_profile/memolog/" + logId +"/", {
+            headers : {
+                'content-type' : 'application/json',
+            },
+            method : 'POST',
+            body : JSON.stringify({
+                "memo":memoTitle,
+            })
+        })
+    
+        closeMemo()
+    }
+     
 }
 
 function closeMemo() {
