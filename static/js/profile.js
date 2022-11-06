@@ -122,9 +122,9 @@ function userinfo(id){
        
         type: "GET",
         url: "http://127.0.0.1:8000/my_profile/"+ id +"/",
-        // headers : {
-        //     "Authorization" : "Bearer " + localStorage.getItem("access"),
-        //     },
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+            },
         data: {},
         success: function (response) {
         let info = response
@@ -181,24 +181,11 @@ async function submitMemo(logId) {
     console.log('메모 타이틀: '+memoTitle)
     console.log('메모: '+memo)
 
-
-    $.ajax({
-        type: "GET",
-        url: "http://127.0.0.1:8000/my_profile/memolog/"+logId+"/",
-        // headers : {
-        //     "Authorization" : "Bearer " + localStorage.getItem("access"),
-        //     },
-        data: {},
-        success: function (response) {
-            let user = response['user']
-            makememo(logId)
-            
-        }
-    })
-    async function makememo(logId){
+    
         const response = await fetch("http://127.0.0.1:8000/my_profile/memolog/" + logId +"/", {
             headers : {
                 'content-type' : 'application/json',
+                "Authorization" : "Bearer " + localStorage.getItem("access")
             },
             method : 'POST',
             body : JSON.stringify({
@@ -209,7 +196,6 @@ async function submitMemo(logId) {
         closeMemo()
     }
      
-}
 
 function closeMemo() {
     console.log('closememo function 실행')
