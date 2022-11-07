@@ -30,6 +30,7 @@ async function handleSignin(){
 }
 
 async function handleLogin(){
+    console.log('핸들')
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
 
@@ -40,7 +41,7 @@ async function handleLogin(){
         },
         method : 'POST',
         body : JSON.stringify({
-            "email" : email,
+            "username" : email,
             "password" : password
         })
     })
