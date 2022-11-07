@@ -1,43 +1,4 @@
 
-// window.onload= async ()=> {
-//     const response = await fetch('', {
-//         method:'GET'
-//     })
-//     response.json().then(data =>{
-//         console.log(data.serialize_like[0].title)
-//         console.log(data.serialize_like[0].content)
-//         console.log(data.serialize_like[0].headcount)
-//         console.log(data.serialize_like[0].thumbnail_img)
-//     })
-
-    
-
-//     //error 
-//     //response.json()까지 하고 response.json().serialize_like[0].title을 시도
-//     //당연히 안됨. 
-//     //json()을 가져와서 data로 만들어 줘야하는 구나.!
-
-// }
-// <arrow부분>
-// const left_arrows = document.querySelectorAll('.arrow-left')
-// const study_list = document.querySelectorAll('.study_list')
-
-// left_arrows.forEach((arrow,i)=>{
-//     const itemNumber = study_list[i].querySelectorAll('img').length;
-//     let clickcount = 0;
-    
-//     arrow.addEventListener("click", ()=>{
-//         clickcount ++;
-//         if (itemNumber - (3 + clickcount) >= 0){
-//             study_list[i].style.transform = `translateX(${study_list[i].computedStyleMap()
-//                 .get('transform')[0].x.value - 300}px)`
-//         }else{
-//             study_list[i].style.transform = "translateX(0)" 
-//             clickcount = 0;
-//         }
-        
-//     })
-// })
 
 $( document ).ready(function() {
     load_json()

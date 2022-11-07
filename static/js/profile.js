@@ -7,6 +7,7 @@ $( document ).ready(function() {
 
 function day_log(date){ 
     $('#study_log').empty()
+    $('#total').empty()
     $.ajax({
         type: "GET",
         url: "http://127.0.0.1:8000/my_profile/daylog/"+date+"/",
@@ -15,16 +16,15 @@ function day_log(date){
             },
         data: {},
         success: function (response) {
-            let log = response
+            let log = response['serialize_log']
+            let day_study_time = response['day_study_time']
             for(let i = 0 ; i < log.length; i++){
                 let start_time = log[i]['start_time']
                 let end_time = log[i]['end_time']
                 let memo = log[i]['memo']
                 let sub_time = log[i]['sub_time']
                 let id = log[i]['id']
-                console.log('데이로그 memo,id'+id)
-                console.log('실행되니?')
-                // let date = log[i]['date']
+                
 
                 let temp_html = `
                 <div id="today-log" style="max-height: 800px; ">
@@ -45,6 +45,10 @@ function day_log(date){
                 `
                 $('#study_log').append(temp_html)
                 }
+                let total = `
+                <h6>오늘의 총 공부 시간 : ${day_study_time}분</h6>
+                `
+                $('#total').append(total)
                 
         }
 })
@@ -192,6 +196,8 @@ async function submitMemo(logId) {
                 "memo":memoTitle,
             })
         })
+        memo.innerText = ''; // 텍스트 지우기
+        memo.append(memoTitle);
     
         closeMemo()
     }
