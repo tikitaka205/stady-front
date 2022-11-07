@@ -1,0 +1,243 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="ko" class="h-100">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.104.2" />
+  <title>STADY</title>
+  <!-- css 파일 -->
+  <link href="/static/css/bootstrap.min.css?after" rel="stylesheet" />
+  <link href="/static/css/base.css?after" rel="stylesheet" />
+  <!-- bootstrap css cdn -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" /> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- JS 파일 -->
+  <script src="/static/js/bootstrap.bundle.min.js?after"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+  <style>
+    .subject {
+      text-align: center;
+      color: white;
+    }
+
+    .container {
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      width: 800px;
+    }
+
+    .btn {
+      margin: 0 5px;
+      float: right;
+    }
+
+    .form-control.haedcount {
+      width: 25%;
+    }
+
+    .stady_btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .stady_wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cam_size {
+      width: 375px;
+      height: 375px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      background-color: #e9ecef;
+      margin-bottom: 10px;
+    }
+
+    .nav_logo {
+      width: 100px;
+      height: 40px;
+    }
+
+    #my-header {}
+
+    #main_nav {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      background-color: #fff;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body id="body" class="h-100 text-center" style="background-color: #00b395;">
+  <div class="w-100 h-100 p-3 mx-auto">
+    <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
+      <div class="contain">
+        <div class="fixed-top" id="main_nav">
+          <h3 class="float-md-start mb-0">
+            <a href="/">
+              <img class="nav_logo" src="/static/images/stady_1.png" />
+            </a>
+          </h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디 모임</a>
+            <div style="margin-left: 20px; margin-right: 10px">
+              <div class="post_header_more_btn_box">
+                <div class="btn-group">
+                  <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                    src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="{% url 'profile:profile' %}">프로필</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+    </header>
+
+    <main class="" style="height: 500px; margin-top : 100px;">
+
+      <div class="row">
+        <h1 class='subject mb-5'>스터디 등록 페이지</h1>
+        <form>
+          <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="1" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">온라인</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="0">
+            <label class="btn btn-outline-warning" for="btnradio2">오프라인</label>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"></label>
+            <input type="text" class="form-control" id="title" placeholder="스터디 제목(최소 2자)" name='title' required>
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label"></label>
+            <input class="form-control" type="file" id="formFile" name="image" placeholder="썸네">
+          </div>
+
+          <div class="mb-3">
+            <input type="text" placeholder="인원수(0~99), 0 : 무제한" id="headcount" class="form-control" style="width: 40%;"
+              maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-labe2"></label>
+            <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. (최소 30자)' name='content' rows="15"
+              required></textarea>
+          </div>
+          <div class="mb-3">
+            <input type="text" id="tags" class="form-control" placeholder="태그를 공백으로 분리해 주세요! ex) 스터디 경찰 공무원" required>
+          </div>
+          <div>
+            <button type="button" onclick="createStudy()" class="btn btn-primary btn-lg">등록하기</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+  <script>
+    $('#tags').on('input', test);
+    function test() {
+      console.log('활성화 중!')
+      let tags_string = $('#tags').val();
+      let arr = tags_string.split(' ');
+      if (arr[arr.length - 1] == '') {
+        arr.splice(-1, 1)
+      }
+
+      console.log(arr)
+    }
+    // TODO 예외처리 해줘야할 것이 많음
+    function tagSlice(tags) {
+      var tags = tags.split(' ');
+      return [tags]
+    }
+
+    function createStudy() {
+      let isOnline = $("input[name='btnradio']:checked").val()
+      let title = $("#title").val()
+      let content = $("#content").val()
+      let headcount = $("#headcount").val()
+      let tags = $("#tags").val()
+      const formFile = $("#formFile")[0];
+      if (title.length < 2 || content.length < 30 || headcount.length === 0 || tags.length < 1) {
+        alert('제목 : 최소 2자 \n내용 : 최소 30자 \n인원수 : 0~99(0은 무제한) \n태그 : 1~5개')
+        return
+      }
+
+      let formData = new FormData();
+      if (formFile.files.length === 0) {
+        console.log('hi')
+      } else {
+        formData.append("thumbnail_img", formFile.files[0]);
+      }
+      formData.append("is_online", Number(isOnline))
+      formData.append("title", title)
+      formData.append("content", content)
+      formData.append("headcount", Number(headcount))
+      formData.append("tags", tags)
+
+      // }
+
+      $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:8000/studies/",
+        processData: false,
+        contentType: false,
+        data: formData,
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
+        success: function (rtn) {
+          console.log("rtn: ", rtn)
+        },
+        err: function (err) {
+          console.log("err:", err)
+        }
+      })
+      window.location.href = "/study_group/study_index.html"
+    }
+  </script>
+  <script src="/static/js/user.js"></script>
+</body>
+
+</html>

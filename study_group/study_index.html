@@ -52,10 +52,7 @@
             height: 40px;
         }
 
-        #category-wrap>div>span:hover {
-            background-color: #1AB4AC;
-        }
-
+        #my-header {}
 
         #main_nav {
             padding-top: 1rem;
@@ -67,7 +64,7 @@
     </style>
 </head>
 
-<body class="h-100 text-center" style="background-color: #00b395;">
+<body class="d-flex h-100 text-center" style="background-color: #00b395;">
     <div class="w-100 h-100 p-3 mx-auto">
         <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
             <div class="contain">
@@ -80,7 +77,8 @@
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
                         <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
-                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                            href="/study_group/study_index.html">스터디
                             모임</a>
                         <div style="margin-left: 20px; margin-right: 10px">
                             <div class="post_header_more_btn_box">
@@ -109,114 +107,25 @@
         </header>
 
         <main class="container" style="height: 500px; margin-top : 100px;">
+            <!-- <h1>상세보기페이지</h1>
+            <form>
+                <button type="button" id="data" name="data" onclick="loadStudyView()">받아오기</button>
+            </form> -->
 
+            <button type="button" onclick="createPost()">스터디 모집하기</button>
 
-            <h2 style="color: white;" class="m-3 pt-3 text-center">테디의 공부 분야가 궁금해요!</h2>
-            <div id="category-wrap" class="p-3" style="background-color: white; border-radius: 10px;">
-                <div id="notice" style="display: none;">
-                    <h5>
-                        하나를 골라주세용
-                    </h5>
-                </div>
-                <!-- <div class="mb-2">
-                    <h4>큰 카</h4>
-                    <span id="class-{{sub_class}}" class="btn mb-2" style="border: 1px solid gray;"
-                        onclick="putIn(`{{sub_class}}`)">
-                    </span>
-                </div> -->
+            <div class="row text-center" id="study_view" style="width: 100%;">
+
             </div>
-            <button class="btn btn-primary" onclick="submitClass()">완료</button>
 
+            <script src="/static/js/api.js"></script>
+            <script src="/static/js/user.js"></script>
         </main>
     </div>
 
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <script>
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRFToken': '{{csrf_token}}',
-        //     },
-        // });
-        $(document).ready(function () {
-            test()
-        });
-
-        var selectedClass = '';
-        var notice = document.getElementById('notice')
-
-
-
-
-        function putIn(seletClass) {
-            if (selectedClass !== '') {
-                var sub = document.getElementById(`class-${selectedClass}`)
-                sub.setAttribute('style', 'background-color : white; border : 1px solid black;')
-            }
-            document.getElementById(`class-${seletClass}`).setAttribute('style', 'background-color : #fffb00; border : 1px solid black;')
-            selectedClass = seletClass;
-        }
-
-        function submitClass() {
-            if (selectedClass === '') {
-                notice.setAttribute('style', 'display: block; background-color: #fffb00; border-radius : 10px;')
-            } else {
-                $.ajax({
-                    type: 'POST',
-
-                    data: { subClass: selectedClass },
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("access"),
-                    },
-                    url: 'http://127.0.0.1:8000/api/study/category/',
-
-                    success: function (result) {
-                        alert('성공띠')
-                        window.location = '/';
-
-                    },
-                });
-            }
-        }
-        function test() {
-            $.ajax({
-                type: 'GET',
-
-                data: {},
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("access"),
-                },
-
-                url: 'http://127.0.0.1:8000/api/study/category/',
-
-                success: function (result) {
-                    for (let i = 0; i < result.length; i++) {
-                        var high = result[i];
-                        for (const [key, value] of Object.entries(high)) {
-                            var temp = `
-                                <div class="mb-2">
-                                    <h4>${key}</h4>     
-                                `
-                            for (let j = 0; j < value.length; j++) {
-                                console.log(value[j])
-                                temp += `
-                                    <span id="class-${value[j]}" class="btn mb-2" style="border: 1px solid gray;" onclick="putIn('${value[j]}')">
-                                        ${value[j]}
-                                    </span>             
-                                    `
-                            }
-                            temp += `</div>`
-                            $('#category-wrap').append(temp)
-                        }
-                    };
-
-                },
-            });
-        }
+        window.onload = loadStudyView();
     </script>
-    <script src="/static/js/user.js"></script>
 </body>
 
 </html>
