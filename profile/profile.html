@@ -94,6 +94,28 @@ a:visited {
   .nav-link{
     color: black;
   }
+  .log_study{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top_bar{
+    display: flex;
+    width: 700px;
+    padding-top: 20px;
+    margin-right: 100px;
+    margin-bottom: 20px;
+  }
+
+.study_bar{
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.log-wrap{
+  width: 100%;
+  margin-left: 1px;
+}
 </style>
 
 
@@ -163,32 +185,35 @@ a:visited {
 <div class="container" >
   <!--  상단 -->
   <div class="top-menu-wrap">
-    <div id = "userinfo" class="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
-    
+    <div id = "userinfo" class ="top_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
+    <!-- userinfo 들어가는 부분 -->
     </div>
     <div>
-      <div class="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
-          <span>내 공부로그</span>
-          <a href="/stady-front/profile/profile_study.html">내 스터디</a>   
+      <div class="study_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
+        <div class ='log_study'>
+          <p>내 공부로그</p>
+          <a href="/stady-front/profile/profile_study.html" style="color:black">내 스터디</a> 
+        </div>
+           
       </div>
+     
     </div>
 </div>
  
 
-<div class="row" style="max-height: 800px;">
+<div class="log-wrap row" style="max-height: 800px;">
     <div class="col-4 px-0">
-      
-      <div id="study_day" style="background-color: #1d7d78; color: white; min-height: 130px; overflow-y : scroll; border-radius: 10px">
-        <h5>날짜</h5>
-        <!-- 여기에 데이터 넣기 -->
+      <div id="study_day" style="margin-right:10px; background-color: #1d7d78; color: white; min-height: 130px; border-radius: 10px ">
+       <h5>날짜</h5>
+       <!-- 하루하루 날짜 데이터 -->
       </div>
     </div>
-    <div id ="study_log" class="col-8" style="background-color: white; border-radius: 10px;">
-      <!-- 여기에 데이터  -->
-      <h5 id="today-date">날짜</h5>
-      
-    
-    </div>
+        <div class="col-8" style="background-color: white; border-radius: 10px;">
+          <h5>날짜</h5>
+          <span id="total"></span>
+          <div id="study_log"></div>
+          <!-- 공부로그 데이터  --> 
+        </div>
   </div>
 </div>
 <main class="container" style="height: 500px; margin-top : 100px;">
