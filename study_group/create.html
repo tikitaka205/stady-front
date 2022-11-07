@@ -1,4 +1,3 @@
-<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="ko" class="h-100">
 
@@ -127,7 +126,7 @@
 
     </header>
 
-    <main class="" style="height: 500px; margin-top : 100px;">
+    <main class="container" style="height: 500px; margin-top : 100px;">
 
       <div class="row">
         <h1 class='subject mb-5'>스터디 등록 페이지</h1>
@@ -157,10 +156,26 @@
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-labe2"></label>
             <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. (최소 30자)' name='content' rows="15"
-              required></textarea>
+              required>
+스터디 주제 :
+
+스터디 목표 :
+
+예상 스터디 일정(횟수) :
+
+위치 :
+
+예상 모집인원 :
+
+스터디 소개와 개설 이유 :
+
+스터디 관련 주의사항 :
+
+연락할 수단을 적어주세요(오픈 카카오톡)
+                </textarea>
           </div>
           <div class="mb-3">
-            <input type="text" id="tags" class="form-control" placeholder="태그를 공백으로 분리해 주세요! ex) 스터디 경찰 공무원" required>
+            <input type="text" id="tags" class="form-control" placeholder="태그를 쉼표(,)로 분리해 주세요! ex) 스터디,경찰,공무원" required>
           </div>
           <div>
             <button type="button" onclick="createStudy()" class="btn btn-primary btn-lg">등록하기</button>
@@ -179,7 +194,7 @@
     function test() {
       console.log('활성화 중!')
       let tags_string = $('#tags').val();
-      let arr = tags_string.split(' ');
+      let arr = tags_string.split(',');
       if (arr[arr.length - 1] == '') {
         arr.splice(-1, 1)
       }
@@ -188,7 +203,7 @@
     }
     // TODO 예외처리 해줘야할 것이 많음
     function tagSlice(tags) {
-      var tags = tags.split(' ');
+      var tags = tags.split(',');
       return [tags]
     }
 
@@ -199,6 +214,7 @@
       let headcount = $("#headcount").val()
       let tags = $("#tags").val()
       const formFile = $("#formFile")[0];
+      console.log(formFile)
       if (title.length < 2 || content.length < 30 || headcount.length === 0 || tags.length < 1) {
         alert('제목 : 최소 2자 \n내용 : 최소 30자 \n인원수 : 0~99(0은 무제한) \n태그 : 1~5개')
         return
@@ -220,7 +236,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8000/studies/",
+        url: "http://127.0.0.1:8000/api/studies/",
         processData: false,
         contentType: false,
         data: formData,
@@ -229,15 +245,14 @@
         },
         success: function (rtn) {
           console.log("rtn: ", rtn)
+          window.location.href = "/study_group/index.html"
         },
         err: function (err) {
           console.log("err:", err)
         }
       })
-      window.location.href = "/study_group/study_index.html"
     }
   </script>
-  <script src="/static/js/user.js"></script>
 </body>
 
 </html>
