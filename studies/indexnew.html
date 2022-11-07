@@ -137,7 +137,7 @@
                 <div id="content"></div>
                 <h4 class="text-center">이런 스터디는 어때?</h4>
                 <div id="recommend-wrap" class="row">
-
+                  
 
                 </div>
             </div>
@@ -145,7 +145,18 @@
         </div>
         </div>
         
-        
+
+
+
+
+
+        <section>
+          <button type="button" onclick="location.href='' " id="previous">이전</button>
+
+          <button type="button" onclick="location.href='' " id="next">다음</button>
+
+
+      </section>
         <input type="text" name="search_input" id="search_input" onchange="search()" >
 
     </main>
@@ -155,48 +166,6 @@
 
   
   <script>
-
-
-      // async function searchFilter() {
-      //   let search_input = document.getElementById("search_input").value;
-      //   console.log('검색성공')
-      //   const response = await fetch(`http://127.0.0.1:8000/studies/search/?search=${search_input}`, {
-      //       method: 'GET',
-      //   })
-      //   console.log(response)
-      //   const response_json = await response.json();
-      //   console.log(response_json)
-      //   const searchedQuestions = response_json;
-        
-      //   function load(response_json) {
-      //             console.log('성공:', response_json);
-      //             let allTemp = ``
-      //             for(var i = 0; i < response_json.length; i++){
-      //                 var study = response_json[i]
-      //                 console.log(study)
-      //                 var temp = `
-      //                     <div class="mb-3 col-md-4 col-sm-6 p-2" style="cursor: pointer;">
-      //                         <div id="study" style="background-color: white; border-radius : 5px" onclick="viewStudy(${study.id})">
-      //                             <img src="${hostUrl}${study.thumbnail_img}" type="button" class="card-img-top" alt="...">
-      //                             <div class="card-body">
-      //                                 <h5 class="card-title">${study.title}</h5>
-      //                                 <p class="text-start text-second">
-      //                                     ${study.user} </br>
-      //                                     <i class="fas fa-user-alt"></i> ${study.now_cnt}/${study.headcount}</br>
-      //                                     <span><i class="fas fa-tags"></i> ${study.tags}</span></br>
-      //                                 </p>
-      //                             </div>
-      //                         </div>
-      //                     </div>
-      //                 `
-      //                 allTemp += temp
-      //           }
-      //           $('#main-wrap').html(allTemp)
-
-      //       }
-      //       load()
-      // }
-      // searchFilter()
 
 
 
@@ -217,6 +186,7 @@
 
             success: function (result) {
                 console.log('성공:', result);
+              
                 let allTemp = ``
                 for(var i = 0; i < result['results'].length; i++){
                     var study = result['results'][i]
@@ -234,15 +204,79 @@
                                     </p>
                                 </div>
                             </div>
+                            <div>
+                          </div>
                         </div>
+
                     `
                     allTemp += temp
                 }
                 $('#main-wrap').html(allTemp)
+                $('#next').attr('onclick',`page("${result.next}")`)
+                $('#previous').attr('onclick',`page("${result.previous}")`)           
+                //  http://127.0.0.1:8000/studies/?page=2
             },
             
         });
     }
+
+
+
+
+    function page(page){
+      console.log(page);
+        const mainWrap = document.getElementById('main-wrap');
+
+        $.ajax({
+            type: 'GET',
+
+            data: {},
+            headers : {
+              "Authorization" : "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: page,
+
+            success: function (result) {
+                console.log('성공:', result);
+              
+                let allTemp = ``
+                for(var i = 0; i < result['results'].length; i++){
+                    var study = result['results'][i]
+                    console.log(study)
+                    var temp = `
+                        <div class="mb-3 col-md-4 col-sm-6 p-2" style="cursor: pointer;">
+                            <div id="study" style="background-color: white; border-radius : 5px" onclick="viewStudy(${study.id})">
+                                <img src="${hostUrl}${study.thumbnail_img}" type="button" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${study.title}</h5>
+                                    <p class="text-start text-second">
+                                        ${study.user} </br>
+                                        <i class="fas fa-user-alt"></i> ${study.now_cnt}/${study.headcount}</br>
+                                        <span><i class="fas fa-tags"></i> ${study.tags}</span></br>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                          </div>
+                        </div>
+
+                    `
+                    allTemp += temp
+                }
+                $('#main-wrap').html(allTemp)
+                $('#next').attr('onclick',`page("${result.next}")`)
+                $('#previous').attr('onclick',`page("${result.previous}")`)
+
+            },
+            
+        });
+    }
+
+
+
+
+
 
 
     
@@ -426,7 +460,12 @@
         });
     }
     
+    
+
+
   </script>
+
+
 </body>
 
 </html>
