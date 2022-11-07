@@ -1,0 +1,129 @@
+
+    /* .stady_btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    } */
+
+    /* .stady_wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    } */
+
+    /* .cam_size {
+      width: 375px;
+      height: 375px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      background-color: #e9ecef;
+      margin-bottom: 10px;
+    } */
+
+    .nav_logo {
+      width: 100px;
+      height: 40px;
+    }
+
+    #my-header {}
+
+    #main_nav {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      background-color: #fff;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+  #study-day-list > div:hover{
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .study_list-container{
+    margin-top: 130px;
+  }
+
+
+  .top-menu-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .study_list-container{
+    padding : 20px;
+    margin-top: 250px;
+  }
+
+.card{
+    margin-right: 50px;
+}
+
+ .card:hover{
+    transform: scale(1.2);
+    margin-right: 60px;;
+    transition: all 0.7s ease-in-out;
+ }
+ 
+
+  .study-image{
+    transition: all 0.7s ease-in-out;
+    width :350px;
+    height: 250px;
+    object-fit: cover;
+    border: 1px solid gray;
+    border-radius: 10px;
+   
+  }
+
+  .study-list-item{
+    margin-right: 50px;
+    position: relative;
+  }
+  .study-list-item:hover .study-image{
+    transform: scale(1.2);
+    margin: 0 30px;
+    opacity: 0.5;
+  }
+
+  .study_list{
+    display: flex;
+    align-items: center;
+    height: 300px;
+    transform: translateX(0);
+    transition: all 0.7s ease-in-out;
+  }
+
+
+.study_item{
+    margin: 0 40px 0 40px;
+}
+
+.arrow-left{
+    position: absolute;
+    top:140px;
+    right:0px;
+    color: blueviolet;
+    background-color: beige;
+    cursor: pointer;
+}
+
+.card-wrapper{
+    margin-top: 20px;
+    padding: 100px;
+}
+
+
+
+
+
+
