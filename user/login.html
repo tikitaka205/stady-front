@@ -119,14 +119,14 @@
 
 
       <div class="container">
-        <form action='/user/login/' method="post">
-          <input type="text" placeholder="이메일" name="email">
-          <input type="password" placeholder="비밀번호" name="password">
+        <form>
+          <input type="text" placeholder="이메일" name="email" id="email">
+          <input type="password" placeholder="비밀번호" name="password" id="password">
           <div class="alert alert-danger" role="alert">
           </div>
           <p></p>
           <hr>
-          <input type="submit" value="로그인" / class="btn">
+          <input type="buttoon" value="로그인" class="btn" onclick="handleLogin()" / >
           <input type="button" value="회원가입" onclick="location.href='/user/signin.html'" / class="btn">
 
         </form>
@@ -148,5 +148,7 @@
 
     <div class="footer">
     </div>
+
+    <script src="/static/js/user.js"></script>
   </main>
 </body>

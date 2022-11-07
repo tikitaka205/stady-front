@@ -2,6 +2,7 @@
 //날짜 변수
 const date = new Date()
 const todayDate = document.getElementById('today-date')
+const td = date.toLocaleDateString('ko-kr').slice(0,-1).replaceAll('. ', '-')
 
 const todayLog = document.getElementById('today-log');
 
@@ -19,9 +20,11 @@ var context = canvas.getContext('2d');
 
 
 document.addEventListener("DOMContentLoaded", function(){
-    todayDate.innerText = date.toLocaleDateString('ko-kr')
+    todayDate.innerText = td
 });
-
+$( document ).ready(function() {
+    getLog(td)
+});
 
 
 function uploadImage() {
@@ -35,7 +38,10 @@ function uploadImage() {
 
         data: { imgUpload: drawCanvas.toDataURL('image/png') }, // 이미지를 인코딩
 
-        url: '/study/',
+        url: 'http://127.0.0.1:8000/api/study/',
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        },
 
         success: function (result) { // 결과 값에 사람이 있고 없음을 판단
             console.log(result)
@@ -47,17 +53,15 @@ function uploadImage() {
 
                     data: {},
 
-                    url: '/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
+                    url: 'http://127.0.0.1:8000/api/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
 
                     success: function (result){
-                        console.log('후후 에러해결')
-                        logList = result['study_log_list']; // 새로운 공부 로그가 지워진 데이터가 반환됨
-                        insertLog(logList); // 그려줌
+                        insertLog(result)
                     }
                 })
             }else{
-                logList = result['study_log_list']; // is_running 플래그가 true일때는 현재 공부 중 버튼을 누른 상태이기 때문에 정상적으로 변화를 그려준다.
-                insertLog(logList);
+                insertLog(result)
+
             }
         },
     });
@@ -68,7 +72,10 @@ function uploadImage() {
 }
 
 
-function insertLog(logList){
+function insertLog(result){
+    let logList = result['study_log_list']
+    let dayTotalTime = result['day_total_time']
+
     if (logList){
         let totalTemp = '';
         for (let i = 0; i < logList.length; i++) {
@@ -92,6 +99,8 @@ function insertLog(logList){
         }
         $('#today-log').empty();
         $('#today-log').append(totalTemp);
+
+        $('#day-total-time').text(dayTotalTime);
     }
 }
 
@@ -103,13 +112,15 @@ function startStudy() {
         type: 'GET',
 
         data: {},
-
-        url: '/study/?type=start',
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        },
+        url: 'http://127.0.0.1:8000/api/study/?type=start',
 
         success: function (result) {
             console.log('성공:', result);
-            logList = result['study_log_list'];
-            insertLog(logList)
+            insertLog(result)
+
         },
     });
 }
@@ -120,15 +131,14 @@ function finishStudy() {
         type: 'GET',
 
         data: {},
-
-        url: '/study/?type=finish',
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        },
+        url: 'http://127.0.0.1:8000/api/study/?type=finish',
 
         success: function (result) {
             console.log('finishStudy()');
-
-            logList = result['study_log_list'];
-
-            insertLog(logList)
+            insertLog(result)
         },
     });
 }
@@ -139,16 +149,10 @@ function writeMemo(logId) {
     let memo = document.getElementById(`memo-${logId}`);
     let memoTitle = document.getElementById('memo-title');
 
-
-    // modal.setAttribute('class', 'modal fade show');
-    // modal.setAttribute('style', 'display: block;');
     $('#staticBackdrop').modal('show')
 
     submitButton.setAttribute('onclick', `submitMemo(${logId})`)
     memoTitle.value = memo.innerText;
-
-    // modal.setAttribute('class', 'modal fade show');
-    // modal.removeAttribute('style');
 }
 
 function submitMemo(logId) {
@@ -160,8 +164,10 @@ function submitMemo(logId) {
         type: 'PUT',
 
         data: { memoTitle: memoTitle, logId: logId },
-
-        url: '/study/',
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        },
+        url: 'http://127.0.0.1:8000/api/study/',
 
         success: function (result) {
             console.log('성공:', result);
@@ -185,19 +191,20 @@ function closeMemo() {
 }
 
 function pushStartBtn() {
-    is_running = true // 플래그 
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices
+    if (is_running === false){
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices
             .getUserMedia({ video: true })
             .then(function (stream) {
                 video.srcObject = stream;
                 localstream = stream;
                 video.play();
             });
+        }
+        startStudy();
+        root = setInterval(uploadImage, 5000); // 반복 시키는 함수
+        is_running = true // 플래그 
     }
-    startStudy();
-
-    root = setInterval(uploadImage, 5000); // 반복 시키는 함수
 }
 function pushFinishBtn() {
     is_running = false
@@ -210,18 +217,29 @@ function pushFinishBtn() {
 }
 
 function getLog(day){
+
     $.ajax({
         type: 'GET',
 
         data: {day:day},
+        headers : {
+            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        },
 
-        url: '/study/log/',
+        url: 'http://127.0.0.1:8000/api/study/log/',
 
         success: function (result) {
+            insertLog(result)
             console.log('getLog()', result);
+            insertLog(result)
 
-            logList = result['study_log_list'];
-            insertLog(logList)
+        },
+
+        error : function(request){
+            if (request.status === 401){
+                alert('로그인 필요')
+                window.location.href = "/user/login.html"
+            }
         }
     });
     todayDate.innerText = ``;

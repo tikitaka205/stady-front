@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STADY</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+    
+  <style>
+    .title-center {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .wrap {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-area {
+      margin-top: 25px;
+    }
+
+    .timeline-container {
+      margin-top: 25px;
+    }
+
+    /* 곰돌이 사진 크기 */
+    .img {
+      width: 200px;
+    }
+
+    .img2 {
+      width: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <link href="/static/css/join_style.css?" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+
+  <main>
+    <div class="page">
+      <div class="header">
+        <!-- 곰돌이 사진 -->
+        <a href="/">
+          <img class="img2" src="/static/images/stady_bear_head.png" />
+          <img class="img" src="/static/images/stady_logo_1.png" />
+        </a>
+
+        <p></p>
+        <!-- 구글 카카오 구조 변형함 사진도 넣을 수 있다. -->
+
+        <div>
+          <hr>
+          <hr>
+        </div>
+      </div>
+      <div class="container">
+        <a class="btn btn-outline-warning" href="/user/category.html">관심 분야 바꾸러 가기</a>
+        <form class="mt-3">
+          프로필 사진 변경 :
+          <div style="width: 100%;"><input type="file" name="img" id="img"></div>
+          이메일 주소 : <input type="email" class="form-control" id="email" name="email">
+          아이디 : <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <hr>
+
+          <input id="submit" type="button" value="변경완료" class="btn"/>
+
+        </form>
+        <!-- <button onclick="submit()" class="btn btn-outline-primary" > 전송 </button> -->
+        <button id="submit"> tt </button>
+
+      </div>
+    </div>
+    </div>
+    <div class="footer">
+    </div>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    
+    $( '#submit' ).click( function() {
+      
+      console.log('정보 가져와서 넣기2')
+
+      let email = $("#email").val()
+      let username = $("#username").val()
+      console.log(email)
+      let formData = new FormData();
+
+      // formData.append("profile_image", $("#img")[0].files[0] );
+      const formFile = $("#img")[0];
+
+      if (formFile.files.length === 0) {
+        console.log('hi')
+      } else {
+        formData.append("profile_image", formFile.files[0]);
+      }
+
+      formData.append("email", email)
+      formData.append("username", username)
+
+      $.ajax({
+
+        type: "PUT",
+        url: "http://127.0.0.1:8000/user/",
+        processData: false,
+        contentType: false,
+        data: formData,
+
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
+
+        success: function (result) { // 성공 시
+          alert("alert 테스트", result);
+        }
+
+      });
+} );
+
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+          type: 'GET',
+
+          data: {},
+          headers : {
+              "Authorization" : "Bearer " + localStorage.getItem("access"),
+          },
+
+          url: 'http://127.0.0.1:8000/user/',
+
+          success: function (result) {
+            const email = document.getElementById("email")
+            const username = document.getElementById("username")
+
+            email.value = result['email']
+            username.value = result['username']
+
+          },
+
+          error : function(request){
+
+              if (request.status === 401){
+                  alert('로그인 필요')
+                  window.location.href = "/user/login.html"
+              }
+          }
+      });
+    });
+
+
+  </script>
+
+</body>
+
+
+</html>
