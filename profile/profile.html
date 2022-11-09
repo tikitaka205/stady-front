@@ -14,23 +14,27 @@
 
   <!-- bootstrap css cdn -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
   <!-- JS 파일 -->
   <script src="/static/js/bootstrap.bundle.min.js?after"></script>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<style>
+  <style>
+    a {
+      text-decoration: none;
+    }
 
-a { 
-  text-decoration: none; 
-  }
-  a:link {
-  color : white;
-}
-a:visited {
-  color : white;
-}
+    /* a:link {
+      color: white;
+    } */
+
+    a:visited {
+      color: white;
+    }
 
     .stady_btn {
       display: flex;
@@ -76,150 +80,199 @@ a:visited {
       margin: 0 auto;
     }
 
-  #study-day-list > div:hover{
-    cursor: pointer;
-    font-size: 20px;
-  }
+    #study-day-list>div:hover {
+      cursor: pointer;
+      font-size: 20px;
+    }
 
-  .top-menu-wrap{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+    .top-menu-wrap {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
 
-  .top-menu-wrap{
-    margin-top:100px;
-  }
+    .top-menu-wrap {
+      margin-top: 100px;
+    }
 
-  .nav-link{
-    color: black;
-  }
-  .log_study{
-    display: flex;
-    flex-direction: column;
-  }
+    .nav-link {
+      color: black;
+    }
 
-  .top_bar{
-    display: flex;
-    width: 700px;
-    padding-top: 20px;
-    margin-right: 100px;
-    margin-bottom: 20px;
-  }
+    .log_study {
+      display: flex;
+      flex-direction: column;
+    }
 
-.study_bar{
-  width: 300px;
-  margin-bottom: 20px;
-}
+    .top_bar {
+      display: flex;
+      width: 700px;
+      padding-top: 20px;
+      margin-right: 100px;
+      margin-bottom: 20px;
+    }
 
-.log-wrap{
-  width: 100%;
-  margin-left: 1px;
-}
-</style>
+    .study_bar {
+      width: 300px;
+      margin-bottom: 20px;
+    }
+
+    .log-wrap {
+      width: 100%;
+      margin-left: 1px;
+    }
+
+    .card-body {
+      padding: 10px 15px 15px;
+      height: 120px;
+    }
+
+    .card-title {
+      height: 33px;
+      font-size: 25px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      overflow-y: hidden;
+    }
+
+    #study-title {
+      font-size: 50px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 12px;
+      color: gray;
+      margin-bottom: 3px;
+    }
+
+    #main_nav {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      background-color: #fff;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
 
 
 </head>
 <!-- nav header부분 -->
+
 <body class="d-flex h-100 text-center" style="background-color: #00b395;">
-    <div class="w-100 h-100 p-3 mx-auto">
-      <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
-        <div class="contain">
-          <div class="fixed-top" id="main_nav">
-            <h3 class="float-md-start mb-0">
-              <a href="/">
-                <img class="nav_logo" src="/stady-front/static/images/stady_1.png" />
-              </a>
-            </h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-              <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
-              <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
-              <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="profile_study.html">스터디 모임</a>
-              <div style="margin-left: 20px; margin-right: 10px">
-                <div class="post_header_more_btn_box">
-                  <div class="btn-group">
-                    <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
-                      src="/stady-front/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="profile.html">프로필</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">회원정보수정</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">로그아웃</a>
-                      </li>
-                    </ul>
-                  </div>
+  <script src="/static/js/profile.js"></script>
+
+  <div class="w-100 h-100 p-3 mx-auto">
+    <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
+      <div class="contain">
+        <div class="fixed-top" id="main_nav">
+          <h3 class="float-md-start mb-0">
+            <a href="/">
+              <img class="nav_logo" src="/static/images/stady_1.png" />
+            </a>
+          </h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
+            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디 모임</a>
+            <div style="margin-left: 20px; margin-right: 10px">
+              <div class="post_header_more_btn_box">
+                <div class="btn-group">
+                  <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                    src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" style="color: black;" href="profile.html">프로필</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" style="color: black;" href="/user/update.html">회원정보수정</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" style="color: black;" href="javascript:handleLogout();">로그아웃</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </nav>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+    </header>
+    <!-- 모달 섹션 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Memo</h1>
+            <button type="button" onclick="closeMemo()" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5>어떤 걸 공부하셨나요??</h5>
+            <input type="text" id="memo-title">
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="memo-submin-btn">저장</button>
           </div>
         </div>
-  
-      </header>
-<!-- 모달 섹션 -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Memo</h1>
-                <button type="button" onclick="closeMemo()" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5>어떤 걸 공부하셨나요??</h5>
-                <input type="text" id="memo-title">
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="memo-submin-btn">저장</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="container" >
-  <!--  상단 -->
-  <div class="top-menu-wrap">
-    <div id = "userinfo" class ="top_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
-    <!-- userinfo 들어가는 부분 -->
-    </div>
-    <div>
-      <div class="study_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
-        <div class ='log_study'>
-          <p>내 공부로그</p>
-          <a href="/stady-front/profile/profile_study.html" style="color:black">내 스터디</a> 
-        </div>
-           
-      </div>
-     
-    </div>
-</div>
- 
-
-<div class="log-wrap row" style="max-height: 800px;">
-    <div class="col-4 px-0">
-      <div id="study_day" style="margin-right:10px; background-color: #1d7d78; color: white; min-height: 130px; border-radius: 10px ">
-       <h5>날짜</h5>
-       <!-- 하루하루 날짜 데이터 -->
       </div>
     </div>
-        <div class="col-8" style="background-color: white; border-radius: 10px;">
-          <h5>날짜</h5>
-          <span id="total"></span><br/>
-          <div id="study_log"></div>
-          <!-- 공부로그 데이터  --> 
+
+
+
+
+
+    <div class="container">
+      <!--  상단 -->
+      <div class="top-menu-wrap">
+        <div id="userinfo" class="top_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
+          <!-- userinfo 들어가는 부분 -->
         </div>
-  </div>
-</div>
-<main class="container" style="height: 500px; margin-top : 100px;">
-  </main>
-  <script src="/stady-front/static/js/profile.js"></script>
+        <div>
+          <div class="study_bar" calass="row mb-5 py-2" style="background-color: white; border-radius: 10px;">
+            <div class='log_study'>
+              <div style="cursor: pointer;" onclick="study_log()">
+                공부로그
+              </div>
+              <!-- <a href="/profile/profile_study.html" onclick="getMyStudy()" style="color:black">내 스터디</a> -->
+              <div style="cursor: pointer;" onclick="getMyStudy()">
+                내 스터디
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div id="main-wrap">
+        <div class="log-wrap row" style="max-height: 800px;">
+          <div class="col-4 px-0">
+            <div id="study_day"
+              style="margin-right:10px; background-color: #1d7d78; color: white; min-height: 130px; border-radius: 10px ">
+              <h5>날짜</h5>
+              <!-- 하루하루 날짜 데이터 -->
+            </div>
+          </div>
+          <div class="col-8" style="background-color: white; border-radius: 10px;">
+            <h5>날짜</h5>
+            <span id="total"></span><br />
+            <div id="study_log"></div>
+            <!-- 공부로그 데이터  -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="container" style="height: 500px; margin-top : 100px;">
+    </main>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/user.js"></script>
+    <script src="/static/js/study_group.js"></script>
+
 </body>
+
 </html>
-
-

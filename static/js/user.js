@@ -44,11 +44,11 @@ async function handleLogin() {
         },
         method: 'POST',
         body: JSON.stringify({
-            "username": email,
+            "email": email,
             "password": password
         })
     })
-    console.log(response)
+    // console.log(response.json())
     if (response.status === 200) {
         const response_json = await response.json()
 
@@ -69,7 +69,7 @@ async function handleLogin() {
         window.location.href = "/index.html"
 
     } else {
-
+        console.log(response)
     }
 
 
