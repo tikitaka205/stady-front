@@ -86,6 +86,19 @@ crossorigin="anonymous"></script>
               <label for="exampleFormControlInput1" class="form-label"></label>
               <input type="text" class="form-control" id="title" placeholder="제목" name='title' required>
             </div>
+
+            
+            
+            <!-- 카테고리 선택 -->
+            <select class="form-select" aria-label="Default select example">
+                <option selected>카테고리를 선택해주세요</option>
+                <option value="1">자유게시판</option>
+                <option value="2">익명게시판</option>
+                <option value="3">대나무 숲</option>
+              </select>
+
+
+
             <div class="mb-3">
               <label for="formFile" class="form-label"></label>
               <input class="form-control" type="file" id="img" name="image" placeholder="썸네">
@@ -95,10 +108,7 @@ crossorigin="anonymous"></script>
   
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-labe2"></label>
-              <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. (최소 30자)' name='content' rows="12"
-                required>
-
-                  </textarea>
+              <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. (최소 10자)' name='content' rows="12"required></textarea>
             </div>
 
             <div>
