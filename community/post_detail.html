@@ -16,6 +16,7 @@ crossorigin="anonymous"></script>
 
 
 
+
 </head>
 
 <body>
@@ -123,9 +124,10 @@ crossorigin="anonymous"></script>
               <!-- 게시글 옵션 -->
               <div class="mb-3" style="margin-top: 20px;">
                 <div style="margin-left: 70%;">
-                    <button type="button" class="btn btn-outline-danger" onclick="put_submit">수정</button>
+
+                    <button type="button" class="btn btn-outline-danger" onclick="put_submit()">수정</button>
                     <button type="button" class="btn btn-outline-danger" >공유</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="delete_submit" >삭제</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="delete_submit()" >삭제</button>
                     <button type="button" class="btn btn-outline-danger" >신고</button>
                 </div>
               
@@ -140,10 +142,11 @@ crossorigin="anonymous"></script>
 
               <form id="form">
               <label for="exampleFormControlTextarea1" class="form-labe2"></label>
-              <textarea class="form-control" id="content2" placeholder='댓글을 입력해주세요.' name='content' rows="3" required></textarea>
+              <textarea class="form-control" id="comment-content" placeholder='댓글을 입력해주세요.' name='content' rows="3" required></textarea>
             </div>
             <div>
-              <button type="button" class="btn btn-outline-success"" style="margin-left: 90%; margin-top: 20px; margin-bottom: 100px;" onclick="comment_submit()" >등록하기</button>
+              <button type="button" class="btn btn-outline-success" style="margin-left: 90%; margin-top: 20px; margin-bottom: 100px;" onclick="comment_submit()" >등록하기</button>
+
             </div>
               </form>
 

@@ -233,7 +233,8 @@ function top_list() {
                     temp_html=` <tr>
                     <td>${id}</td>
                     <td>
-                        <onclick=q(${id})>${title}</a>
+
+                        <a href="http://127.0.0.1:5500/stady-front/community/post_detail.html?id=${id}">${title}</a>
 
                     </td>
                     <td>${category}</td>

@@ -1,8 +1,13 @@
 $(document).ready(function () {
     post_detail()
 });
-    function post_detail() {
-        post_id=localStorage.getItem('post_id')
+
+let post_id = document.location.href.split("=")[1];
+
+
+function post_detail() {
+        // post_id=localStorage.getItem('post_id')
+
         console.log(post_id)
         $.ajax({
             type: "GET",
@@ -37,7 +42,8 @@ $(document).ready(function () {
     comment()
 });
     function comment() {
-        post_id=localStorage.getItem('post_id')
+        // post_id=localStorage.getItem('post_id')
+
         console.log("코멘트에서 id 들고오기",post_id)
         $.ajax({
             type: "GET",
@@ -68,38 +74,29 @@ $(document).ready(function () {
             
 
 
-
-$('#comment_submit').click( function() {
-comment_submit()
-});
-function comment_submit() {
-    post_id=localStorage.getItem('post_id')
-    let content = $("#content2").val()
-    let formData = new FormData($('#form')[0]);
-    formData.append("content", content)
+async function comment_submit() {
+    // post_id=localStorage.getItem('post_id')
+    console.log('코멘트 작성 함수 실행')
+    console.log(post_id)
+    let content = $("#comment-content").val()
+    // let formData = new FormData($('#form')[0]);
+    // formData.append("content", content)
     
     console.log(content)
-    console.log(formData)
 
-
-
-    $.ajax({
-
-        type: "POST",
-        url: `http://127.0.0.1:8000/blind/${post_id}/comment/`,
-        processData: false,
-        contentType: false,
-        data: formData,
-
+      const response = await fetch('http://127.0.0.1:8000/blind/'+post_id+'/comment/', {
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("access"),
+            'content-type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
-
-        success: function () {
-          location.reload()
-        }
-
-      });
+        method: 'POST',
+        body: JSON.stringify({
+            "content":content,
+        })
+    })
+    if(response == 201){
+        window.location.href ='http://127.0.0.1:5500/stady-front/community/post_detail.html?id='+{post_id}
+    }
 }
 
 
@@ -107,7 +104,8 @@ $('#like_submit').click( function() {
     like_submit()
     });
     function like_submit() {
-        post_id=localStorage.getItem('post_id')
+        // post_id=localStorage.getItem('post_id')
+
 
 
         $.ajax({
@@ -129,54 +127,33 @@ $('#like_submit').click( function() {
           });
     }
 
-$('#delete_submit').click( function() {
-    delete_submit()
-    });
-    function delete_submit() {
-        post_id=localStorage.getItem('post_id')
+function delete_submit() {
+    console.log('삭제 실행')
+    // post_id=localStorage.getItem('post_id')
+    console.log(post_id)
+    $.ajax({
 
-    
-        $.ajax({
-    
-            type: "DELETE",
-            url: `http://127.0.0.1:8000/blind/${post_id}/`,
-            processData: false,
-            contentType: false,
-            data: {},
-    
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("access"),
-            },
-    
-            success: function () { // 성공 시
-                window.location.href = "community/blind.html"
-            }
-    
-            });
-    }
+        type: "DELETE",
+        url: `http://127.0.0.1:8000/blind/${post_id}/`,
+        processData: false,
+        contentType: false,
+        data: {},
 
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
 
+        success: function () { // 성공 시
+            window.location.href = "http://127.0.0.1:5500/stady-front/community/blind.html"
+        }
 
+        });
+}
+// 수정
+function put_submit(){
+    console.log('수정실행')
+    // post_id=localStorage.getItem('post_id')
+    console.log(post_id)
+    window.location.href='http://127.0.0.1:5500/stady-front/community/post_change.html?id='+post_id
+}
 
-// function Comment() {
-//     let content = $('#content').val()
-//     let formData = new FormData();
-//     formData.append("content", content)
-
-
-//     $.ajax({
-//         type: 'POST',
-
-//         data: {},
-//         headers : {
-//             "Authorization" : "Bearer " + localStorage.getItem("access"),
-//         },
-//         url: "http://127.0.0.1:8000/blind/2/comment/",
-
-//         success: function (result) {
-//             console.log('성공:', result);
-//             insertLog(result)
-
-//         },
-//     });
-// }
