@@ -63,18 +63,16 @@
 <!-- 카테고리 -->
 <ul class="nav justify-content-center" style="margin-top: 30px;">
   <li class="nav-item">
-  <a href="index.html">
-    <button type="button" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
-  </a>
+    <button type="button" id="top_list" onclick="top_list()" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
   </li>
   <li class="nav-item">
-    <button type="button" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
+    <button type="button" id="free_list" onclick="free_list()" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
   </li>
   <li class="nav-item">
-    <button type="button" class="btn btn-outline-warning" style="margin-left: 20px;"><a>익명게시판</a></button>
+    <button type="button" id="blind_list" onclick="blind_list()" class="btn btn-outline-warning" style="margin-left: 20px;"><a>익명게시판</a></button>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" style="margin-left: 20px;">대나무 숲</a>
+    <button type="button" id="study_list" onclick="study_list()" class="btn btn-outline-warning" style="margin-left: 20px;"><a>공부</a></button>
   </li>
 
 </ul>
