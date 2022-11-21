@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+<script src="/stady-front/static/js/community_post_detail.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+<!-- 네비바 -->
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/static/images/stady_bear_face.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        STADY
+      </a>
+      
+
+      <!-- 네비바 메뉴 -->
+      <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">STADY</a>
+      <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">게시판</a>
+      <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디</a>
+
+
+
+
+
+      <!-- 네비바 드롭다운 -->
+    <div style="margin-left: 20px; margin-right: 10px">
+      <div class="post_header_more_btn_box">
+        <div class="btn-group">
+          <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px" margin-right="90px"
+            src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </nav>
+
+
+
+<!-- 작성부분 -->
+<body id="body" class="h-100 text-center" style="background-color: #ffffff;">
+    <div class="w-100 h-100 p-3 mx-auto">
+      <header class="mb-auto" style="background-color: white; max-width: 1280px; margin: 0 auto;">
+        <div class="contain">
+          <div class="fixed-top" id="main_nav">
+            <h3 class="float-md-start mb-0">
+              <a href="/">
+              </a>
+            </h3>
+
+          </div>
+        </div>
+  
+      </header>
+  
+      <main class="container" style="height: 900px; margin-top : 90px;">
+
+        <!-- 제목 -->
+          <h1 class='contents' style="text-align :left; font-size: 45px; background-color: #e1e1e1;" id="title"> </h1>
+
+
+        <!-- 작성자 -->
+          <div style="display: flex; text-align: right;" >
+            <h3 class='contents' style="text-align :right; font-size: 15px;" id="user">작성자 </h1>
+          </div>
+        
+
+        <!-- 게시글 조회수 댓글수 좋아요수 -->
+        <div style="text-align: right; display: flex;" >
+            <h1 class='contents' style="text-align :right; font-size: 12px;" id="hits">조회수 </h1>
+            <h1 class='contents' style="text-align :right; font-size: 12px;" id="likes_count">좋아요 </h1>
+            <h1 class='contents' style="text-align :right; font-size: 12px;" id="comments_count">댓글수 </h1>
+        </div>
+
+
+
+        <!-- line -->
+        <hr style="margin-top: 5px; background-color: #00b395; height: 5px;">
+
+
+        <!-- content -->
+        <div>
+            <p class='contents' style="text-align :left; font-size: 25px; margin-top: 40px; margin-bottom: 90px;" id="content">
+        </div>
+
+  
+
+            <!-- 추천과 추천수 -->
+            <ul class="nav justify-content-center" style="margin-top: 30px;">
+                <li class="nav-item">
+                  <button type="button" class="btn btn-outline-success" onclick="like_submit()" style="margin-right: 10px;">추천</button>
+                </li>
+                <li class="nav-item">
+                  <button type="button" class="btn btn-outline-success" id="likes_count2"></button>
+                </li>
+              </ul>
+              <!-- 게시글 옵션 -->
+              <div class="mb-3" style="margin-top: 20px;">
+                <div style="margin-left: 70%;">
+                    <button type="button" class="btn btn-outline-danger" onclick="put_submit()">수정</button>
+                    <button type="button" class="btn btn-outline-danger" >공유</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="delete_submit()" >삭제</button>
+                    <button type="button" class="btn btn-outline-danger" >신고</button>
+                </div>
+              
+
+              <!-- 구분선 -->
+              <hr style="margin-top: 50px; background-color: #00b395; height: 5px;">
+
+              <!-- 댓글 리스트 -->
+              <div id="comment_list" style="margin-top: 30px;"></div>
+
+          
+
+              <form id="form">
+              <label for="exampleFormControlTextarea1" class="form-labe2"></label>
+              <textarea class="form-control" id="comment-content" placeholder='댓글을 입력해주세요.' name='content' rows="3" required></textarea>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-success" style="margin-left: 90%; margin-top: 20px; margin-bottom: 100px;" onclick="comment_submit()" >등록하기</button>
+            </div>
+              </form>
+
+        </div>
+      </main>
+    </div>
+
+</body>
+
+</html>
