@@ -78,6 +78,7 @@ function loadStudy() {
     });
 }
 
+
 function page(page) {
     console.log(page);
     const mainWrap = document.getElementById('main-wrap');
