@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>blind demo</title>
+    <!-- js -->
+    <script src="/stady-front/static/js/blind.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  </head>
+  <body>
+    <link href="/static/css/paginations.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+<!-- 네비바 -->
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/static/images/stady_bear_face.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+          STADY
+        </a>
+        
+
+        <!-- 네비바 메뉴 -->
+        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">STADY</a>
+        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">게시판</a>
+        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디</a>
+
+
+
+
+
+        <!-- 네비바 드롭다운 -->
+      <div style="margin-left: 20px; margin-right: 10px">
+        <div class="post_header_more_btn_box">
+          <div class="btn-group">
+            <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px" margin-right="90px"
+              src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+
+    </nav>
+
+<!-- 카테고리 -->
+<ul class="nav justify-content-center" style="margin-top: 30px;">
+  <li class="nav-item">
+  <a href="index.html">
+    <button type="button" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
+  </a>
+  </li>
+  <li class="nav-item">
+    <button type="button" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
+  </li>
+  <li class="nav-item">
+    <button type="button" class="btn btn-outline-warning" style="margin-left: 20px;"><a>익명게시판</a></button>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" style="margin-left: 20px;">대나무 숲</a>
+  </li>
+
+</ul>
+
+<!-- 게시글 -->
+  <div class="container my-4">
+    <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th>번호</th>
+            <th>제목</th>
+            <th>카테고리</th>
+            <th>조회수</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            
+        </tr>
+        </thead>
+        <tbody id ="post_list">
+
+        </tbody>
+    </table>
+</div>
+
+
+<div class="paginations" style="width: 100%;">
+      <ul class="pagination" style="position: absolute;">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+</div>
+
+  </body>
+</html>
