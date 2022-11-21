@@ -7,6 +7,7 @@ let post_id = document.location.href.split("=")[1];
 
 function post_detail() {
         // post_id=localStorage.getItem('post_id')
+
         console.log(post_id)
         $.ajax({
             type: "GET",
@@ -20,7 +21,7 @@ function post_detail() {
             let user = response['user']
             let likes_count = response['likes_count']
             let comments_count = response['comments_count']
-        
+
             console.log("title", title)
             console.log("content", content)
             console.log(title)
@@ -42,6 +43,7 @@ $(document).ready(function () {
 });
     function comment() {
         // post_id=localStorage.getItem('post_id')
+
         console.log("코멘트에서 id 들고오기",post_id)
         $.ajax({
             type: "GET",
@@ -105,6 +107,7 @@ $('#like_submit').click( function() {
         // post_id=localStorage.getItem('post_id')
 
 
+
         $.ajax({
     
             type: "POST",
@@ -124,9 +127,6 @@ $('#like_submit').click( function() {
           });
     }
 
-// $('#delete_submit').click( function() {
-//     delete_submit()
-//     });
 function delete_submit() {
     console.log('삭제 실행')
     // post_id=localStorage.getItem('post_id')
@@ -156,3 +156,4 @@ function put_submit(){
     console.log(post_id)
     window.location.href='http://127.0.0.1:5500/stady-front/community/post_change.html?id='+post_id
 }
+

@@ -78,6 +78,7 @@ function loadStudy() {
     });
 }
 
+
 function page(page) {
     console.log(page);
     const mainWrap = document.getElementById('main-wrap');
@@ -155,6 +156,7 @@ function page(page) {
     });
 }
 
+
 function viewStudy(study_id) {
 
     const modal = document.getElementById('staticBackdrop');
@@ -195,7 +197,7 @@ function viewStudy(study_id) {
             let headCount = studyDetail['headcount']
             let nowCnt = studyDetail['now_cnt']
             let tags = studyDetail['tags']
-
+            
             let student = result['student']
             console.log("---------------------------------------")
             console.log("student check: ", student)
