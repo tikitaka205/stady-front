@@ -1,17 +1,16 @@
-$(document).ready(function () {
+$(document).ready(function() {
     post_detail()
 });
-
-let post_id = document.location.href.split("=")[1];
-
+post_id=localStorage.getItem('post_id')
+console.log("외부에서 post_id", post_id)
 
 function post_detail() {
-        // post_id=localStorage.getItem('post_id')
+        post_id=localStorage.getItem('post_id')
 
         console.log(post_id)
         $.ajax({
             type: "GET",
-            url: `http://127.0.0.1:8000/blind/${post_id}/`,
+            url: `http://127.0.0.1:8000/community/${post_id}/`,
             data: {},
             success: function(response){
             console.log(response)
@@ -22,8 +21,7 @@ function post_detail() {
             let likes_count = response['likes_count']
             let comments_count = response['comments_count']
 
-            console.log("title", title)
-            console.log("content", content)
+            console.log("포스트 상세")
             console.log(title)
             console.log(hits)
 
@@ -37,21 +35,18 @@ function post_detail() {
             }
             })
     }
-// html에서 게시글 눌렀을때 onclick q했을때 (안에다가 post_id 인자) 넣어서 보내기
 $(document).ready(function () {
     comment()
 });
     function comment() {
-        // post_id=localStorage.getItem('post_id')
-
+        post_id=localStorage.getItem('post_id')
         console.log("코멘트에서 id 들고오기",post_id)
         $.ajax({
             type: "GET",
-            url: `http://127.0.0.1:8000/blind/${post_id}/comment`,
+            url: `http://127.0.0.1:8000/community/${post_id}/comment`,
             data: {},
 
             success: function (response) {
-                console.log(response)
                     for (let i = 0; i < response.length; i++) {
                         let content = response[i]['content']
                         let likes_count =response[i]['likes_count']
@@ -74,30 +69,35 @@ $(document).ready(function () {
             
 
 
-async function comment_submit() {
-    // post_id=localStorage.getItem('post_id')
-    console.log('코멘트 작성 함수 실행')
-    console.log(post_id)
-    let content = $("#comment-content").val()
-    // let formData = new FormData($('#form')[0]);
-    // formData.append("content", content)
-    
-    console.log(content)
-
-      const response = await fetch('http://127.0.0.1:8000/blind/'+post_id+'/comment/', {
-        headers: {
-            'content-type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "content":content,
-        })
-    })
-    if(response == 201){
-        window.location.href ='http://127.0.0.1:5500/stady-front/community/post_detail.html?id='+{post_id}
-    }
-}
+    $('#comment_submit').click( function() {
+        comment_submit()
+        });
+        function comment_submit() {
+            post_id=localStorage.getItem('post_id')
+            let content = $("#comment_content2").val()
+            let formData = new FormData($('#comment_content')[0]);
+            formData.append("content",content);
+            console.log("content",content)
+            console.log(formData)
+        
+            $.ajax({
+        
+                type: "POST",
+                url: `http://127.0.0.1:8000/community/${post_id}/comment/`,
+                processData: false,
+                contentType: false,
+                data: formData,
+        
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("access"),
+                },
+        
+                success: function () {
+                    // location.reload()
+                }
+        
+                });
+        }
 
 
 $('#like_submit').click( function() {
@@ -111,7 +111,7 @@ $('#like_submit').click( function() {
         $.ajax({
     
             type: "POST",
-            url: `http://127.0.0.1:8000/blind/${post_id}/like/`,
+            url: `http://127.0.0.1:8000/community/${post_id}/like/`,
             processData: false,
             contentType: false,
             data: {},
@@ -134,7 +134,7 @@ function delete_submit() {
     $.ajax({
 
         type: "DELETE",
-        url: `http://127.0.0.1:8000/blind/${post_id}/`,
+        url: `http://127.0.0.1:8000/community/${post_id}/`,
         processData: false,
         contentType: false,
         data: {},
@@ -144,7 +144,7 @@ function delete_submit() {
         },
 
         success: function () { // 성공 시
-            window.location.href = "http://127.0.0.1:5500/stady-front/community/blind.html"
+            window.location.href = "http://127.0.0.1:5500/community/blind.html"
         }
 
         });
