@@ -1,12 +1,13 @@
 let category =''
     const changeValue = (target)=>{
         let num= target.value
+        console.log(num)
         if (num == 1){ 
-            category = 'board'
+            category = 'free'
         }else if(num ==2){
             category = 'blind'
         }else{
-            category ='bamboo'
+            category ='study'
         }  
     }
 
@@ -30,9 +31,9 @@ post_create = async() =>{
     console.log(response)
     if (response.status === 201){
        if(response.category == 'blind'){
-        window.location.href ='http://127.0.0.1:5500/stady-front/community/blind.html'
-       }else if(response.category == 'board'){
-        window.location.href ='http://127.0.0.1:5500/stady-front/community/index.html'
+        window.location.href ='http://127.0.0.1:5500/community/blind.html'
+       }else if(response.category == 'free'){
+        window.location.href ='http://127.0.0.1:5500/community/blind.html'
        }else{
         window.location.href ='http://127.0.0.1:5500/stady-front/community/index.html'
        }

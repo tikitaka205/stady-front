@@ -5,31 +5,26 @@ window.onload = function(){
 post_list = () =>{
     $.ajax({
         type: "GET",
-
-        url: `http://127.0.0.1:8000/blind/`,
-
+        url: `http://127.0.0.1:8000/community/`,
         data: {},
         headers: {
-            // "Authorization": "Bearer " + localStorage.getItem("access"),
         },
         success: function (response) {
             console.log(response)
             if (response.length > 0) {
                 for (let i = 0; i < response.length; i++) {
                     let id = response[i]['id']
-
-                    console.log(id)
                     let title = response[i]['title']
                     let hits =response[i]['hits']
                     let created_at = response[i]['created_date']
                     let category = response[i]['category']
                     let user = response[i]['user']
+                    let comments_count=response[i]['comments_count']
 
                     temp_html=` <tr>
                     <td>${id}</td>
                     <td>
-                        <onclick=q(${id})>${title}</a>
-
+                    <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
                     </td>
                     <td>${category}</td>
                     <td>${hits}</td>
@@ -38,12 +33,23 @@ post_list = () =>{
                 </tr>`
                 $('#post_list').append(temp_html)
                 }
-
+                    
             }
         }
     })
 }
 
+
+// post_id localstorage
+function postid(post_id) {
+    console.log("post_id", post_id)
+    post_id=localStorage.setItem('post_id',post_id)
+    location.href='post_detail.html'
+    }
+
+
+    
+// 자유게시판 클릭
 $('#free_list').click( function() {
     free_list()
 });
@@ -53,11 +59,10 @@ function free_list() {
     $.ajax({
 
         type: "GET",
-        url: `http://127.0.0.1:8000/blind/category/?category=${category}`,
+        url: `http://127.0.0.1:8000/community/category/?category=${category}`,
         data: {},
 
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
         success: function (response) {
@@ -74,11 +79,13 @@ function free_list() {
                 let created_at = response[i]['created_date']
                 let category = response[i]['category']
                 let user = response[i]['user']
+                let comments_count=response[i]['comments_count']
+
 
                 temp_html=` <tr>
                 <td>${id}</td>
                 <td>
-                    <onclick=q(${id})>${title}</a>
+                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
                 <td>${category}</td>
                 <td>${hits}</td>
@@ -92,11 +99,12 @@ function free_list() {
 
         }
 
-      });
+        });
 }
 
 
 
+// 익명게시판 클릭
 $('#blind_list').click( function() {
     blind_list()
 });
@@ -106,11 +114,11 @@ function blind_list() {
     $.ajax({
 
         type: "GET",
-        url: `http://127.0.0.1:8000/blind/category/?category=${category}`,
+        url: `http://127.0.0.1:8000/community/category/?category=${category}`,
         data: {},
 
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("access"),
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
         success: function (response) {
@@ -127,11 +135,13 @@ function blind_list() {
                 let created_at = response[i]['created_date']
                 let category = response[i]['category']
                 let user = response[i]['user']
+                let comments_count=response[i]['comments_count']
+
 
                 temp_html=` <tr>
                 <td>${id}</td>
                 <td>
-                    <onclick=q(${id})>${title}</a>
+                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
                 <td>${category}</td>
                 <td>${hits}</td>
@@ -145,9 +155,12 @@ function blind_list() {
 
         }
 
-      });
+        });
 }
 
+
+
+// 공부게시판 클릭
 $('#study_list').click( function() {
     study_list()
 });
@@ -159,11 +172,11 @@ function study_list() {
     $.ajax({
 
         type: "GET",
-        url: `http://127.0.0.1:8000/blind/category/?category=${category}`,
+        url: `http://127.0.0.1:8000/community/category/?category=${category}`,
         data: {},
 
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("access"),
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
         success: function (response) {
@@ -178,11 +191,13 @@ function study_list() {
                 let created_at = response[i]['created_date']
                 let category = response[i]['category']
                 let user = response[i]['user']
+                let comments_count=response[i]['comments_count']
+
 
                 temp_html=` <tr>
                 <td>${id}</td>
                 <td>
-                    <onclick=q(${id})>${title}</a>
+                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
                 <td>${category}</td>
                 <td>${hits}</td>
@@ -196,10 +211,12 @@ function study_list() {
 
         }
 
-      });
+        });
 }
 
 
+
+// 인기글 클릭
 $('#top_list').click( function() {
     top_list()
 });
@@ -208,11 +225,11 @@ function top_list() {
     $.ajax({
 
         type: "GET",
-        url: `http://127.0.0.1:8000/blind/`,
+        url: `http://127.0.0.1:8000/community/`,
         data: {},
 
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("access"),
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
         success: function (response) {
@@ -229,13 +246,13 @@ function top_list() {
                     let created_at = response[i]['created_date']
                     let category = response[i]['category']
                     let user = response[i]['user']
+                    let comments_count=response[i]['comments_count']
+
 
                     temp_html=` <tr>
                     <td>${id}</td>
                     <td>
-
-                        <a href="http://127.0.0.1:5500/stady-front/community/post_detail.html?id=${id}">${title}</a>
-
+                    <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
                     </td>
                     <td>${category}</td>
                     <td>${hits}</td>
@@ -252,6 +269,3 @@ function top_list() {
         }
     })
 }
-
-
-
