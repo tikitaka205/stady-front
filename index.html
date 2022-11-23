@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" class="h-100">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,10 +12,8 @@
   <link href="/static/css/base.css?after" rel="stylesheet" />
   <!-- bootstrap css cdn -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" />
-
   <!-- JS 파일 -->
   <script src="/static/js/bootstrap.bundle.min.js?after"></script>
-
   <style>
     .stady_btn {
       display: flex;
@@ -25,7 +22,6 @@
       justify-content: center;
       text-align: center;
     }
-
     .stady_wrap {
       display: flex;
       flex-direction: column;
@@ -33,7 +29,6 @@
       justify-content: center;
       text-align: center;
     }
-
     .cam_size {
       width: 375px;
       height: 375px;
@@ -42,76 +37,107 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-
-      background-color: #e9ecef;
+      background-color: #E9ECEF;
       margin-bottom: 10px;
     }
-
     .nav_logo {
       width: 100px;
       height: 40px;
     }
-
-
     #main_nav {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      background-color: #fff;
-      max-width: 1100px;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      background-color: #EAEAEA;
+      width: 100%;
       margin: 0 auto;
     }
-  </style>
-</head>
 
-<body class="d-flex h-100 text-center" style="background-color: #00b395;">
-  <div class="w-100 h-100 p-3 mx-auto">
-    <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
-      <div class="contain">
-        <div class="fixed-top" id="main_nav">
-          <h3 class="float-md-start mb-0">
-            <a href="/">
-              <img class="nav_logo" src="/static/images/stady_1.png" />
-            </a>
-          </h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디 모임</a>
-            <div style="margin-left: 20px; margin-right: 10px">
-              <div class="post_header_more_btn_box">
-                <div class="btn-group">
-                  <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
-                    src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="/profile/profile.html">프로필</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
-                    </li>
-                  </ul>
-                </div>
+    .study-item{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .todo-bnt{
+      width:50px;
+      height: 30px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      background-color: rgb(242, 144, 127);
+      font-size: 13px;
+    }
+
+    .modi-todo-bnt{
+      width:70px;
+      height: 30px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      background-color: rgb(106, 147, 243);
+      font-size: 13px;
+    }
+
+    .todo-input{
+      width:400px;
+      margin-right:15px;
+    }
+
+    .modi-input{
+      width: 400px;
+      border :none;
+    } 
+    .checked{
+      text-decoration:line-through
+    } 
+    </style>
+</head>
+<body id="body" class="" style="background-color: #00B395;">
+    <div class="w-100 h-100 p-3 mx-auto">
+        <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
+            <div class="contain">
+              <div class="fixed-top" id="main_nav" style="width: 100%;">
+                <h3 class="float-md-start mb-0">
+                  <a href="/">
+                    <img class="nav_logo" src="/stady-front/static/images/stady_logo_1.png" style="margin-left: 30px;" />
+                  </a>
+                </h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 30px;">
+                  <div class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 50px;">
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/">STADY</a>
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/community/index.html">커뮤니티</a>
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/study_group/index.html">소모임</a>
+                  </div>
+                  <div style="margin-left: 20px; margin-right: 10px;">
+                    <div class="post_header_more_btn_box">
+                      <div class="btn-group">
+                        <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                          src="/stady-front/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 2px;" />
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
               </div>
             </div>
-          </nav>
-        </div>
-      </div>
-
-    </header>
-
+          </header>
+          </div>
     <main class="container" style="height: 500px; margin-top : 100px;">
-
       <div class="row container" style="height: 400px">
-
         <div class="col-xl-4">
           <video id="video" width="320" height="240"
             style="background-color: aliceblue; background-image: url(/static/images/stady_bear_head.png); background-repeat: no-repeat; background-position: 50% 50%; border-radius:5px "
             autoplay></video>
           <canvas id="canvas" width="960" height="720" style="display: none"></canvas>
-
           <p class="stady_btn mt-3">
             <span class="btn btn-lg btn-primary fw-bold border-black" style="width: 300px; margin-bottom: 10px"
               onclick="pushStartBtn()">공부시작
@@ -121,31 +147,44 @@
             </span>
           </p>
         </div>
-
+        <!-- TODO  -->
         <div class="col-xl-8"
-          style="height: 400px; overflow-y: scroll; border-radius: 5px; background-color: aliceblue; ">
-          <div>
-            <h3 class="text-center"><span id="today-date"></span> <small>(<span id="day-total-time"></span>분)</small>
-            </h3>
-            <div id="today-log">
-              <div class="row mb-2">
-                <div class="col-4"></div>
-                <div class="col-8 row">
-                  <div class="col-8" id="memo-{{log.id}}"></div>
-                  <div class=" col-4 text-end">
-                    <button onclick="writeMemo(`{{log.id}}`)" type="button" class="btn btn-success"
-                      style="font-size : 12px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    </button>
-
-                  </div>
-                </div>
+        style="margin-bottom:20px; height: 400px; overflow-y: scroll; border-radius: 5px; background-color: aliceblue; ">
+        <h3 class="text-center"><span id="today-date1"></span>
+        </h3>
+        <br><br>
+        <div id ='study-todo'>
+          <!-- todo data들어간 곳 -->
+        </div>
+        <div style= "display: flex; justify-content: center; margin-top: 30px;">
+          <input type="text" id='todo-content' class='todo-input'/>
+          <button class="todo-bnt" onclick="writeTodo()">작성</button>
+        </div>
+        
+       </div>
+      
+      </div>
+      <!-- study log -->
+      <div class="col-xl-15"
+      style="margin-top:20px; height: 400px; overflow-y: scroll; border-radius: 5px; background-color: aliceblue; ">
+      <div>
+        <h3 class="text-center"><span id="today-date2"></span><small>(<span id="day-total-time"></span>분)</small>
+        </h3>
+        <div id="today-log">
+          <div class="row mb-2">
+            <div class="col-4"></div>
+            <div class="col-8 row">
+              <div class="col-8" id="memo-{{log.id}}"></div>
+              <div class=" col-4 text-end">
+                <button onclick="writeMemo(`{{log.id}}`)" type="button" class="btn btn-success"
+                  style="font-size : 12px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                </button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
+    </div>
       <!-- 모달 섹션 -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -161,22 +200,16 @@
               <input type="text" id="memo-title">
             </div>
             <div class="modal-footer">
-
               <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="memo-submin-btn">저장</button>
             </div>
           </div>
         </div>
       </div>
-
-
-
     </main>
   </div>
 
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <script src="static/js/index.js"></script>
+  <script src="/stady-front/static/js/index.js"></script>
   <script src="static/js/user.js"></script>
   <script>
     $.ajaxSetup({
@@ -186,5 +219,4 @@
     });
   </script>
 </body>
-
 </html>
