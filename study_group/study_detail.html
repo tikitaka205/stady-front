@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STADY</title>
+    <!-- css 파일 -->
+    <link href="/static/css/bootstrap.min.css?after" rel="stylesheet" />
+    <link href="/static/css/base.css?after" rel="stylesheet" />
+    <!-- bootstrap css cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome 5.14.5-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- JS 파일 -->
+    <script src="/static/js/bootstrap.bundle.min.js?after"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <style>
+        h5 {
+            height: 20px;
+        }
+
+        .stady_btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .stady_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cam_size {
+            width: 375px;
+            height: 375px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            background-color: #e9ecef;
+            margin-bottom: 10px;
+        }
+
+        .nav_logo {
+            width: 100px;
+            height: 40px;
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 10px 15px 15px;
+            height: 120px;
+        }
+
+        .card-title {
+            height: 33px;
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            overflow-y: hidden;
+        }
+
+        #study-title {
+            font-size: 50px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 12px;
+            color: gray;
+            margin-bottom: 3px;
+        }
+
+        #main_nav {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: #fff;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        #type-wrap > div:hover{
+            background-color: chartreuse;
+        }
+    </style>
+</head>
+
+<body id="body" class="" style="background-color: #00b395;">
+    <div class="w-100 h-100 p-3 mx-auto">
+        <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
+            <div class="contain">
+                <div class="fixed-top" id="main_nav">
+                    <h3 class="float-md-start mb-0">
+                        <a href="/">
+                            <img class="nav_logo" src="/static/images/stady_1.png" />
+                        </a>
+                    </h3>
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
+                        <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디
+                            모임</a>
+                        <div style="margin-left: 20px; margin-right: 10px">
+                            <div class="post_header_more_btn_box">
+                                <div class="btn-group">
+                                    <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                                        src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown"
+                                        aria-expanded="false" />
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="container" style="height: 500px; margin-top : 110px; width: 500px;">
+
+            <div class="main-wrap" style="background-color: white; padding: 15px;">
+                <div class="type-wrap row text-center"  id="type-wrap">
+                    <div class="col-4" onclick="getStudy()" style="cursor: pointer;">정보</div>
+                    <div class="col-4" onclick="getStudyPost()" style="cursor: pointer;">게시판</div>
+                    <div class="col-4" onclick="getDetail()" style="cursor: pointer;">앨범</div>
+                </div>
+
+                <div class="penalty-money-wrap">
+                    <div id="total-penalty">
+
+                    </div>
+                    <div id="week-penalty">
+
+                    </div>
+                </div>
+                <div class="content-wrap" id="content-wrap" style="background-color: yellow; padding: 15px;">
+                    스터디 내용
+                </div>
+                <div class="sub-content-wrap" id="sub-content-wrap">
+                </div>
+                <div id="propose-student-wrap">
+
+                </div>
+                <div class="pagination">
+                    <!-- <span>페이지 네이션</span>
+                    <span>2</span>
+                    <span>3</span> -->
+                </div>
+            </div>
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      ...
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </main>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // 할 일
+        // 정보 클릭 시 작성자이면 수정이랑 디테일로 가기 (완료)
+        // 정보란에서 멤버들 나열에서 추방 수락/거절 표현해주기 & 로직 (완료)
+        // 정보란에서 패널티 스터디면 벌금 내역 표현
+        // 게시판 페이지 로직 & 페이지 네이션
+        // 앨범 페이지 로직 & 페이지 네이션
+        //스터디 등록 페이지 로직(요일, 패널티 타입, 패널티 등등)
+    const hostUrl = "http://127.0.0.1:8000"
+    const STUDYID = JSON.parse(localStorage.getItem('stady', ''))["recent_study_id"]
+    const payload = JSON.parse(localStorage.getItem('payload', ''))
+
+    window.onload = function() {
+        getStudy()
+    }
+    function getStudy(){
+
+        $.ajax({
+            type: 'GET',
+
+            data: {},
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: `${hostUrl}/studies/${STUDYID}/private/?community-type=info`,
+
+            success: function (result) {
+                $('#content-wrap').html(result["content"])
+                let students = result["students"]
+                console.log(result)
+                console.log(students)
+                if (result["is_penalty"]){
+                    $('#content-wrap').text(result["content"])
+                    $('#total-penalty').text(`총 금액 : ${result['total_penalty']}`)
+                    $('#week-penalty').text(`이번주 당첨 될 금액 : ${result['week_penalty']}`)
+                }
+
+                if(result["user"] == payload["user_id"]){
+                    studyAuthor(result)
+                }
+                else{
+                    studyStudent(result)
+                }
+            },
+        });
+    }
+
+    function getStudyPost() {
+        $('#sub-content-wrap').empty()
+        $('#propose-student-wrap').empty()
+
+        $.ajax({
+            type: 'GET',
+
+            data: {},
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: `${hostUrl}/studies/${STUDYID}/private/`,
+
+            success: function (result) {
+                var postList = result['post_list']
+                let temp = ``
+                for(var i = 0; i < postList.length; i++){
+                    temp += `
+                        <div onclick="getStudyPostDetail(${postList[i]['id']})">${postList[i]['title']}</div>
+                    `
+                }
+                $('#content-wrap').html(temp)
+            },
+        });
+    }
+
+    function getStudyPostDetail(postId){
+
+        console.log(postId)
+
+        $.ajax({
+            type: 'GET',
+
+            data: {},
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: `${hostUrl}/studies/${STUDYID}/private/${postId}/`,
+
+            success: function (result) {
+                console.log(result)
+            },
+        });
+    }
+
+    function studyAuthor(result){
+        let students = result["students"]
+
+        var temp = '<div class = "text-center">스터디 멤버들</div>'
+        for (var i = 0; i < students.length; i++){
+            var student = students[i]
+
+            if(payload["user_id"] == student['user_id']){
+                temp += `
+                <div>${student['user']}</div>
+                `
+            }else{
+                temp += `
+                <div id="student-${student['id']}">
+                    <span id="student-name-${student['id']}">${student['user']}</span>
+                    <button class="btn btn-outline-danger p-1" style = "margin-left : 5px" onclick="banishStudent(${student['id']})">
+                        추방
+                    </button>
+                </div>
+                `
+            }
+            
+        }
+        $('#sub-content-wrap').html(temp)
+
+        let proposeStudents = result["propose_students"]
+        var temp = '<div class = "text-center">신청인원</div>'
+
+        for (var i = 0; i < proposeStudents.length; i++){
+            var student = proposeStudents[i]
+            temp += `
+            <div id="student-${student['id']}">
+                <span id="student-name-${student['id']}">${student["user"]}</span>
+                <button onclick = acceptStudent(${student["id"]})>수락</button>
+                <button onclick = banishStudent(${student["id"]})>거절</button>
+            </div>
+            `
+        }
+        $('#propose-student-wrap').html(temp)
+
+    }
+
+    function banishStudent(studentId){
+
+        $.ajax({
+            type: 'DELETE',
+
+            data: {},
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: `${hostUrl}/studies/${STUDYID}/choose/${studentId}/`,
+
+            success: function (result) {
+                console.log(result)
+                $(`#student-${studentId}`).empty()
+
+            },
+        });
+    }
+
+    function acceptStudent(studentId){
+        console.log(studentId)
+        $.ajax({
+            type: 'POST',
+
+            data: {},
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+
+            url: `${hostUrl}/studies/${STUDYID}/choose/${studentId}/`,
+
+            success: function (result) {
+                var name = $(`#student-name-${studentId}`).text()
+                $(`#student-${studentId}`).empty()
+
+                var temp =`
+                <div id="student-${studentId}">
+                    <span>${name}</span>
+                    <button class="btn btn-outline-danger p-1" style = "margin-left : 5px" onclick="banishStudent(${studentId})">
+                        추방
+                    </button>
+                </div>
+                `
+                $('#sub-content-wrap').append(temp)
+            },
+        });
+    }
+    </script>
+</body>
+</html>

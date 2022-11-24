@@ -1,5 +1,5 @@
 const hostUrl = 'http://127.0.0.1:8000'
-console.log('안녕하세요 준호님')
+
 function loadStudy() {
 
     const mainWrap = document.getElementById('main-wrap');
@@ -208,44 +208,24 @@ function viewStudy(study_id) {
             if (isAuthor) {
                 $('#status').text('수정 하기')
                 $('#status').attr('class', 'btn btn-outline-warning')
-                const temp_html = document.createElement('div')
-                if (student.length > 0) {
-                    for (let i = 0; i < student.length; i++) {
-                        let temp = ''
-                        console.log(student[i].user)
-                        if (student[i].is_accept == true) {
-                            temp = `
-                                <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="">신청 거절</button>
-                                </div>
-                            `
-                            // $('#student_list').html(temp)
-                        } else {
-                            temp = `
-                                <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, ${student[i].is_accept})" value="true">신청 수락</button>
-                                    <button id="is_Student" type="button" onclick="">신청 거절</button>
-                                </div>
-                            `
-                            // $('#student_list').html(temp)
-                        }
-                        temp_html.appendChild(temp)
-                    }
-                }
-                $('#student_list').html(temp_html)
-
+                $('#student-btn').text('전용 페이지 가기')
+                $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
 
             } else if (isStudent) {
                 $('#status').text('탈퇴 하기')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
+                $('#student-btn').text('전용 페이지 가기')
+                $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
             } else if (sended) {
                 $('#status').html('<i class="fas fa-times">신청취소</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
                 $('#status').attr('class', 'btn btn-outline-danger')
+                $('#student-btn').remove()
             } else {
                 $('#status').html('<i class="fas fa-paper-plane">신청하기</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "propose")`)
                 $('#status').attr('class', 'btn btn-primary')
+                $('#student-btn').remove()
             }
 
             if (isLike) {
@@ -256,6 +236,8 @@ function viewStudy(study_id) {
             $('#star').attr('onclick', `studyLike(${studyDetail.id})`)
             if (recommendStudies) {
                 loadRecommendStudy(recommendStudies)
+            }else{
+                $('#tady-word').text('테디가 분석할 정보가 충분하지 않아요ㅠ')
             }
         },
 
@@ -306,7 +288,7 @@ function propose(study_id, type) {
             "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
-        url: `${hostUrl}/studies/${study_id}/propose`,
+        url: `${hostUrl}/studies/${study_id}/propose/`,
 
         success: function (result) {
             if (type === "propose") {
@@ -357,7 +339,7 @@ function studyLike(study_id) {
             "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
-        url: `${hostUrl}/studies/${study_id}/like`,
+        url: `${hostUrl}/studies/${study_id}/like/`,
 
         success: function (result) {
             var starClass = $('#star').attr('class')
@@ -414,4 +396,14 @@ function search() {
         },
 
     });
+}
+
+function moveStudyPage(studyId){
+    // var dict1 = {'recent_study_id':1};
+    // localStorage.setItem('stady', JSON.stringify(dict1));
+    let stady = JSON.parse(localStorage.getItem('stady', ''))
+    stady["recent_study_id"] = studyId
+    localStorage.setItem('stady', JSON.stringify(stady));
+
+    window.location.href = '/study_group/study_detail.html'
 }
