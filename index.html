@@ -54,53 +54,57 @@
 
 
     #main_nav {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      background-color: #fff;
-      max-width: 1100px;
+      padding-top: 0.5rem;
+      background-color: #eaeaea;
+      width: 100%;
       margin: 0 auto;
     }
-  </style>
+    </style>
 </head>
 
-<body class="d-flex h-100 text-center" style="background-color: #00b395;">
-  <div class="w-100 h-100 p-3 mx-auto">
-    <header class="mb-auto" style="background-color: white; max-width: 720px; margin: 0 auto;">
-      <div class="contain">
-        <div class="fixed-top" id="main_nav">
-          <h3 class="float-md-start mb-0">
-            <a href="/">
-              <img class="nav_logo" src="/static/images/stady_1.png" />
-            </a>
-          </h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="">Community</a>
-            <a class="nav-link fw-bold py-1 px-0" aria-current="true" href="/study_group/index.html">스터디 모임</a>
-            <div style="margin-left: 20px; margin-right: 10px">
-              <div class="post_header_more_btn_box">
-                <div class="btn-group">
-                  <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
-                    src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" />
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="/profile/profile.html">프로필</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
-                    </li>
-                  </ul>
-                </div>
+<body id="body" class="" style="background-color: #00b395;">
+    <div class="w-100 h-100 p-3 mx-auto">
+        <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
+            <div class="contain">
+              <div class="fixed-top" id="main_nav" style="width: 100%;">
+                <h3 class="float-md-start mb-0">
+                  <a href="/">
+                    <img class="nav_logo" src="/static/images/stady_1.png" style="margin-left: 30px;" />
+                  </a>
+                </h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 30px;">
+                  <div class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 50px;">
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/">STADY</a>
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/community/index.html">커뮤니티</a>
+                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/study_group/index.html">소모임</a>
+                  </div>
+      
+                  <div style="margin-left: 20px; margin-right: 10px;">
+                    <div class="post_header_more_btn_box">
+                      <div class="btn-group">
+                        <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                          src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 2px;" />
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
               </div>
             </div>
-          </nav>
-        </div>
-      </div>
+      
+          </header>
+          </div>
 
-    </header>
 
     <main class="container" style="height: 500px; margin-top : 100px;">
 

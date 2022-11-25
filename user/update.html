@@ -93,12 +93,10 @@
 
       let email = $("#email").val()
       let username = $("#username").val()
-      console.log(email)
       let formData = new FormData();
 
       // formData.append("profile_image", $("#img")[0].files[0] );
       const formFile = $("#img")[0];
-
       if (formFile.files.length === 0) {
         console.log('hi')
       } else {
@@ -107,6 +105,7 @@
 
       formData.append("email", email)
       formData.append("username", username)
+      console.log(email)
 
       $.ajax({
 
