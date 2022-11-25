@@ -1,43 +1,50 @@
-let category =''
-    const changeValue = (target)=>{
-        let num= target.value
-        console.log(num)
-        if (num == 1){ 
-            category = 'free'
-        }else if(num ==2){
-            category = 'blind'
-        }else{
-            category ='study'
-        }  
-    }
+$('#post_create').click( function() {
+    post_create()
+    });
 
-post_create = async() =>{
-    let title = document.getElementById('title').value
-    let content = document.getElementById('content').value
-    console.log(title, content, category)
+    function post_create() {
+        let content = $("#content").val()
+        let category = $("select[name=category]").val()
+        let title = $("#title").val()
+        let formData = new FormData();
+
+        formData.append("content", content)
+        formData.append("category", category)
+        formData.append("title", title)
+        // formData.append("img",document.getElementById("img").files[0]);
+        // console.log(document.getElementById("img").files[0]);
+        const formFile = $("#img")[0];
+        if (formFile.files.length === 0) {
+          console.log('hi')
+        } else {
+          formData.append("img", formFile.files[0]);
+        }
+        console.log("제목",title)
+        console.log("내용",content)
+        console.log("폼데이터",formData)
+        console.log("카테고리",category)
     
-    const response = await fetch('http://127.0.0.1:8000/blind/category/'+category+'/', {
-        headers: {
-            'content-type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "title":title,
-            "category":category,
-            "content":content
-        })
-    })
-    console.log(response)
-    if (response.status === 201){
-       if(response.category == 'blind'){
-        window.location.href ='http://127.0.0.1:5500/community/blind.html'
-       }else if(response.category == 'free'){
-        window.location.href ='http://127.0.0.1:5500/community/blind.html'
-       }else{
-        window.location.href ='http://127.0.0.1:5500/stady-front/community/index.html'
-       }
-       
+        $.ajax({
+    
+            type: "POST",
+            url: "http://127.0.0.1:8000/community/category/",
+            processData: false,
+            contentType: false,
+            data: formData,
+    
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
+    
+            success: function (result) {
+            alert("작성완료", result);
+            location.href='index.html'
+            },
+            error : function(request, status, error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+            
+            }
+          );
     }
-}
 
