@@ -2,7 +2,7 @@
 //날짜 변수
 const date = new Date()
 const todayDate = document.getElementById('today-date')
-const td = date.toLocaleDateString('ko-kr').slice(0,-1).replaceAll('. ', '-')
+const td = date.toLocaleDateString('ko-kr').slice(0, -1).replaceAll('. ', '-')
 
 const todayLog = document.getElementById('today-log');
 
@@ -19,10 +19,10 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     todayDate.innerText = td
 });
-$( document ).ready(function() {
+$(document).ready(function () {
     getLog(td)
 });
 
@@ -32,51 +32,51 @@ function uploadImage() {
     context.drawImage(video, 0, 0, 960, 720);
     var drawCanvas = document.getElementById('canvas');
 
-    if(is_running === true){
+    if (is_running === true) {
         $.ajax({
-        type: 'POST',
+            type: 'POST',
 
-        data: { imgUpload: drawCanvas.toDataURL('image/png') }, // 이미지를 인코딩
+            data: { imgUpload: drawCanvas.toDataURL('image/png') }, // 이미지를 인코딩
 
-        url: 'http://127.0.0.1:8000/api/study/',
-        headers : {
-            "Authorization" : "Bearer " + localStorage.getItem("access"),
-        },
+            url: 'http://127.0.0.1:8000/api/study/',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+            },
 
-        success: function (result) { // 결과 값에 사람이 있고 없음을 판단
-            console.log(result)
-            if(is_running === false){ // 만약 사람이 있어서 백엔드에서 새로운 공부로그를 만들었다. 하지만 그 사이에 종료 버튼을 눌러서 is_running플래그가 false라면 새로운 공부 로그를 지워야하는 경우
-                console.log(result, '콜백 실행돼야해!!!!!!!!!');
+            success: function (result) { // 결과 값에 사람이 있고 없음을 판단
+                console.log(result)
+                if (is_running === false) { // 만약 사람이 있어서 백엔드에서 새로운 공부로그를 만들었다. 하지만 그 사이에 종료 버튼을 눌러서 is_running플래그가 false라면 새로운 공부 로그를 지워야하는 경우
+                    console.log(result, '콜백 실행돼야해!!!!!!!!!');
 
-                $.ajax({ // 새로운 공부 로그가 만들어지면 안되기 때문에 다시 콜백에 요청을 한다.
-                    type: 'DELETE',
+                    $.ajax({ // 새로운 공부 로그가 만들어지면 안되기 때문에 다시 콜백에 요청을 한다.
+                        type: 'DELETE',
 
-                    data: {},
+                        data: {},
 
-                    url: 'http://127.0.0.1:8000/api/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
+                        url: 'http://127.0.0.1:8000/api/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
 
-                    success: function (result){
-                        insertLog(result)
-                    }
-                })
-            }else{
-                insertLog(result)
+                        success: function (result) {
+                            insertLog(result)
+                        }
+                    })
+                } else {
+                    insertLog(result)
 
-            }
-        },
-    });
-    }else{
+                }
+            },
+        });
+    } else {
         clearInterval(root);
     }
-        
+
 }
 
 
-function insertLog(result){
+function insertLog(result) {
     let logList = result['study_log_list']
     let dayTotalTime = result['day_total_time']
 
-    if (logList){
+    if (logList) {
         let totalTemp = '';
         for (let i = 0; i < logList.length; i++) {
             let temp = `
@@ -112,8 +112,8 @@ function startStudy() {
         type: 'GET',
 
         data: {},
-        headers : {
-            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
         url: 'http://127.0.0.1:8000/api/study/?type=start',
 
@@ -131,8 +131,8 @@ function finishStudy() {
         type: 'GET',
 
         data: {},
-        headers : {
-            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
         url: 'http://127.0.0.1:8000/api/study/?type=finish',
 
@@ -164,8 +164,8 @@ function submitMemo(logId) {
         type: 'PUT',
 
         data: { memoTitle: memoTitle, logId: logId },
-        headers : {
-            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
         url: 'http://127.0.0.1:8000/api/study/',
 
@@ -191,15 +191,15 @@ function closeMemo() {
 }
 
 function pushStartBtn() {
-    if (is_running === false){
+    if (is_running === false) {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices
-            .getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-                localstream = stream;
-                video.play();
-            });
+                .getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    localstream = stream;
+                    video.play();
+                });
         }
         startStudy();
         root = setInterval(uploadImage, 5000); // 반복 시키는 함수
@@ -216,14 +216,14 @@ function pushFinishBtn() {
     localstream.getTracks()[0].stop();
 }
 
-function getLog(day){
+function getLog(day) {
 
     $.ajax({
         type: 'GET',
 
-        data: {day:day},
-        headers : {
-            "Authorization" : "Bearer " + localStorage.getItem("access"),
+        data: { day: day },
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
         url: 'http://127.0.0.1:8000/api/study/log/',
@@ -235,8 +235,8 @@ function getLog(day){
 
         },
 
-        error : function(request){
-            if (request.status === 401){
+        error: function (request) {
+            if (request.status === 401) {
                 alert('로그인 필요')
                 window.location.href = "/user/login.html"
             }

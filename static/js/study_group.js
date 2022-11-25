@@ -174,6 +174,7 @@ function viewStudy(study_id) {
         success: function (result) {
             let studyDetail = result["study_detail"]
             let recommendStudies = result["recommend_studies"]
+            console.log(studyDetail)
             console.log('성공:', result, result['thumbnail_img']);
             // $('#thumbnail-img').attr('src', result['thumbnail_img']);
             $('#modal-head').attr('style', `background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(${hostUrl}${studyDetail['thumbnail_img']});
@@ -206,9 +207,10 @@ function viewStudy(study_id) {
 
 
             if (isAuthor) {
+                console.log("작성자입니다")
                 $('#status').text('수정 하기')
                 $('#status').attr('class', 'btn btn-outline-warning')
-                const temp_html = document.createElement('div')
+                let temp_html = '';
                 if (student.length > 0) {
                     for (let i = 0; i < student.length; i++) {
                         let temp = ''
@@ -216,23 +218,28 @@ function viewStudy(study_id) {
                         if (student[i].is_accept == true) {
                             temp = `
                                 <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="">신청 거절</button>
+                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, false)">신청 거절</button>
                                 </div>
                             `
-                            // $('#student_list').html(temp)
                         } else {
                             temp = `
                                 <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, ${student[i].is_accept})" value="true">신청 수락</button>
-                                    <button id="is_Student" type="button" onclick="">신청 거절</button>
+                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, true)" >신청 수락</button>
+                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, false)" >신청 거절</button>
                                 </div>
                             `
-                            // $('#student_list').html(temp)
                         }
-                        temp_html.appendChild(temp)
+                        temp_html += temp;
                     }
+                    console.log(temp_html)
                 }
                 $('#student_list').html(temp_html)
+
+                temp_html = `<textarea style="width: 100%; height: 500px; resize:none;">${studyDetail.content}</textarea>`
+
+
+                console.log("content: ", temp_html);
+                $('#content').html(temp_html)
 
 
             } else if (isStudent) {
@@ -264,36 +271,33 @@ function viewStudy(study_id) {
 }
 
 async function isStudent(user_id, post_id, is_accept) {
-    if (is_accept == null) {
-        const login_user = JSON.parse(localStorage.getItem('payload')).user_id
-        console.log(login_user)
-        const result = document.getElementById("is_Student").value
-        console.log(document.getElementById("is_Student").value)
-        // $.ajax({
-        //     type: "POST",
-        //     data: {},
-        //     headers: {
-        //         'content-type': 'application/json',
-        //     },
-        //     url: `${hostUrl}/${post_id}/accept/${user_id}`,
-        //     success: function
 
-        // });
-        const response = await fetch(`${hostUrl}/studies/${post_id}/accept/${user_id}/`, {
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem("access"),
-            },
-            method: "POST",
-            body: JSON.stringify({
-                user_id: user_id,
-                post: post_id,
-                is_accept: result
-            }),
-        })
-        const response_json = await response.json()
-        console.log(response_json)
+    const login_user = JSON.parse(localStorage.getItem('payload')).user_id
+    console.log(login_user)
+
+    let method = '';
+    if (is_accept == true) {
+        method = "POST"
+    } else if (is_accept == false) {
+        method = "DELETE"
     }
+    const response = await fetch(`${hostUrl}/studies/${post_id}/accept/${user_id}/`, {
+        headers: {
+            'content-type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
+        method: method,
+        body: JSON.stringify({
+            user_id: user_id,
+            post: post_id,
+            is_accept: is_accept
+        }),
+    })
+
+    // const response_json = await response.json()
+    // console.log(response_json)
+
+    viewStudy(post_id)
 }
 
 function propose(study_id, type) {
@@ -415,3 +419,5 @@ function search() {
 
     });
 }
+
+
