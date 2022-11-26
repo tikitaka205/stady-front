@@ -76,7 +76,7 @@
     </style>
 </head>
 
-<body id="body" class="" style="background-color: #ffb5b5;">
+<body id="body" class="" style="background-color: #ffffff;">
     <div class="w-100 h-100 p-3 mx-auto">
         <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
             <div class="contain">
@@ -140,7 +140,7 @@
       <main class="container" style="height: 900px; margin-top : 90px;">
 
         <!-- 제목 -->
-          <h1 class='contents' style="text-align :left; font-size: 45px; background-color: #ffb5b5;" id="title"> </h1>
+          <h1 class='contents' style="text-align :left; font-size: 45px; background-color: #ffffff;" id="title"> </h1>
         <!-- 작성자 -->
           <div style="display: flex; text-align: right;" >
             <h3 class='contents' style="text-align :right; font-size: 15px;" id="user">작성자 </h1>
@@ -168,12 +168,12 @@
             <!-- 추천과 추천수 -->
             <ul class="nav justify-content-center" style="margin-top: 30px;">
                 <li class="nav-item">
-                  <button type="button" class="btn btn-outline-success" onclick="like_submit()" style="margin-right: 10px;">
-                    추천 <img src="https://cdn-icons-png.flaticon.com/512/3343/3343312.png" style="width: 20px; ">
+                  <button id="like_img_btn" type="button" class="btn btn-outline-success" onclick="like_submit()" style="margin-right: 10px; color: black;">
+                    추천 <img id="like_img" src="" style="width: 20px;  ">
                     </button>
                 </li>
                 <li class="nav-item">
-                  <button type="button" class="btn btn-outline-success" id="likes_count2"></button>
+                  <button type="button" class="btn btn-outline-success" id="likes_count2" style="color: black;"></button>
                 </li>
               </ul>
               <!-- 게시글 옵션 -->

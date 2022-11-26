@@ -9,6 +9,7 @@ $(document).ready(function() {
     }
     post_detail()
 });
+
 let post_id=localStorage.getItem('community_post_id')
 console.log("외부에서 post_id", post_id)
 let login_user_id = JSON.parse(localStorage.getItem('payload')).user_id
@@ -30,10 +31,12 @@ function post_detail(){
             let comments_count = response['comments_count']
             let img=response['img']
             let post_user_id = response['user_id']
+            let likes = response['likes']
 
             console.log("포스트 상세")
             console.log(img)
             console.log(hits)
+            console.log(likes)
             console.log("포스트유저id",post_user_id)
             console.log("로그인유저id",login_user_id)
             
@@ -48,6 +51,12 @@ function post_detail(){
             console.log("이미지", img)
             if(img){
                 $('#img').append(`<img src="http://127.0.0.1:8000${img}" style="width: 100%;">`)
+            }
+            if(likes.includes(login_user_id)){
+                    $('#like_img').attr('src','https://cdn-icons-png.flaticon.com/512/456/456115.png')
+                    $('#like_img_btn').attr('style','background-color: #ff8b8b; color: black; margin-right: 10px; ')
+            }else{
+                $('#like_img').attr('src','https://cdn-icons-png.flaticon.com/512/456/456257.png')
             }
             hide_button();
             function hide_button(){
@@ -84,10 +93,12 @@ $(document).ready(function () {
                         let id = response[i]['id']
                         let created_date = response[i]['created_date']
                         let comment_user_id = response[i]['user_id']
+                        let likes = response[i]['likes']
                         console.log("코멘트의 유저id",comment_user_id)
                         console.log(response)
-                        console.log("로그인 사용자의 유저 id",login_user_id)
+                        console.log("로그인 사용자의 유저 id22",login_user_id)
                         if(comment_user_id==login_user_id){
+                            if(likes.includes(login_user_id)){
                             temp_html=
                             `
                             <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
@@ -99,11 +110,30 @@ $(document).ready(function () {
                               <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
                               <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
                               <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
-                              <img src="https://cdn-icons-png.flaticon.com/512/3343/3343312.png" style="height:20px;">
+                              <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456115.png" style="height:20px;">
                               ${likes_count}</div>
                             </li>
                             `
+                            } else{
+                                temp_html=
+                                `
+                                <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                                  <div class="ms-2 me-auto">
+                                    <div class="fw-bold">${user}</div>
+                                    ${content}
+                                  </div>
+                                  <div>${created_date} 작성</div>
+                                  <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
+                                  <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
+                                  <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                                  <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456257.png" style="height:20px;">
+                                  ${likes_count}</div>
+                                </li>
+                                `
+
+                            }
                           } else{
+                            if(likes.includes(login_user_id)){
                             temp_html=
                             `
                             <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
@@ -113,16 +143,32 @@ $(document).ready(function () {
                               </div>
                             
                               <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
-                              <img src="https://cdn-icons-png.flaticon.com/512/3343/3343312.png" style="height:20px;">
+                              <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456115.png" style="height:20px;">
                               ${likes_count}</div>
                             </li>
                             `
+                            }else{
+                                temp_html=
+                                `
+                                <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                                  <div class="ms-2 me-auto">
+                                    <div class="fw-bold">${user}</div>
+                                    ${content}
+                                  </div>
+                                
+                                  <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                                  <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456257.png" style="height:20px;">
+                                  ${likes_count}</div>
+                                </li>
+                                `
+                            }
                           }
                           $('#comment_list').append(temp_html)
+                            }
+
                         }
-                    }
-                })
-            }
+                })}
+            
             
             
             

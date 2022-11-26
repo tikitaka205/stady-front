@@ -11,6 +11,9 @@ post_list = () =>{
         },
         success: function (response) {
             console.log(response)
+            // console.log(response['results'][0]['title'])
+            $('#post_list').empty()
+            
             if (response.length > 0) {
                 for (let i = 0; i < response.length; i++) {
                     let id = response[i]['id']
@@ -30,7 +33,7 @@ post_list = () =>{
                     <td>${hits}</td>
                     <td>${user}</td>
                     <td>${created_at}</td>
-
+                    
 
                 </tr>`
                 $('#post_list').append(temp_html)
@@ -52,7 +55,7 @@ function postid(post_id) {
 
 function category_list(category_name) {
     let category = category_name;
-    console.log(category)
+    console.log("리스트 함수안",category)
     $.ajax({
 
         type: "GET",
@@ -64,19 +67,18 @@ function category_list(category_name) {
 
         success: function (response) {
         $('#post_list').empty()
-
+        console.log("여기가",response['results'][0]['title'])
         console.log('성공:', response);
         if (response.length > 0) {
             for (let i = 0; i < response.length; i++) {
-                let id = response[i]['id']
-
+                let id = response['results'][i]['id']
                 console.log(id)
-                let title = response[i]['title']
-                let hits =response[i]['hits']
-                let created_at = response[i]['created_date']
-                let category = response[i]['category']
-                let user = response[i]['user']
-                let comments_count=response[i]['comments_count']
+                let title = response['results'][i]['title']
+                let hits =response['results'][i]['hits']
+                let created_at = response['results'][i]['created_date']
+                let category = response['results'][i]['category']
+                let user = response['results'][i]['user']
+                let comments_count=response['results'][i]['comments_count']
 
 
                 temp_html=` <tr>

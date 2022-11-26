@@ -1,4 +1,4 @@
-$('#post_create').click( function() {
+$('#post_create()').click( function() {
     post_create()
     });
 
@@ -15,7 +15,6 @@ $('#post_create').click( function() {
         // console.log(document.getElementById("img").files[0]);
         const formFile = $("#img")[0];
         if (formFile.files.length === 0) {
-          console.log('hi')
         } else {
           formData.append("img", formFile.files[0]);
         }

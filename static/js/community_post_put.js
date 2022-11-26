@@ -73,8 +73,11 @@ function post_put() {
     formData.append("content", content)
     formData.append("category", category)
     formData.append("title", title)
-    formData.append("img",document.getElementById("img").files[0]);
-    console.log(document.getElementById("img").files[0]);
+    const formFile = $("#img")[0];
+    if (formFile.files.length === 0) {
+    } else {
+      formData.append("img", formFile.files[0]);
+    };
     console.log("제목",title)
     console.log("내용",content)
     console.log("폼데이터",formData)
