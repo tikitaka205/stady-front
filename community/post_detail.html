@@ -18,6 +18,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/static/js/bootstrap.bundle.min.js?after"></script>
   <script src="/static/js/community_post_detail.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
   <script type="text/JavaScript">
     jQuery(function() {
       const FLAG = localStorage.getItem("access", '')
@@ -186,9 +188,24 @@
                 </div>
               <!-- 구분선 -->
               <hr style="margin-top: 50px; background-color: #00b395; height: 5px;">
+              <div id="test">
+
 
               <!-- 댓글 리스트 -->
               <div id="comment_list" style="margin-top: 30px;"></div>
+
+              <!-- 댓글 페이지네이션 -->
+              <nav aria-label="Page navigation example" style="margin-top: 20px;justify-content: center; align-items: center; display: flex;width: 100%;">
+                <ul class="pagination">
+                  <a onclick="" id="previous" class="page-link" href="#">이전</a>
+                  <a onclick="" id="next" class="page-link" href="#">다음</a>
+                </ul>
+              </nav>
+
+
+            </div>
+
+              <!-- 댓글입력 -->
               <form id="comment_content">
               <label for="exampleFormControlTextarea1" class="form-labe2"></label>
               <textarea class="form-control" id="comment_content2" placeholder='댓글을 입력해주세요.' name='comment_content2' rows="3" required></textarea>

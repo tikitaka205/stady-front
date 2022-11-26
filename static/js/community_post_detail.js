@@ -86,14 +86,19 @@ $(document).ready(function () {
             data: {},
 
             success: function (response) {
-                    for (let i = 0; i < response.length; i++) {
-                        let content = response[i]['content']
-                        let likes_count =response[i]['likes_count']
-                        let user = response[i]['user']
-                        let id = response[i]['id']
-                        let created_date = response[i]['created_date']
-                        let comment_user_id = response[i]['user_id']
-                        let likes = response[i]['likes']
+                    console.log(response)
+                    for (let i = 0; i < response['results'].length; i++) {
+                        let content = response['results'][i]['content']
+                        let likes_count =response['results'][i]['likes_count']
+                        let user = response['results'][i]['user']
+                        let id = response['results'][i]['id']
+                        // let created_date = response['results'][i]['created_date']
+                        let comment_user_id = response['results'][i]['user_id']
+                        let likes = response['results'][i]['likes']
+                        var time = response['results'][i]["created_date"] + "Z"
+                        let next=response['next']
+                        let previous=response['previous']
+
                         console.log("코멘트의 유저id",comment_user_id)
                         console.log(response)
                         console.log("로그인 사용자의 유저 id22",login_user_id)
@@ -106,7 +111,7 @@ $(document).ready(function () {
                                 <div class="fw-bold">${user}</div>
                                 ${content}
                               </div>
-                              <div>${created_date} 작성</div>
+                              <div><time class="timeago" datetime="${time}"> 작성</div>
                               <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
                               <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
                               <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
@@ -122,7 +127,7 @@ $(document).ready(function () {
                                     <div class="fw-bold">${user}</div>
                                     ${content}
                                   </div>
-                                  <div>${created_date} 작성</div>
+                                  <div><time class="timeago" datetime="${time}"> 작성</div>
                                   <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
                                   <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
                                   <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
@@ -130,7 +135,6 @@ $(document).ready(function () {
                                   ${likes_count}</div>
                                 </li>
                                 `
-
                             }
                           } else{
                             if(likes.includes(login_user_id)){
@@ -141,7 +145,8 @@ $(document).ready(function () {
                                 <div class="fw-bold">${user}</div>
                                 ${content}
                               </div>
-                            
+                              <div><time class="timeago" datetime="${time}"> 작성</div>
+
                               <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
                               <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456115.png" style="height:20px;">
                               ${likes_count}</div>
@@ -155,7 +160,8 @@ $(document).ready(function () {
                                     <div class="fw-bold">${user}</div>
                                     ${content}
                                   </div>
-                                
+                                  <div><time class="timeago" datetime="${time}"> 작성</div>
+
                                   <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
                                   <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456257.png" style="height:20px;">
                                   ${likes_count}</div>
@@ -163,14 +169,127 @@ $(document).ready(function () {
                                 `
                             }
                           }
-                          $('#comment_list').append(temp_html)
-                            }
 
+                          $('#comment_list').append(temp_html)
+                          $("time.timeago").timeago();
+                          $('#next').attr('onclick', `page("${next}")`)
+                          $('#previous').attr('onclick', `page("${previous}")`)
+                          
+                            }
                         }
                 })}
             
             
-            
+// 댓글 페이지네이션
+function page(page) {
+    console.log("코멘트에서 id 들고오기",post_id)
+    const login_user_id = JSON.parse(localStorage.getItem('payload')).user_id
+    // console.log("토큰 user_id 들고오기",login_user_id)
+
+    $.ajax({
+        type: "GET",
+        url: page,
+        data: {},
+
+        success: function (response) {
+                $('#comment_list').empty()
+
+                console.log(response)
+                for (let i = 0; i < response['results'].length; i++) {
+                    let content = response['results'][i]['content']
+                    let likes_count =response['results'][i]['likes_count']
+                    let user = response['results'][i]['user']
+                    let id = response['results'][i]['id']
+                    // let created_date = response['results'][i]['created_date']
+                    let comment_user_id = response['results'][i]['user_id']
+                    let likes = response['results'][i]['likes']
+                    var time = response['results'][i]["created_date"] + "Z"
+                    let next=response['next']
+                    let previous=response['previous']
+
+                    console.log("코멘트의 유저id",comment_user_id)
+                    console.log(response)
+                    console.log("로그인 사용자의 유저 id22",login_user_id)
+                    if(comment_user_id==login_user_id){
+                        if(likes.includes(login_user_id)){
+                        temp_html=
+                        `
+                        <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">${user}</div>
+                            ${content}
+                          </div>
+                          <div><time class="timeago" datetime="${time}"> 작성</div>
+                          <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
+                          <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
+                          <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                          <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456115.png" style="height:20px;">
+                          ${likes_count}</div>
+                        </li>
+                        `
+                        } else{
+                            temp_html=
+                            `
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                              <div class="ms-2 me-auto">
+                                <div class="fw-bold">${user}</div>
+                                ${content}
+                              </div>
+                              <div><time class="timeago" datetime="${time}"> 작성</div>
+                              <div style="margin-right:10px; margin-left:50px; cursor : pointer;" onclick="comment_put_submit(${id})">수정</div>
+                              <div style="margin-right:10px; cursor : pointer;" onclick="comment_delete_submit(${id})">삭제</div>
+                              <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                              <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456257.png" style="height:20px;">
+                              ${likes_count}</div>
+                            </li>
+                            `
+                        }
+                      } else{
+                        if(likes.includes(login_user_id)){
+                        temp_html=
+                        `
+                        <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">${user}</div>
+                            ${content}
+                          </div>
+                          <div><time class="timeago" datetime="${time}"> 작성</div>
+
+                          <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                          <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456115.png" style="height:20px;">
+                          ${likes_count}</div>
+                        </li>
+                        `
+                        }else{
+                            temp_html=
+                            `
+                            <li class="list-group-item d-flex justify-content-between align-items-start" style="margin-top:10px">
+                              <div class="ms-2 me-auto">
+                                <div class="fw-bold">${user}</div>
+                                ${content}
+                              </div>
+                              <div><time class="timeago" datetime="${time}"> 작성</div>
+
+                              <div id="comment_like_submit" onclick="comment_like_submit(${id})" style="cursor : pointer;">
+                              <img id="comment_img" src="https://cdn-icons-png.flaticon.com/512/456/456257.png" style="height:20px;">
+                              ${likes_count}</div>
+                            </li>
+                            `
+                        }
+                      }
+
+                      $('#comment_list').append(temp_html)
+                      $("time.timeago").timeago();
+                      $('#next').attr('onclick', `page("${next}")`)
+                      $('#previous').attr('onclick', `page("${previous}")`)
+                                            }
+                    }
+            })}
+
+
+function set_page(){  
+        $("#test").load(window.location.href + "#test");
+          }
             
 
 
