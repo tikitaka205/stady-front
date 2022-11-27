@@ -16,6 +16,7 @@ function loadStudy() {
         url: `${hostUrl}/studies/`,
 
         success: function (result) {
+            console.log(result)
             console.log("------------------------")
             console.log('next:', result['results']['studies'].length);
             let allTemp = ``
@@ -160,7 +161,7 @@ function viewStudy(study_id) {
     const modal = document.getElementById('staticBackdrop');
     let tumbnailImg = document.getElementById('tumbnail-img');
     console.log(study_id)
-
+    $('#penalty-section').empty()
     $.ajax({
         type: 'GET',
 
@@ -190,13 +191,15 @@ function viewStudy(study_id) {
             let isStudent = studyDetail['is_student']
             let isAuthor = studyDetail['is_author']
             let sended = studyDetail['sended']
-            let onOffLine = studyDetail['on_off_line']
+            let isOnline = studyDetail['is_online']
             let isLike = studyDetail['is_like']
             let headCount = studyDetail['headcount']
             let nowCnt = studyDetail['now_cnt']
             let tags = studyDetail['tags']
+            let isPenalty = studyDetail['is_penalty']
 
             let student = result['student']
+            console.log(isPenalty, isOnline, 'dd')
             console.log("---------------------------------------")
             console.log("student check: ", student)
 
@@ -208,24 +211,27 @@ function viewStudy(study_id) {
             if (isAuthor) {
                 $('#status').text('수정 하기')
                 $('#status').attr('class', 'btn btn-outline-warning')
+                $('#student-btn').attr('style', 'display:inline;')
+
                 $('#student-btn').text('전용 페이지 가기')
                 $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
 
             } else if (isStudent) {
                 $('#status').text('탈퇴 하기')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
+                $('#student-btn').attr('style', 'display:inline;')
                 $('#student-btn').text('전용 페이지 가기')
                 $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
             } else if (sended) {
                 $('#status').html('<i class="fas fa-times">신청취소</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
                 $('#status').attr('class', 'btn btn-outline-danger')
-                $('#student-btn').remove()
+                $('#student-btn').attr('style', 'display:none;')
             } else {
                 $('#status').html('<i class="fas fa-paper-plane">신청하기</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "propose")`)
                 $('#status').attr('class', 'btn btn-primary')
-                $('#student-btn').remove()
+                $('#student-btn').attr('style', 'display:none;')
             }
 
             if (isLike) {
@@ -238,6 +244,52 @@ function viewStudy(study_id) {
                 loadRecommendStudy(recommendStudies)
             }else{
                 $('#tady-word').text('테디가 분석할 정보가 충분하지 않아요ㅠ')
+            }
+
+            if (isPenalty){
+
+                var limitType = studyDetail["limit_type"]
+                var numDays = studyDetail["days"]
+                
+                if(limitType === 'CT'){
+                    limitType = '출석 체크 스터디!'
+                }else{
+                    limitType = '공부 시간 스터디!'
+                }
+
+                // 이럴거면 숫자말고 '월화수' 이런 식으로 저장하는게 났지 않았냐?
+                var days = ``
+                for(var i = 0; i<numDays.length; i ++){
+                    var week = '월화수목금토일'
+                    var idx = Number(numDays[i])
+
+                    days +=`
+                    <span class ="m-2 p-1" style="border-radius : 10px;border: 1px solid red;">${week[idx]}</span>
+                    `
+                }
+
+                var temp = `
+                <h5>벌금 정보</h5>
+                <div class = "p-3" style="border : 1px solid black;">
+                    <div>
+                        총 금액 : <span style="font-weight : 600;color:blue">${studyDetail['total_penalty']}</span>
+                    </div>
+                    <div>
+                        이번주 모인 벌금 : <span style="font-weight : 600;color:red">${studyDetail['week_penalty']}</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">제한 시간(시각)</span> : ${studyDetail['limit_time']} <span style="font-size:15px">( 시간 혹은 시각)</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">벌금</span> : <span style="font-weight : 600;color:green">${studyDetail['penalty']}</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">확인할 요일</span> : ${days}
+                    </div>
+
+                </div>
+                `
+                $('#penalty-section').html(temp)
             }
         },
 
