@@ -28,6 +28,7 @@ post_list = () =>{
                     // let created_at = response['results'][i]['created_date']
                     let category = response['results'][i]['category']
                     let user = response['results'][i]['user']
+                    let likes_count = response['results'][i]['likes_count']
                     let comments_count=response['results'][i]['comments_count']
                     let next=response['next']
                     let previous=response['previous']
@@ -37,13 +38,11 @@ post_list = () =>{
                     <td>
                     <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
                     </td>
-                    <td>${category}</td>
-                    <td>${hits}</td>
                     <td>${user}</td>
-                    <td><time class="timeago" datetime="${time}">
+                    <td><time class="timeago" datetime="${time}">  
+                    <td>${hits}</td>
+                    <td>${likes_count}</td>
                     </td>
-                    
-
                 </tr>`
                 $('#post_list').append(temp_html)
                 $('#next').attr('onclick', `page("${next}")`)
@@ -93,6 +92,7 @@ function category_list(category_name) {
                 // let created_at = response['results'][i]['created_date']
                 var time = response['results'][i]["created_date"] + "Z"
                 let category = response['results'][i]['category']
+                let likes_count = response['results'][i]['likes_count']
                 let user = response['results'][i]['user']
                 let comments_count=response['results'][i]['comments_count']
                 let next=response['next']
@@ -103,10 +103,10 @@ function category_list(category_name) {
                 <td>
                 <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
-                <td>${category}</td>
-                <td>${hits}</td>
                 <td>${user}</td>
                 <td><time class="timeago" datetime="${time}">  
+                <td>${hits}</td>
+                <td>${likes_count}</td>
                 </td>
                 </tr>`
             $('#post_list').append(temp_html)
@@ -148,7 +148,8 @@ function page(page) {
                 let hits =response['results'][i]['hits']
                 // let created_at = response['results'][i]['created_date']
                 var time = response['results'][i]["created_date"] + "Z"
-                let category = response['results'][i]['category']
+                // let category = response['results'][i]['category']
+                let likes_count = response['results'][i]['likes_count']
                 let user = response['results'][i]['user']
                 let comments_count=response['results'][i]['comments_count']
                 let next=response['next']
@@ -160,10 +161,10 @@ function page(page) {
                 <td>
                 <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
-                <td>${category}</td>
-                <td>${hits}</td>
                 <td>${user}</td>
                 <td><time class="timeago" datetime="${time}">  
+                <td>${hits}</td>
+                <td>${likes_count}</td>
                 </td>
             </tr>`
             $('#post_list').append(temp_html)

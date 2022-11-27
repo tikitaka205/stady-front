@@ -97,7 +97,7 @@ function post_put() {
 
         success: function (result) {
         alert("작성완료", result);
-        location.href='index.html'
+        location.href='post_detail.html'
         },
         error : function(request, status, error){
         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
