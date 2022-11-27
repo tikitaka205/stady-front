@@ -18,6 +18,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/static/js/bootstrap.bundle.min.js?after"></script>
   <script src="/static/js/community_post_detail.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
+  <script type="text/JavaScript">
+    jQuery(function() {
+      const FLAG = localStorage.getItem("access", '')
+    console.log(FLAG)
+    if(!FLAG){
+        alert("로그인이 필요합니다.");
+        window.location.replace("/user/login.html")
+        return
+    }
+    // DOM이 아직 로드되지 않았기에 ready 이벤트를 사용해야 한다.
+    });
+    </script>
 
   <style>
     .stady_btn {
@@ -57,7 +71,6 @@
 
     #main_nav {
       padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
       background-color: #eaeaea;
       width: 100%;
       margin: 0 auto;
@@ -65,7 +78,7 @@
     </style>
 </head>
 
-<body id="body" class="" style="background-color: #ffb5b5;">
+<body id="body" class="" style="background-color: #ffffff;">
     <div class="w-100 h-100 p-3 mx-auto">
         <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
             <div class="contain">
@@ -129,60 +142,70 @@
       <main class="container" style="height: 900px; margin-top : 90px;">
 
         <!-- 제목 -->
-          <h1 class='contents' style="text-align :left; font-size: 45px; background-color: #e1e1e1;" id="title"> </h1>
-
-
+          <h1 class='contents' style="text-align :left; font-size: 45px; background-color: #ffffff;" id="title"> </h1>
         <!-- 작성자 -->
           <div style="display: flex; text-align: right;" >
             <h3 class='contents' style="text-align :right; font-size: 15px;" id="user">작성자 </h1>
           </div>
-        
-
         <!-- 게시글 조회수 댓글수 좋아요수 -->
         <div style="text-align: right; display: flex;" >
             <h1 class='contents' style="text-align :right; font-size: 12px;" id="hits">조회수 </h1>
             <h1 class='contents' style="text-align :right; font-size: 12px;" id="likes_count">좋아요 </h1>
             <h1 class='contents' style="text-align :right; font-size: 12px;" id="comments_count">댓글수 </h1>
         </div>
-
-
-
         <!-- line -->
         <hr style="margin-top: 5px; background-color: #00b395; height: 5px;">
-
-
         <!-- content -->
         <div>
             <p class='contents' style="text-align :left; font-size: 25px; margin-top: 40px; margin-bottom: 90px;" id="content">
         </div>
+        <!-- img -->
+        <div id="img">
+          
+        </div>
+        
 
-  
+
 
             <!-- 추천과 추천수 -->
             <ul class="nav justify-content-center" style="margin-top: 30px;">
                 <li class="nav-item">
-                  <button type="button" class="btn btn-outline-success" onclick="like_submit()" style="margin-right: 10px;">추천</button>
+                  <button id="like_img_btn" type="button" class="btn btn-outline-success" onclick="like_submit()" style="margin-right: 10px; color: black;">
+                    추천 <img id="like_img" src="" style="width: 20px;  ">
+                    </button>
                 </li>
                 <li class="nav-item">
-                  <button type="button" class="btn btn-outline-success" id="likes_count2"></button>
+                  <button type="button" class="btn btn-outline-success" id="likes_count2" style="color: black;"></button>
                 </li>
               </ul>
               <!-- 게시글 옵션 -->
               <div class="mb-3" style="margin-top: 20px;">
                 <div style="margin-left: 70%;">
-
-                    <button type="button" class="btn btn-outline-danger" onclick="put_submit()">수정</button>
-                    <button type="button" class="btn btn-outline-danger" >공유</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="delete_submit()" >삭제</button>
+                    <button id="put_submit" type="button" class="btn btn-outline-danger" onclick="comment_put_submit()">수정</button>
+                    <button id="delete_submit" type="button" class="btn btn-outline-danger" onclick="post_delete_submit()" >삭제</button>
+                    <button onclick="url_copy()" type="button" class="btn btn-outline-danger" >공유</button>
                     <button type="button" class="btn btn-outline-danger" >신고</button>
                 </div>
-              
-
               <!-- 구분선 -->
               <hr style="margin-top: 50px; background-color: #00b395; height: 5px;">
+              <div id="test">
+
 
               <!-- 댓글 리스트 -->
               <div id="comment_list" style="margin-top: 30px;"></div>
+
+              <!-- 댓글 페이지네이션 -->
+              <nav aria-label="Page navigation example" style="margin-top: 20px;justify-content: center; align-items: center; display: flex;width: 100%;">
+                <ul class="pagination">
+                  <a onclick="" id="previous" class="page-link" href="#">이전</a>
+                  <a onclick="" id="next" class="page-link" href="#">다음</a>
+                </ul>
+              </nav>
+
+
+            </div>
+
+              <!-- 댓글입력 -->
               <form id="comment_content">
               <label for="exampleFormControlTextarea1" class="form-labe2"></label>
               <textarea class="form-control" id="comment_content2" placeholder='댓글을 입력해주세요.' name='comment_content2' rows="3" required></textarea>
@@ -196,6 +219,7 @@
         </div>
       </main>
     </div>
+    <script src="/static/js/user.js"></script>
 
 </body>
 

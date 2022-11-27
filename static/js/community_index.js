@@ -1,5 +1,7 @@
 window.onload = function(){
     post_list()
+    $("time.timeago").timeago();
+
 }
 
 post_list = () =>{
@@ -10,28 +12,41 @@ post_list = () =>{
         headers: {
         },
         success: function (response) {
+            console.log("시간",response['results'][1]["created_date"])
             console.log(response)
-            if (response.length > 0) {
-                for (let i = 0; i < response.length; i++) {
-                    let id = response[i]['id']
-                    let title = response[i]['title']
-                    let hits =response[i]['hits']
-                    let created_at = response[i]['created_date']
-                    let category = response[i]['category']
-                    let user = response[i]['user']
-                    let comments_count=response[i]['comments_count']
+            console.log(response['results'][0]['title'])
+            $('#post_list').empty()
+            
+            if (response['results'].length > 0) {
+                for (let i = 0; i < response['results'].length; i++) {
+                    var time = response['results'][i]["created_date"] + "Z"
+                    console.log("time",time)
+
+                    let id = response['results'][i]['id']
+                    let title = response['results'][i]['title']
+                    let hits =response['results'][i]['hits']
+                    let user = response['results'][i]['user']
+                    let likes_count = response['results'][i]['likes_count']
+                    let comments_count=response['results'][i]['comments_count']
+                    let next=response['next']
+                    let previous=response['previous']
 
                     temp_html=` <tr>
                     <td>${id}</td>
                     <td>
-                    <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
+                    <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
                     </td>
-                    <td>${category}</td>
-                    <td>${hits}</td>
                     <td>${user}</td>
-                    <td>${created_at}</td>
+                    <td><time class="timeago" datetime="${time}">  
+                    <td>${hits}</td>
+                    <td>${likes_count}</td>
+                    </td>
                 </tr>`
                 $('#post_list').append(temp_html)
+                $('#next').attr('onclick', `page("${next}")`)
+                $('#previous').attr('onclick', `page("${previous}")`)
+                $("time.timeago").timeago();
+
                 }
                     
             }
@@ -43,19 +58,14 @@ post_list = () =>{
 // post_id localstorage
 function postid(post_id) {
     console.log("post_id", post_id)
-    post_id=localStorage.setItem('post_id',post_id)
+    localStorage.setItem('community_post_id',post_id)
     location.href='post_detail.html'
     }
 
 
-    
-// 자유게시판 클릭
-$('#free_list').click( function() {
-    free_list()
-});
-function free_list() {
-    let category = '자유게시판' ;
-    console.log(category)
+function category_list(category_name) {
+    let category = category_name;
+    console.log("리스트 함수안",category)
     $.ajax({
 
         type: "GET",
@@ -67,205 +77,97 @@ function free_list() {
 
         success: function (response) {
         $('#post_list').empty()
-
+        console.log("여기가",response['results'][0]['title'])
+        console.log("여기가",response['results'].length)
+        console.log("여기가",response['next'])
         console.log('성공:', response);
-        if (response.length > 0) {
-            for (let i = 0; i < response.length; i++) {
-                let id = response[i]['id']
-
+        if (response['results'].length > 0) {
+            for (let i = 0; i < response['results'].length; i++) {
+                let id = response['results'][i]['id']
                 console.log(id)
-                let title = response[i]['title']
-                let hits =response[i]['hits']
-                let created_at = response[i]['created_date']
-                let category = response[i]['category']
-                let user = response[i]['user']
-                let comments_count=response[i]['comments_count']
-
+                let title = response['results'][i]['title']
+                let hits =response['results'][i]['hits']
+                var time = response['results'][i]["created_date"] + "Z"
+                let likes_count = response['results'][i]['likes_count']
+                let user = response['results'][i]['user']
+                let comments_count=response['results'][i]['comments_count']
+                let next=response['next']
+                let previous=response['previous']
 
                 temp_html=` <tr>
                 <td>${id}</td>
                 <td>
-                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
+                <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
                 </td>
-                <td>${category}</td>
-                <td>${hits}</td>
                 <td>${user}</td>
-                <td>${created_at}</td>
-            </tr>`
-            $('#post_list').append(temp_html)
-        }
-        }
-
-
-        }
-
-        });
-}
-
-
-
-// 익명게시판 클릭
-$('#blind_list').click( function() {
-    blind_list()
-});
-function blind_list() {
-    let category = 'blind' ;
-    console.log(category)
-    $.ajax({
-
-        type: "GET",
-        url: `http://127.0.0.1:8000/community/category/?category=${category}`,
-        data: {},
-
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-        },
-
-        success: function (response) {
-        $('#post_list').empty()
-
-        console.log('성공:', response);
-        if (response.length > 0) {
-            for (let i = 0; i < response.length; i++) {
-                let id = response[i]['id']
-
-                console.log(id)
-                let title = response[i]['title']
-                let hits =response[i]['hits']
-                let created_at = response[i]['created_date']
-                let category = response[i]['category']
-                let user = response[i]['user']
-                let comments_count=response[i]['comments_count']
-
-
-                temp_html=` <tr>
-                <td>${id}</td>
-                <td>
-                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
+                <td><time class="timeago" datetime="${time}">  
+                <td>${hits}</td>
+                <td>${likes_count}</td>
                 </td>
-                <td>${category}</td>
-                <td>${hits}</td>
-                <td>${user}</td>
-                <td>${created_at}</td>
-            </tr>`
-            $('#post_list').append(temp_html)
-        }
-        }
-
-
-        }
-
-        });
-}
-
-
-
-// 공부게시판 클릭
-$('#study_list').click( function() {
-    study_list()
-});
-function study_list() {
-    $('#post_list').empty()
-
-    let category = 'study' ;
-    console.log(category)
-    $.ajax({
-
-        type: "GET",
-        url: `http://127.0.0.1:8000/community/category/?category=${category}`,
-        data: {},
-
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-        },
-
-        success: function (response) {
-        console.log('성공:', response);
-        if (response.length > 0) {
-            for (let i = 0; i < response.length; i++) {
-                let id = response[i]['id']
-
-                console.log(id)
-                let title = response[i]['title']
-                let hits =response[i]['hits']
-                let created_at = response[i]['created_date']
-                let category = response[i]['category']
-                let user = response[i]['user']
-                let comments_count=response[i]['comments_count']
-
-
-                temp_html=` <tr>
-                <td>${id}</td>
-                <td>
-                <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
-                </td>
-                <td>${category}</td>
-                <td>${hits}</td>
-                <td>${user}</td>
-                <td>${created_at}</td>
-            </tr>`
-            $('#post_list').append(temp_html)
-        }
-        }
-
-
-        }
-
-        });
-}
-
-
-
-// 인기글 클릭
-$('#top_list').click( function() {
-    top_list()
-});
-function top_list() {
-
-    $.ajax({
-
-        type: "GET",
-        url: `http://127.0.0.1:8000/community/`,
-        data: {},
-
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-        },
-
-        success: function (response) {
-            console.log(response)
-            $('#post_list').empty()
-
-            if (response.length > 0) {
-                for (let i = 0; i < response.length; i++) {
-                    let id = response[i]['id']
-
-                    console.log(id)
-                    let title = response[i]['title']
-                    let hits =response[i]['hits']
-                    let created_at = response[i]['created_date']
-                    let category = response[i]['category']
-                    let user = response[i]['user']
-                    let comments_count=response[i]['comments_count']
-
-
-                    temp_html=` <tr>
-                    <td>${id}</td>
-                    <td>
-                    <div onclick="postid(${id})"> ${title} [${comments_count}] </div>
-                    </td>
-                    <td>${category}</td>
-                    <td>${hits}</td>
-                    <td>${user}</td>
-                    <td>${created_at}</td>
                 </tr>`
-                
-                $('#post_list').append(temp_html)
+            $('#post_list').append(temp_html)
+            $('#next').attr('onclick', `page("${next}")`)
+            $('#previous').attr('onclick', `page("${previous}")`)
+            $("time.timeago").timeago();
 
-
-                }
-
-            }
         }
-    })
+        }
+        }
+        });
 }
+
+// 페이지네이션 함수
+function page(page) {
+    console.log("첫 콘솔",page);
+
+    $.ajax({
+
+        type: "GET",
+        url: page,
+        data: {},
+
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
+
+        success: function (response) {
+        $('#post_list').empty()
+        console.log("여기가",response['results'][0]['title'])
+        console.log("여기가",response['results'].length)
+        console.log("여기가",response['next'])
+        console.log('성공:', response);
+        if (response['results'].length > 0) {
+            for (let i = 0; i < response['results'].length; i++) {
+                let id = response['results'][i]['id']
+                console.log(id)
+                let title = response['results'][i]['title']
+                let hits =response['results'][i]['hits']
+                var time = response['results'][i]["created_date"] + "Z"
+                let likes_count = response['results'][i]['likes_count']
+                let user = response['results'][i]['user']
+                let comments_count=response['results'][i]['comments_count']
+                let next=response['next']
+                let previous=response['previous']
+
+
+                temp_html=` <tr>
+                <td>${id}</td>
+                <td>
+                <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
+                </td>
+                <td>${user}</td>
+                <td><time class="timeago" datetime="${time}">  
+                <td>${hits}</td>
+                <td>${likes_count}</td>
+                </td>
+            </tr>`
+            $('#post_list').append(temp_html)
+            $('#next').attr('onclick', `page("${next}")`)
+            $('#previous').attr('onclick', `page("${previous}")`)
+            $("time.timeago").timeago();
+        }
+        }
+        }
+        });
+}
+

@@ -18,6 +18,8 @@
   <script src="/static/js/bootstrap.bundle.min.js"></script>
   <script src="/static/js/community_index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
 
 
   <style>
@@ -58,7 +60,6 @@
 
     #main_nav {
       padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
       background-color: #eaeaea;
       width: 100%;
       margin: 0 auto;
@@ -66,7 +67,7 @@
     </style>
 </head>
 
-<body id="body" class="" style="background-color: #ffd5d5;">
+<body id="body" class="" style="background-color: #ffffff17;" >
     <div class="w-100 h-100 p-3 mx-auto">
         <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
             <div class="contain">
@@ -116,55 +117,69 @@
 <!-- 카테고리 -->
 <ul class="nav justify-content-center" >
   <li class="nav-item">
-    <button type="button" id="top_list" onclick="top_list()" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
+    <button type="button" id="top_list" onclick="post_list()" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
   </li>
   <li class="nav-item">
-    <button type="button" id="free_list" onclick="free_list()" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
+    <button type="button"  onclick="category_list('자유게시판')" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
   </li>
   <li class="nav-item">
-    <button type="button" id="blind_list" onclick="blind_list()" class="btn btn-outline-success" style="margin-left: 20px;"><a>익명게시판</a></button>
+    <button type="button" id="blind_list" onclick="category_list('익명게시판')" class="btn btn-outline-success" style="margin-left: 20px;"><a>익명게시판</a></button>
   </li>
   <li class="nav-item">
-    <button type="button" id="study_list" onclick="study_list()" class="btn btn-outline-success" style="margin-left: 20px;"><a>공부</a></button>
+    <button type="button" id="study_list" onclick="category_list('수강후기')" class="btn btn-outline-success" style="margin-left: 20px;"><a>수강후기</a></button>
   </li>
+  <li class="nav-item">
+    <button type="button" id="study_list" onclick="category_list('스테디 상담소')" class="btn btn-outline-success" style="margin-left: 20px;"><a>스테디 상담소</a></button>
+  </li>
+  
 
 </ul>
 
 <!-- 게시글 -->
+
   <div class="container my-4">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
-        <tr class="table-dark">
+        <tr>
+          
             <th>번호</th>
             <th>제목</th>
-            <th>카테고리</th>
-            <th>조회수</th>
-            <th>작성자</th>
-            <th>작성일</th>
+            <th>글쓴이</th>
+            <th>작성일</th>   
+            <th>조회</th>
+            <th>추천수</th>
+
+         
 
         </tr>
         </thead>
         <tbody id ="post_list">
         </tbody>
     </table>
-</div>
-<div style="display: flex; justify-content: flex-end; margin-right: 100px;">
-  <a href="post_create.html">
-    <button type="button" class="btn btn-outline-danger" >게시글 작성</button>
-  </a>
+
+
+    <div style="display: flex; justify-content: flex-end; ">
+      <a href="post_create.html">
+        <button type="button" class="btn btn-outline-danger" >게시글 작성</button>
+      </a>
+    </div>
 </div>
 
-<div class="paginations" style="display: flex; justify-content: center; ">
-      <ul class="pagination">
 
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
+<div style="justify-content: center; align-items: center; display: flex;width: 100%; padding-bottom: 100px;">
+  <div style="margin-right: 10px;"><button class="btn btn-primary" type="button"
+          onclick="" id="previous">이전</button>
+  </div>
+  <div>
+    <button class="btn btn-primary" type="button" onclick="" id="next">다음</button>
+  </div>
 </div>
+
+
+
 </main>
   </div>
+  <script src="/static/js/user.js"></script>
+
   </body>
 </html>

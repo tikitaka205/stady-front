@@ -16,7 +16,7 @@
 
   <!-- JS 파일 -->
   <script src="/static/js/bootstrap.bundle.min.js?after"></script>
-  <script src="/static/js/blind.js"></script>
+  <script src="/static/js/community_post_create.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -58,7 +58,6 @@
 
     #main_nav {
       padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
       background-color: #eaeaea;
       width: 100%;
       margin: 0 auto;
@@ -127,28 +126,29 @@
   
       </header>
   
-      <main class="container" style="height: 500px; margin-top : 40px;">
+      <main class="container" style="height: 500px; margin-top : 120px;">
   
         <div class="row">
+          
           <h1 class='subject mb-5'>게시글 작성</h1>
           <form>
 
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label"></label>
-              <input type="text" class="form-control" id="title" placeholder="제목" name='title' required>
+              <input type="text" class="form-control" id="title" placeholder='제목을 입력해주세요. 최대 40자' name='title' type="required">
             </div>
 
             
             
             <!-- 카테고리 선택 -->
-
-
-            <select class="form-select" aria-label="Default select example" onchange="changeValue(this)">
-              <option selected>카테고리를 선택해주세요</option>
-              <option value="1">자유게시판</option>
-              <option value="2">익명게시판</option>
-              <option value="3">공부</option>
-            </select>
+          <form id="category">
+            <select class="form-select" aria-label="Default select example" name="category">
+              <option value="자유게시판">자유게시판</option>
+              <option value="익명게시판">익명게시판</option>
+              <option value="수강후기">수강후기</option>
+              <option value="스테디 상담소">스테디 상담소</option>
+          </select>
+          </form>
 
 
 
@@ -162,13 +162,13 @@
   
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-labe2"></label>
-              <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. (최소 10자)' name='content' rows="12"required></textarea>
+              <textarea class="form-control" id="content" placeholder='내용을 입력해주세요. 최대 200자' name='content' rows="12"required></textarea>
             </div>
 
             <div>
 
 
-              <button type="button" onclick="post_create()" class="btn btn-primary btn-lg" style="background-color: #00b395;">등록하기</button>
+              <button id="post_create" type="button" onclick="post_create()" class="btn btn-primary btn-lg" style="background-color: #00b395; margin-left: 90%;">등록하기</button>
 
 
             </div>
@@ -176,6 +176,7 @@
         </div>
       </main>
     </div>
+    <script src="/static/js/user.js"></script>
 
 </body>
 
