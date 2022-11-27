@@ -59,12 +59,21 @@ function post_detail(){
                 $('#like_img').attr('src','https://cdn-icons-png.flaticon.com/512/456/456257.png')
             }
             hide_button();
+            hide_comment_page();
             function hide_button(){
                 if(post_user_id!=login_user_id){
                     $("#put_submit").hide();
                     $("#delete_submit").hide();
                 }
+              }
+            function hide_comment_page(){
+                if(comments_count<5){
+                    $("#previous").hide();
+                    $("#next").hide();
                 }
+              }
+
+
         }
             })
         }
@@ -87,6 +96,7 @@ $(document).ready(function () {
 
             success: function (response) {
                     console.log(response)
+                    let comments_count=response['count']
                     for (let i = 0; i < response['results'].length; i++) {
                         let content = response['results'][i]['content']
                         let likes_count =response['results'][i]['likes_count']
@@ -101,6 +111,7 @@ $(document).ready(function () {
 
                         console.log("코멘트의 유저id",comment_user_id)
                         console.log(response)
+                        console.log("코멘트 개수",comments_count)
                         console.log("로그인 사용자의 유저 id22",login_user_id)
                         if(comment_user_id==login_user_id){
                             if(likes.includes(login_user_id)){
@@ -174,7 +185,14 @@ $(document).ready(function () {
                           $("time.timeago").timeago();
                           $('#next').attr('onclick', `page("${next}")`)
                           $('#previous').attr('onclick', `page("${previous}")`)
-                          
+                          // 코멘트 개수적으면 페이지네이션 버튼 없애기 일단 댓글개수 4개로
+                          hide_comment_page();
+                          function hide_comment_page(){
+                              if(comments_count<5){
+                                  $("#previous").hide();
+                                  $("#next").hide();
+                              }
+                            }
                             }
                         }
                 })}
