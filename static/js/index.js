@@ -38,7 +38,7 @@ function uploadImage() {
 
         data: { imgUpload: drawCanvas.toDataURL('image/png') }, // 이미지를 인코딩
 
-        url: 'http://127.0.0.1:8000/api/study/',
+        url: 'http://127.0.0.1:8000/study/',
         headers : {
             "Authorization" : "Bearer " + localStorage.getItem("access"),
         },
@@ -46,14 +46,13 @@ function uploadImage() {
         success: function (result) { // 결과 값에 사람이 있고 없음을 판단
             console.log(result)
             if(is_running === false){ // 만약 사람이 있어서 백엔드에서 새로운 공부로그를 만들었다. 하지만 그 사이에 종료 버튼을 눌러서 is_running플래그가 false라면 새로운 공부 로그를 지워야하는 경우
-                console.log(result, '콜백 실행돼야해!!!!!!!!!');
 
                 $.ajax({ // 새로운 공부 로그가 만들어지면 안되기 때문에 다시 콜백에 요청을 한다.
                     type: 'DELETE',
 
                     data: {},
 
-                    url: 'http://127.0.0.1:8000/api/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
+                    url: 'http://127.0.0.1:8000/study/', // 최근 새로운 공부 로그를 없애주는 함수를 실행
 
                     success: function (result){
                         insertLog(result)
@@ -75,7 +74,7 @@ function uploadImage() {
 function insertLog(result){
     let logList = result['study_log_list']
     let dayTotalTime = result['day_total_time']
-
+    let message = result["message"]
     if (logList){
         let totalTemp = '';
         for (let i = 0; i < logList.length; i++) {
@@ -102,6 +101,9 @@ function insertLog(result){
 
         $('#day-total-time').text(dayTotalTime);
     }
+    if(message){
+        $('#message').text(message)
+    }
 }
 
 
@@ -115,7 +117,7 @@ function startStudy() {
         headers : {
             "Authorization" : "Bearer " + localStorage.getItem("access"),
         },
-        url: 'http://127.0.0.1:8000/api/study/?type=start',
+        url: 'http://127.0.0.1:8000/study/?type=start',
 
         success: function (result) {
             console.log('성공:', result);
@@ -134,7 +136,7 @@ function finishStudy() {
         headers : {
             "Authorization" : "Bearer " + localStorage.getItem("access"),
         },
-        url: 'http://127.0.0.1:8000/api/study/?type=finish',
+        url: 'http://127.0.0.1:8000/study/?type=finish',
 
         success: function (result) {
             console.log('finishStudy()');
@@ -167,7 +169,7 @@ function submitMemo(logId) {
         headers : {
             "Authorization" : "Bearer " + localStorage.getItem("access"),
         },
-        url: 'http://127.0.0.1:8000/api/study/',
+        url: 'http://127.0.0.1:8000/study/',
 
         success: function (result) {
             console.log('성공:', result);
@@ -226,7 +228,7 @@ function getLog(day){
             "Authorization" : "Bearer " + localStorage.getItem("access"),
         },
 
-        url: 'http://127.0.0.1:8000/api/study/log/',
+        url: 'http://127.0.0.1:8000/study/log/',
 
         success: function (result) {
             insertLog(result)
