@@ -27,7 +27,7 @@ async function handleSignin() {
             console.log('Fetch Error', err);
         });
 
-    if (response.status === 201) {
+    if (response.status == 201) {
         window.location.href = "/user/login.html"
     }
 }
