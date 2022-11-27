@@ -1,4 +1,4 @@
-$('#post_create()').click( function() {
+$('#post_create').click( function() {
     post_create()
     });
 
