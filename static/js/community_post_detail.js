@@ -47,7 +47,6 @@ function post_detail(){
             $('#likes_count2').append(likes_count)
             $('#content').append(content)
             $('#comments_count').append(comments_count)
-            // $('#img').attr('src', `http://127.0.0.1:8000${img}`)
             console.log("이미지", img)
             if(img){
                 $('#img').append(`<img src="http://127.0.0.1:8000${img}" style="width: 100%;">`)
@@ -87,7 +86,6 @@ $(document).ready(function () {
     function comment() {
         console.log("코멘트에서 id 들고오기",post_id)
         const login_user_id = JSON.parse(localStorage.getItem('payload')).user_id
-        // console.log("토큰 user_id 들고오기",login_user_id)
 
         $.ajax({
             type: "GET",
@@ -102,7 +100,6 @@ $(document).ready(function () {
                         let likes_count =response['results'][i]['likes_count']
                         let user = response['results'][i]['user']
                         let id = response['results'][i]['id']
-                        // let created_date = response['results'][i]['created_date']
                         let comment_user_id = response['results'][i]['user_id']
                         let likes = response['results'][i]['likes']
                         var time = response['results'][i]["created_date"] + "Z"
@@ -185,7 +182,7 @@ $(document).ready(function () {
                           $("time.timeago").timeago();
                           $('#next').attr('onclick', `page("${next}")`)
                           $('#previous').attr('onclick', `page("${previous}")`)
-                          // 코멘트 개수적으면 페이지네이션 버튼 없애기 일단 댓글개수 4개로
+                          // 코멘트 개수적으면 페이지네이션 버튼 없애기 일단 댓글개수 4개로 했습니다.
                           hide_comment_page();
                           function hide_comment_page(){
                               if(comments_count<5){
@@ -202,7 +199,6 @@ $(document).ready(function () {
 function page(page) {
     console.log("코멘트에서 id 들고오기",post_id)
     const login_user_id = JSON.parse(localStorage.getItem('payload')).user_id
-    // console.log("토큰 user_id 들고오기",login_user_id)
 
     $.ajax({
         type: "GET",
@@ -218,7 +214,6 @@ function page(page) {
                     let likes_count =response['results'][i]['likes_count']
                     let user = response['results'][i]['user']
                     let id = response['results'][i]['id']
-                    // let created_date = response['results'][i]['created_date']
                     let comment_user_id = response['results'][i]['user_id']
                     let likes = response['results'][i]['likes']
                     var time = response['results'][i]["created_date"] + "Z"
@@ -340,9 +335,6 @@ function post_delete_submit() {
 
 // 게시글 수정
 function comment_put_submit(){
-    // console.log('수정실행')
-    // console.log(post_id)
-    // localStorage.setItem('community_post_id',post_id)
     location.href='post_put.html'
 }
 

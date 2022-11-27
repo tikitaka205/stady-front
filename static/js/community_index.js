@@ -25,8 +25,6 @@ post_list = () =>{
                     let id = response['results'][i]['id']
                     let title = response['results'][i]['title']
                     let hits =response['results'][i]['hits']
-                    // let created_at = response['results'][i]['created_date']
-                    let category = response['results'][i]['category']
                     let user = response['results'][i]['user']
                     let likes_count = response['results'][i]['likes_count']
                     let comments_count=response['results'][i]['comments_count']
@@ -89,9 +87,7 @@ function category_list(category_name) {
                 console.log(id)
                 let title = response['results'][i]['title']
                 let hits =response['results'][i]['hits']
-                // let created_at = response['results'][i]['created_date']
                 var time = response['results'][i]["created_date"] + "Z"
-                let category = response['results'][i]['category']
                 let likes_count = response['results'][i]['likes_count']
                 let user = response['results'][i]['user']
                 let comments_count=response['results'][i]['comments_count']
@@ -146,9 +142,7 @@ function page(page) {
                 console.log(id)
                 let title = response['results'][i]['title']
                 let hits =response['results'][i]['hits']
-                // let created_at = response['results'][i]['created_date']
                 var time = response['results'][i]["created_date"] + "Z"
-                // let category = response['results'][i]['category']
                 let likes_count = response['results'][i]['likes_count']
                 let user = response['results'][i]['user']
                 let comments_count=response['results'][i]['comments_count']

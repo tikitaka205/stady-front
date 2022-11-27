@@ -38,30 +38,6 @@ function post_change_get(){
     })
 }
 
-// post_change_post =async()=>{
-//     title = document.getElementById('title').value
-//     content = document.getElementById('content').value
-
-//     console.log('포스트 수정 실행')
-//     console.log(post_id)
-//     const response = await fetch('http://127.0.0.1:8000/community/${post_id}/', {
-//         headers: {
-//             'content-type': 'application/json',
-//             "Authorization": "Bearer " + localStorage.getItem("access"),
-//         },
-//         method: 'PUT',
-//         body: JSON.stringify({
-//             "title":title,
-//             "category":category,
-//             "content":content
-//         })
-        
-//     })
-//     if(response.status == 200){
-//         window.location.href = 'http://127.0.0.1:5500/community/blind.html'
-//     }
-// }
-
 
 function post_put() {
     let content = $("#content").val()
@@ -99,9 +75,9 @@ function post_put() {
         alert("작성완료", result);
         location.href='post_detail.html'
         },
-        error : function(request, status, error){
-        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
+        error : function(){
+          alert("게시글을 조건에 맞게 작성했는지 확인해주세요");
+          }
         
         }
       );
