@@ -12,7 +12,6 @@ post_list = () =>{
         headers: {
         },
         success: function (response) {
-            console.log("시간",response['results'][1]["created_date"])
             console.log(response)
             console.log(response['results'][0]['title'])
             $('#post_list').empty()

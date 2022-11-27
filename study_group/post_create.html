@@ -162,20 +162,10 @@
       let title = $("#title").val()
       let content = $("#content").val()
       content = content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-      
-    //   const formFile = $("#formFile")[0];
-    //   console.log(formFile)
 
       let formData = new FormData();
-    //   if (formFile.files.length === 0) {
-    //     console.log('hi')
-    //   } else {
-    //     formData.append("thumbnail_img", formFile.files[0]);
-    //   }
       formData.append("title", title)
       formData.append("content", content)
-
-      // }
 
       $.ajax({
         type: "POST",

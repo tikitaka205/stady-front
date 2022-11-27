@@ -18,10 +18,10 @@ function post_change_get(){
 
         console.log(title, content)
         console.log(category)
-        
+
         let temp_html_title=`
         <label for="exampleFormControlInput1" class="form-label"></label>
-        <input type="text" class="form-control" id="title" name='title' required value=${title}></input>
+        <input type="text" class="form-control" id="title" name='title' required value="${title}">
         `
         $('#post-title').append(temp_html_title)
         $('#img').attr('src', img)
