@@ -18,144 +18,162 @@
   <script src="/static/js/bootstrap.bundle.min.js"></script>
   <script src="/static/js/community_index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
+  <<<<<<< HEAD <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.7/jquery.timeago.min.js">
+    </script>
+    <!--한글패치-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.7/locales/jquery.timeago.ko.min.js"></script>
+
+    =======
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
+    >>>>>>> c7c43eb064c16169734e03fd75094456c27fda7c
 
 
-  <style>
-    .stady_btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+    <style>
+      .stady_btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
 
-    .stady_wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+      .stady_wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
 
-    .cam_size {
-      width: 375px;
-      height: 375px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      .cam_size {
+        width: 375px;
+        height: 375px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
 
-      background-color: #e9ecef;
-      margin-bottom: 10px;
-    }
+        background-color: #e9ecef;
+        margin-bottom: 10px;
+      }
 
-    .nav_logo {
-      width: 100px;
-      height: 40px;
-    }
+      .nav_logo {
+        width: 100px;
+        height: 40px;
+      }
 
 
-    #main_nav {
-      padding-top: 0.5rem;
-      background-color: #eaeaea;
-      width: 100%;
-      margin: 0 auto;
-    }
+      #main_nav {
+        padding-top: 0.5rem;
+        background-color: #eaeaea;
+        width: 100%;
+        margin: 0 auto;
+      }
     </style>
 </head>
 
-<body id="body" class="" style="background-color: #ffffff17;" >
-    <div class="w-100 h-100 p-3 mx-auto">
-        <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
-            <div class="contain">
-              <div class="fixed-top" id="main_nav" style="width: 100%;">
-                <h3 class="float-md-start mb-0">
-                  <a href="/">
-                    <img class="nav_logo" src="/static/images/stady_1.png" style="margin-left: 30px;" />
-                  </a>
-                </h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 30px;">
-                  <div class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 50px;">
-                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/">STADY</a>
-                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/community/index.html">커뮤니티</a>
-                  <a class="nav-link fw-bold py-1 px-0" aria-current="true" style="color: black; margin-right: 30px; font-size: 20px;" href="/study_group/index.html">소모임</a>
-                  </div>
-      
-                  <div style="margin-left: 20px; margin-right: 10px;">
-                    <div class="post_header_more_btn_box">
-                      <div class="btn-group">
-                        <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
-                          src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 2px;" />
-                        <ul class="dropdown-menu">
-                          <li>
-                            <a class="dropdown-item" href="/profile/profile.html">프로필</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </nav>
+<body id="body" class="" style="background-color: #ffffff17;">
+  <div class="w-100 h-100 p-3 mx-auto">
+    <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
+      <div class="contain">
+        <div class="fixed-top" id="main_nav" style="width: 100%;">
+          <h3 class="float-md-start mb-0">
+            <a href="/">
+              <img class="nav_logo" src="/static/images/stady_1.png" style="margin-left: 30px;" />
+            </a>
+          </h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 30px;">
+            <div class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 50px;">
+              <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                style="color: black; margin-right: 30px; font-size: 20px;" href="/">STADY</a>
+              <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                style="color: black; margin-right: 30px; font-size: 20px;" href="/community/index.html">커뮤니티</a>
+              <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                style="color: black; margin-right: 30px; font-size: 20px;" href="/study_group/index.html">소모임</a>
+            </div>
+
+            <div style="margin-left: 20px; margin-right: 10px;">
+              <div class="post_header_more_btn_box">
+                <div class="btn-group">
+                  <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                    src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="margin-top: 2px;" />
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-      
-          </header>
-    </div>
+          </nav>
+        </div>
+      </div>
+      </nav>
+  </div>
+  </div>
+
+  </header>
+  </div>
 
 
 
   <main style="margin-top: 100px;">
 
-<!-- 카테고리 -->
-<ul class="nav justify-content-center" >
-  <li class="nav-item">
-    <button type="button" id="top_list" onclick="post_list()" class="btn btn-outline-danger" style="margin-left: 20px;">인기글</button>
-  </li>
-  <li class="nav-item">
-    <button type="button"  onclick="category_list('자유게시판')" class="btn btn-outline-success" style="margin-left: 20px;">자유게시판</button>
-  </li>
-  <li class="nav-item">
-    <button type="button" id="blind_list" onclick="category_list('익명게시판')" class="btn btn-outline-success" style="margin-left: 20px;"><a>익명게시판</a></button>
-  </li>
-  <li class="nav-item">
-    <button type="button" id="study_list" onclick="category_list('수강후기')" class="btn btn-outline-success" style="margin-left: 20px;"><a>수강후기</a></button>
-  </li>
-  <li class="nav-item">
-    <button type="button" id="study_list" onclick="category_list('스테디 상담소')" class="btn btn-outline-success" style="margin-left: 20px;"><a>스테디 상담소</a></button>
-  </li>
-  
+    <!-- 카테고리 -->
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <button type="button" id="top_list" onclick="post_list()" class="btn btn-outline-danger"
+          style="margin-left: 20px;">인기글</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" onclick="category_list('자유게시판')" class="btn btn-outline-success"
+          style="margin-left: 20px;">자유게시판</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" id="blind_list" onclick="category_list('익명게시판')" class="btn btn-outline-success"
+          style="margin-left: 20px;"><a>익명게시판</a></button>
+      </li>
+      <li class="nav-item">
+        <button type="button" id="study_list" onclick="category_list('수강후기')" class="btn btn-outline-success"
+          style="margin-left: 20px;"><a>수강후기</a></button>
+      </li>
+      <li class="nav-item">
+        <button type="button" id="study_list" onclick="category_list('스테디 상담소')" class="btn btn-outline-success"
+          style="margin-left: 20px;"><a>스테디 상담소</a></button>
+      </li>
 
-</ul>
 
-<!-- 게시글 -->
 
-  <div class="container my-4">
-    <table class="table table-hover">
+    </ul>
+
+    <div class="container my-4">
+      <table class="table table-hover">
         <thead>
-        <tr>
-          
+          <tr>
+
             <th>번호</th>
             <th>제목</th>
             <th>글쓴이</th>
-            <th>작성일</th>   
+            <th>작성일</th>
             <th>조회</th>
             <th>추천수</th>
 
-         
 
-        </tr>
+
+          </tr>
         </thead>
-        <tbody id ="post_list">
+        <tbody id="post_list">
         </tbody>
-    </table>
+      </table>
 
       <div>
               <input type="text" name="search_input" id="search_input" onchange="search()" placeholder="검색" style="margin-right: 50px; ">
@@ -168,14 +186,14 @@
       </a>
     </div>
 
-<div style="justify-content: center; align-items: center; display: flex;width: 100%; padding-bottom: 100px;">
-  <div style="margin-right: 10px;"><button class="btn btn-primary" type="button"
-          onclick="" id="previous">이전</button>
-  </div>
-  <div>
-    <button class="btn btn-primary" type="button" onclick="" id="next">다음</button>
-  </div>
-</div>
+    <div style="justify-content: center; align-items: center; display: flex;width: 100%; padding-bottom: 100px;">
+      <div style="margin-right: 10px;"><button class="btn btn-primary" type="button" onclick=""
+          id="previous">이전</button>
+      </div>
+      <div>
+        <button class="btn btn-primary" type="button" onclick="" id="next">다음</button>
+      </div>
+    </div>
 
 </div>
 
@@ -184,9 +202,10 @@
 
 
 
-</main>
+  </main>
   </div>
   <script src="/static/js/user.js"></script>
 
-  </body>
+</body>
+
 </html>

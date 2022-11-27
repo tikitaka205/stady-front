@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STADY</title>
+    <!-- css 파일 -->
+    <link href="/static/css/bootstrap.min.css?after" rel="stylesheet" />
+    <link href="/static/css/base.css?after" rel="stylesheet" />
+    <!-- bootstrap css cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome 5.14.5-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- JS 파일 -->
+    <script src="/static/js/bootstrap.bundle.min.js?after"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <style>
+        h5 {
+            height: 20px;
+        }
+
+        .stady_btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .stady_wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cam_size {
+            width: 375px;
+            height: 375px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            background-color: #e9ecef;
+            margin-bottom: 10px;
+        }
+
+        .nav_logo {
+            width: 100px;
+            height: 40px;
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 10px 15px 15px;
+            height: 120px;
+        }
+
+        .card-title {
+            height: 33px;
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            overflow-y: hidden;
+        }
+
+        #study-title {
+            font-size: 50px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 12px;
+            color: gray;
+            margin-bottom: 3px;
+        }
+
+        #main_nav {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: #eaeaea;
+            width: 100%;
+            margin: 0 auto;
+        }
+        #content-wrap > div{
+            padding:  5px;
+            border-radius: 10px;
+        }
+        #content-wrap > div:hover{
+            font-weight: 600;
+            box-shadow: 1px 2px 3px 0px #000;
+        }
+
+        #main-wrap{
+            border : 1px solid #000;
+            box-shadow: 2px 3px 5px 1px;
+        }
+        #inner-wrap{
+
+        }
+        #type-wrap{
+            padding: 0 15px;
+        }
+        #type-wrap > div:hover{
+            font-weight: 800;
+        }
+        #content-wrap > div{
+            margin-bottom: 5px;
+
+
+            border-bottom: 1px solid black;
+        }
+        #pagination > li:not(li.disabled){
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body id="body" class="" style="background-color: #00b395;">
+    <div class="w-100 h-100 p-3 mx-auto">
+        <header class="mb-auto" style="background-color: rgb(255, 255, 255); max-width: 720px; margin: 0 auto;">
+            <div class="contain">
+              <div class="fixed-top" id="main_nav" style="width: 100%;">
+                <h3 class="float-md-start mb-0">
+                  <a href="/">
+                    <img class="nav_logo" src="/static/images/stady_1.png" style="margin-left: 30px;" />
+                  </a>
+                </h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end" style="margin-right: 30px;">
+                  <div class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                      style="color: black; margin-right: 30px; font-size: 20px;" href="/">STADY</a>
+                    <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                      style="color: black; margin-right: 30px; font-size: 20px;" href="/community/index.html">커뮤니티</a>
+                    <a class="nav-link fw-bold py-1 px-0" aria-current="true"
+                      style="color: black; margin-right: 30px; font-size: 20px;" href="/study_group/index.html">소모임</a>
+                  </div>
+      
+                  <div style="margin-left: 20px; margin-right: 10px;">
+                    <div class="post_header_more_btn_box">
+                      <div class="btn-group">
+                        <img type="button" class="img_circle dropdown-toggle" width="30px" height="30px"
+                          src="/static/images/stady_bear_face.png" data-bs-toggle="dropdown" aria-expanded="false"
+                          style="margin-top: 5px;" />
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item" href="/profile/profile.html">프로필</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/user/update.html">회원정보수정</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="javascript:handleLogout();">로그아웃</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+          </header>
+
+        <main class="" style="margin: 0 auto;height: 500px; margin-top : 110px; width: 600px;">
+            <div class="text-end mb-2">
+                <div id="ttt">dd</div>
+
+                <div class="btn btn-primary" onclick="window.location.href='post_create.html'">
+                    <!-- <i class="far fa-pen" style="color: white;"></i> -->
+                    <i class="fas fa-pen"></i>
+                    글쓰기
+                </div>
+            </div>
+            
+            <div id="main-wrap" class="main-wrap" style="background-color: white; padding: 15px;">
+                <div id="inner-wrap" class="card p-3">
+                    <div class="type-wrap row text-center mb-3"  id="type-wrap">
+                        <div class="col-6 p-2" onclick="getStudy()" style="cursor: pointer; box-shadow: 1px 1px 3px 0px #000; border-radius: 10px; color: cornflowerblue;">
+                            <i class="fas fa-info-circle"></i>
+                            정보
+                        </div>
+                        <div class="col-6 p-2" onclick="getStudyPost()" style="cursor: pointer; box-shadow: 1px 1px 3px 0px #000; border-radius: 10px; color: orange;">
+                            <i class="fas fa-comments"></i>
+                            게시판
+                        </div>
+                        <!-- <div class="col-4" onclick="getDetail()" style="cursor: pointer;">앨범</div> -->
+                    </div>
+    
+                    <div class="penalty-money-wrap mb-3 p-3" style="box-shadow: 1px 1px 3px 0px #000; border-radius: 10px; font-size: 20px;">
+                        
+                        <div class="mb-2" id="total-penalty" style="font-size: 25px;">
+    
+                        </div>
+                        <div class="mb-2" id="week-penalty">
+    
+                        </div>
+                        <div id="info-penalty">
+                            <div class="mb-2" id="penalty">
+                            </div>
+                            <div class="mb-2" id="limit-type">
+                            </div>
+                            <div class="mb-2" id="limit-time">
+                            </div>
+                            <div class="mb-2" id="days">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="content-wrap mb-3" id="content-wrap" style="padding: 15px; box-shadow: 1px 1px 3px 0px #000; border-radius: 10px;">
+                    </div>
+                    <div class="sub-content-wrap" id="sub-content-wrap">
+                    </div>
+                    <div id="propose-student-wrap">
+    
+                    </div>
+                    <nav aria-label="Page navigation example" class="text-center">
+                        <ul class="pagination" id="pagination" style="justify-content: center;">
+                        </ul>
+                    </nav>
+                </div>
+                
+            </div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="border: none; background-color: aquamarine;">
+                    <h3 class="modal-head" id="modal-head"></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      
+                    </div>
+                    <div class="p-2">
+                        <div class="modal-body card" id="modal-body" style="font-size: 19px;">
+                        </div>
+                    </div>
+                    <div class="mb-2" id="modal-info">
+                    </div>
+                    <div class="btn btn-outline-danger" id="post-like" style="width: 80px; margin: 0 auto; padding: 3px; cursor: pointer;">
+                        <i id="heart" class="far fa-heart"></i>
+                        <span id="like-num"></span>
+                    </div>
+                    
+
+                    <div class="modal-comment-wrap" >
+                        <div id="modal-comment" class="row" style="width: 100%;">
+                        </div>
+                        <div style="padding: 10px;">
+                            <input class="form-control col-12 mb-2" id="post-comment" type="text" placeholder="댓글을 입력해 주세요">
+                            <div class="text-end">
+                                <button class="btn btn-outline-primary text-end" id="comment-submit">제출</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </main>
+
+    <script src="/static/js/study_detail.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/jquery.timeago.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.5/locales/jquery.timeago.ko.js"></script>
+    <!-- 페이지 네이션 CDN  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
+    <script>
+
+    // const hostUrl = "http://127.0.0.1:8000"
+    // const STUDYID = JSON.parse(localStorage.getItem('stady', ''))["recent_study_id"]
+    // const payload = JSON.parse(localStorage.getItem('payload', ''))
+    // // const fomatter = new Intl.RelativeTimeFormat('ko', {numeric : 'auto'})
+    // const DATE = new Date()
+    // console.log(DATE)
+    // // const DATE = new Date().toLocaleDateString
+
+    // window.onload = function() {
+    //     $('#ttt').html(`<time class="timeago" datetime="${DATE}"></time>`)
+    //     $("time.timeago").timeago();
+
+    //     getStudy()
+    // }
+    // function getStudy(){
+    //     $('#pagination').empty()
+    //     $.ajax({
+    //         type: 'GET',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/?community-type=info`,
+
+    //         success: function (result) {
+    //             console.log(result,result["is_penalty"])
+    //             $('#content-wrap').html(result["content"])
+    //             let students = result["students"]
+                
+    //             if (result["is_penalty"]){
+                    
+    //                 var limitType = result["limit_type"]
+    //                 var limitTime = result["limit_time"]
+    //                 var numDays = result["days"]
+                    
+    //                 if(limitType === 'CT'){
+    //                     limitType = '출석 체크 스터디!'
+    //                 }else{
+    //                     limitType = '공부 시간 스터디!'
+    //                 }
+
+    //                 // 이럴거면 숫자말고 '월화수' 이런 식으로 저장하는게 났지 않았냐?
+    //                 var days = ``
+    //                 for(var i = 0; i<numDays.length; i ++){
+    //                     var week = '월화수목금토일'
+    //                     var idx = Number(numDays[i])
+
+    //                     days +=`
+    //                     <span class ="m-2 p-1" style="border-radius : 10px;border: 1px solid red;">${week[idx]}</span>
+    //                     `
+    //                 }
+    //                 // if문 for문 할거 다 하고 한번에 넣어도 괜찮을 듯
+    //                 $('#total-penalty').html(`총 금액 : <span style="font-weight : 600;color:blue">${result['total_penalty']}</span>`)
+    //                 $('#week-penalty').html(`이번주 모인 벌금 : <span style="font-weight : 600;color:red">${result['week_penalty']}</span>`)
+
+    //                 $('#limit-time').html(`<span style = "font-size : 18px">제한 시간(시각)</span> : ${result['limit_time']} <span style="font-size:15px">( 시간 혹은 시각)</span>`)
+    //                 $('#limit-type').html(`<span style = "font-size : 18px">스터디 종류</span> : ${limitType}`)
+    //                 $('#penalty').html(`<span style = "font-size : 18px">벌금</span> : <span style="font-weight : 600;color:green">${result['penalty']}</span>`)
+    //                 $('#days').html(`<span style = "font-size : 18px">확인할 요일</span> : ${days}`)
+
+    //             }
+
+    //             if(result["user"] == payload["user_id"]){
+    //                 studyAuthor(result)
+    //             }
+    //             else{
+    //                 studyStudent(result)
+    //             }
+    //         },
+    //     });
+    // }
+
+
+    // function getStudyPost(page=1) {
+    //     $('#sub-content-wrap').empty()
+    //     $('#propose-student-wrap').empty()
+
+    //     $.ajax({
+    //         type: 'GET',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/?page=${page}`,
+
+    //         success: function (result) {
+    //             console.log('스터디', result)
+    //             var postList = result['post_list']
+    //             var curPage = result["cur_page"]
+    //             var totalPage = result["page_cnt"]
+
+    //             var temp = ``
+    //             for(var i = 0; i < postList.length; i++){
+    //                 var post = postList[i]
+    //                 var time = post["create_dt"].slice(undefined,-7) + "Z"
+
+    //                 temp += `
+    //                     <div class = "" style="cursor: pointer;" onclick="getStudyPostDetail(${post['id']})">
+    //                         <div class = "text-secondary">
+    //                             ${post['author']}
+    //                         </div>
+    //                         <div class = "" style= "font-weight : 600">
+    //                             ${post['title']}
+    //                         </div>
+    //                         <div class="text-secondary">
+    //                             <span>
+    //                                 <i class="far fa-heart" style = "color : red;"></i>
+    //                                 ${post["like_count"]}
+    //                             </span>
+    //                             <span style="margin-left : 5px">
+    //                                 <i class="far fa-comment"></i>
+    //                                 ${post["comment_count"]}
+    //                             </span>
+    //                             <span style="margin-left : 5px">                            
+    //                                 <i class="far fa-clock" ></i>
+    //                                 <time class="timeago" datetime="${time}"></time>    
+    //                             </span>
+    //                         </div>
+    //                     </div>
+    //                 `
+    //             }
+    //             $('#content-wrap').html(temp);
+    //             $("time.timeago").timeago();
+
+    //             var pages = get_pages(totalPage, curPage)
+    //             var prevPage = (curPage - 1 > 0) ? curPage - 1 : 0
+    //             var nextPage = (curPage < totalPage) ? curPage +1 : 0
+
+    //             console.log(pages, prevPage, nextPage)
+    //             var temp = (prevPage === 0)? `<li class="page-item disabled" ><span class="page-link">Prev</span></li>` : `<li class="page-item"><span class="page-link" onclick="getStudyPost(${prevPage})">Prev</span></li>`
+
+    //             for(var i = 0; i < pages.length; i++){
+    //                 if (curPage === pages[i]){
+    //                     temp += `
+    //                         <li class="page-item active">
+    //                             <span class="page-link" onclick="getStudyPost(${pages[i]})">
+    //                                 ${pages[i]}
+    //                             </span>
+    //                         </li>
+    //                     `
+    //                 }else{
+    //                     temp += `
+    //                         <li class="page-item">
+    //                             <span class="page-link" onclick="getStudyPost(${pages[i]})">
+    //                                 ${pages[i]}
+    //                             </span>
+    //                         </li>
+    //                     `
+    //                 }
+                    
+    //             }
+    //             if (nextPage !== 0){
+    //                 temp += `
+    //                         <li class="page-item">
+    //                             <span class="page-link" onclick="getStudyPost(${nextPage})">
+    //                                 Next
+    //                             </span>
+    //                         </li>
+    //                     `
+    //             }else{
+    //                 temp += `
+    //                         <li class="page-item disabled" >
+    //                             <span class="page-link">
+    //                                 Next
+    //                             </span>
+    //                         </li>
+    //                     `
+    //             }
+
+    //             $('#pagination').html(temp)
+                
+
+
+    //         },
+    //     });
+    // }
+
+
+    // function get_pages(totalPage, curPage){
+    //     console.log('pages()..')
+
+    //     let pages3 = [];
+
+    //     if (totalPage === 1) pages3=[1]
+    //     else if (totalPage === 2) pages3=[1,2]
+    //     else if (totalPage >= 3){
+    //         if (curPage === 1) pages3 = [1,2,3]
+    //         else if (curPage === totalPage) pages3 = [totalPage-2,totalPage-1, totalPage]
+    //         else pages3 = [curPage-1, curPage, curPage+1]
+    //     }
+    //     return pages3
+    // }
+    
+
+    // function getStudyPostDetail(postId){
+
+    //     console.log(postId)
+
+    //     $.ajax({
+    //         type: 'GET',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/${postId}/`,
+
+    //         success: function (result) {
+    //             console.log('포스트 디테일', result)
+    //             var commentList = result['comments']
+    //             var time = new Date(result["create_dt"]).toLocaleDateString() + new Date(result["create_dt"]).toLocaleTimeString()
+    //             // var time = result["create_dt"].slice(undefined,-7) + "Z"
+
+    //             var temp = `
+    //             <div id="post-info" class = "text-secondary" style = "margin-left : 10px">
+    //                 <i class="fas fa-user"></i>
+    //                 <span>${result["author"]}</span>
+    //                 <i class="far fa-clock ml-2"></i>
+    //                 <span>${time}</span>
+    //             </div>
+    //             `
+    //             $('#modal-info').html(temp)
+    //             if(payload["user_id"] == result["author_id"]){
+    //                 $('#post-info').append(`<span class ="btn btn-outline-warning p-1" onclick = "postDelete(${result['id']})">삭제하기</span>`)
+    //             }
+
+
+
+    //             $('#modal-head').text(result["title"])
+    //             $('#modal-body').html(result["content"])
+    //             $('#like-num').text(result['like'])
+
+    //             var allTemp = ``
+    //             for(var i = 0; i < commentList.length; i++){
+    //                 var comment = commentList[i]
+    //                 var time = comment["create_dt"].slice(undefined,-7) + "Z"
+    //                 console.log(time)
+    //                 var temp = `
+    //                 <div id="post-comment-${comment["id"]}" class="m-2">
+    //                     <div class = "text-secondary row">
+    //                         <div class = "col-6">
+    //                             ${comment["author"]}
+    //                 `
+    //                 if(comment["author_id"] == payload["user_id"]){
+    //                     temp += `
+    //                     <span style = "margin-left : 10px; cursor: pointer; color : orange;" onclick = commentDelete(${postId},${comment["id"]})>
+    //                         댓글 삭제
+    //                     <span>
+                        
+    //                     `
+    //                 }
+                                
+    //                 temp += `
+    //                         </div>
+    //                         <div class = "col-6 text-end">
+    //                             <time class="timeago" datetime="${time}"></time>
+    //                         </div>
+    //                     </div>
+    //                     <div class = "" style = "margin-left : 10px">
+    //                             ${comment["content"]}                            
+    //                     </div>
+    //                 </div>
+    //                 `
+    //                 allTemp += temp
+    //             }
+    //             $('#modal-comment').html(allTemp);
+    //             $('#comment-submit').attr('onclick', `sumbmitComment(${postId})`)
+    //             $('#exampleModal').modal('show')
+    //             $("time.timeago").timeago();
+    //             // $("time.timeago").timeago("update", new Date());
+
+    //             $('#post-like').attr('onclick', `postLike(${postId})`)
+    //             // <i class="fas fa-heart"></i>
+    //             // <i class="far fa-heart"></i>
+    //             if (result["is_like"]){
+    //                 $('#heart').attr('class', 'fas fa-heart')
+    //             }else{
+    //                 $('#heart').attr('class', 'far fa-heart')
+    //             }
+    //         },
+    //     });
+    // }
+
+    // function studyAuthor(result){
+    //     let students = result["students"]
+    //     let isPenalty = result["is_penalty"]
+    //     var temp = `
+    //         <div class = "text-center mb-3" style="font-weight : 600;">
+    //             <i class="fas fa-user-circle"></i>
+    //             스터디 멤버들
+    //         </div>
+    //     `
+    //     for (var i = 0; i < students.length; i++){
+    //         var student = students[i]
+
+    //         if(payload["user_id"] == student['user_id']){
+    //             if(isPenalty == true){
+    //                 temp += `
+    //                     <div class = "p-2" style = "" >
+    //                         ${student['user']}
+    //                         <span style="margin-left : 15px"> 이번 주 벌금 : <span style = "color:orange; font-size : 20px">${student['week_penalty']}</span></span>
+    //                         <span style="margin-left : 15px"> 총 벌금 : <span style = "color:red; font-size : 20px">${student['total_penalty']}</span></span>
+    //                     </div>
+    //                 `
+    //             }else{
+    //                 temp += `
+    //                 <span class = "p-2" style = "margin-left : 5px;" >${student['user']}</span>
+    //                 `
+    //             }
+                
+    //         }else{
+    //             if(isPenalty == true){
+    //                 temp += `
+    //                     <div class = "" style = "margin-left : 5px;"  id="student-${student['id']}">
+    //                         <span id="student-name-${student['id']}">${student['user']}</span>
+    //                         <span>이번 주 벌금 : <span style = "color:orange; font-size : 20px">${student['week_penalty']}</span></span>
+    //                         <span>총 벌금 : <span style = "color:red; font-size : 20px">${student['total_penalty']}</span></span>
+    //                         <button class="btn btn-outline-danger p-1" style = "margin-left : 5px" onclick="banishStudent(${student['id']})">
+    //                             추방
+    //                         </button>
+    //                     </div>                    
+    //                 `
+    //             }else{
+    //                 temp += `
+    //                     <span class = "p-2" style = "margin-left : 5px;"  id="student-${student['id']}">
+    //                         <span id="student-name-${student['id']}">${student['user']}</span>
+    //                         <button class="btn btn-outline-danger p-1" style = "margin-left : 5px" onclick="banishStudent(${student['id']})">
+    //                             추방
+    //                         </button>
+    //                     </span>
+    //                 `
+    //             }
+                
+    //         }
+            
+    //     }
+    //     $('#sub-content-wrap').html(temp)
+
+    //     let proposeStudents = result["propose_students"]
+    //     var temp = `
+    //         <div class = "text-center mb-3" style="font-weight : 600;">
+    //             <i class="far fa-paper-plane"></i>
+    //             신청인원
+    //         </div>
+    //     `
+
+    //     for (var i = 0; i < proposeStudents.length; i++){
+    //         var student = proposeStudents[i]
+    //         temp += `
+    //         <div id="student-${student['id']}">
+    //             <span id="student-name-${student['id']}">${student["user"]}</span>
+    //             <button class="btn btn-outline-primary" onclick = acceptStudent(${student["id"]})>수락</button>
+    //             <button class="btn btn-outline-warning" onclick = banishStudent(${student["id"]})>거절</button>
+    //         </div>
+    //         `
+    //     }
+    //     $('#propose-student-wrap').html(temp)
+    // }
+
+    // function studyStudent(result){
+    //     let students = result["students"]
+    //     let isPenalty = result["is_penalty"]
+
+    //     var temp = `
+    //         <div class = "text-center mb-3" style="font-weight : 600;">
+    //             <i class="fas fa-user-circle"></i>
+    //             스터디 멤버들
+    //         </div>
+    //     `
+    //     for (var i = 0; i < students.length; i++){
+    //         var student = students[i]
+
+    //         if(isPenalty == true){
+    //             temp += `
+    //             <div class = "" style = "" >
+    //                 ${student['user']}
+    //                 <span>이번 주 벌금 : <span style = "color:orange; font-size : 20px">${student['week_penalty']}</span></span>
+    //                 <span>총 벌금 : <span style = "color:orange; font-size : 20px">${student['total_penalty']}</span></span>
+    //             </div>
+    //             `
+    //         }else{
+    //             temp += `
+    //             <span class = "p-2" style = "margin-left : 5px;" >${student['user']}</span>
+    //             `
+    //         }
+                
+    //     }
+    //     $('#sub-content-wrap').html(temp)
+    // }
+
+    // function banishStudent(studentId){
+    //     $.ajax({
+    //         type: 'DELETE',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/choose/${studentId}/`,
+
+    //         success: function (result) {
+    //             console.log(result)
+    //             $(`#student-${studentId}`).empty()
+    //         },
+    //     });
+    // }
+
+    // function acceptStudent(studentId){
+    //     console.log(studentId)
+    //     $.ajax({
+    //         type: 'POST',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/choose/${studentId}/`,
+
+    //         success: function (result) {
+    //             var name = $(`#student-name-${studentId}`).text()
+    //             $(`#student-${studentId}`).empty()
+
+    //             var temp =`
+    //             <div id="student-${studentId}">
+    //                 <span>${name}</span>
+    //                 <button class="btn btn-outline-danger p-1" style = "margin-left : 5px" onclick="banishStudent(${studentId})">
+    //                     추방
+    //                 </button>
+    //             </div>
+    //             `
+    //             $('#sub-content-wrap').append(temp)
+    //         },
+    //     });
+    // }
+
+    // function sumbmitComment(postId){
+    //     var postComment = $('#post-comment').val()
+    //     console.log(postComment)
+    //     $.ajax({
+    //         type: 'POST',
+
+    //         data: {content : postComment},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/${postId}/comment/`,
+
+    //         success: function (result) {
+    //             console.log(result)
+    //             var temp = `
+    //             <div id="post-comment-${result["id"]}" class="m-2">
+    //                     <div class = "text-secondary row">
+    //                         <div class = "col-6">
+    //                             ${payload["username"]}
+    //                             <span style = "margin-left : 10px; cursor: pointer; color : orange;" onclick = commentDelete(${postId},${result["id"]})>
+    //                                 댓글 삭제
+    //                             <span>
+    //                         </div>
+    //                         <div class = "col-6 text-end">
+    //                             방금 전
+    //                         </div>
+    //                     </div>
+    //                     <div class = "" style = "margin-left : 10px">
+    //                         ${postComment}
+    //                     </div>
+    //                 </div>
+    //             `
+    //             $('#modal-comment').prepend(temp)
+    //             $('#post-comment').val('')
+    //         },
+    //     });
+    // }
+
+    // function postLike(postId){
+    //     console.log('postLike', postId)
+    //     $.ajax({
+    //         type: 'GET',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/${postId}/like/`,
+
+    //         success: function (result) {
+    //             if ($('#heart').hasClass('fas')){
+    //                 $('#heart').attr('class', 'far fa-heart')
+    //                 var num = $('#like-num').text()
+    //                 $('#like-num').text(Number(num)-1)
+    //             }else{
+    //                 $('#heart').attr('class', 'fas fa-heart')
+    //                 var num = $('#like-num').text()
+    //                 $('#like-num').text(Number(num)+1)
+
+    //             }
+    //         },
+    //     });
+    // }
+
+
+    // function commentDelete(postId, commentId){
+    //     console.log('dd')
+    //     if (confirm("정말 삭제하시겠습니까??") == false){    //확인
+    //         return false
+    //     }
+    //     console.log('dds')
+    //     $.ajax({
+    //         type: 'DELETE',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/${postId}/comment/${commentId}`,
+
+    //         success: function (result) {
+    //             $(`#post-comment-${commentId}`).remove()         
+    //         },
+    //     });
+    // }
+
+    // function postDelete(postId){
+    //     if (confirm("정말 삭제하시겠습니까??") == false){    //확인
+    //         return false
+    //     }
+    //     console.log('dds')
+    //     $.ajax({
+    //         type: 'DELETE',
+
+    //         data: {},
+    //         headers: {
+    //             "Authorization": "Bearer " + localStorage.getItem("access"),
+    //         },
+
+    //         url: `${hostUrl}/studies/${STUDYID}/private/${postId}/`,
+
+    //         success: function (result) {
+    //             console.log('삭제 성공')
+    //         },
+    //     });
+    // }
+    </script>
+</body>
+</html>
+
+
+
+
