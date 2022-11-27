@@ -37,7 +37,7 @@ function day_log(date) {
                       <div class=" col-4 text-end">
                           <button onclick="writeMemo(${id})" type="button" class="btn btn-success" style="font-size : 12px;"
                               data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                              메모/수정/dd
+                              메모/수정
                           </button>
                       </div>
                   </div>
