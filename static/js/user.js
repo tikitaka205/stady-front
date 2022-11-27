@@ -1,5 +1,3 @@
-
-
 async function handleSignin() {
     const email = document.getElementById("email").value
     const username = document.getElementById("username").value
@@ -33,7 +31,7 @@ async function handleSignin() {
 }
 
 async function handleLogin() {
-    console.log('핸들')
+
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
 
@@ -65,6 +63,8 @@ async function handleLogin() {
         }).join(''));
 
         localStorage.setItem('payload', jsonPayload)
+        localStorage.setItem('stady', JSON.stringify({}));
+
 
         window.location.href = "/index.html"
 
