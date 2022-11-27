@@ -1,4 +1,4 @@
-$('#post_create').click( function() {
+$('#post_create()').click( function() {
     post_create()
     });
 
@@ -11,11 +11,8 @@ $('#post_create').click( function() {
         formData.append("content", content)
         formData.append("category", category)
         formData.append("title", title)
-        // formData.append("img",document.getElementById("img").files[0]);
-        // console.log(document.getElementById("img").files[0]);
         const formFile = $("#img")[0];
         if (formFile.files.length === 0) {
-          console.log('hi')
         } else {
           formData.append("img", formFile.files[0]);
         }
@@ -40,10 +37,9 @@ $('#post_create').click( function() {
             alert("작성완료", result);
             location.href='index.html'
             },
-            error : function(request, status, error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            error : function(){
+            alert("게시글을 조건에 맞게 작성했는지 확인해주세요");
             }
-            
             }
           );
     }

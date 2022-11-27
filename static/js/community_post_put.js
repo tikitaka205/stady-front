@@ -18,10 +18,10 @@ function post_change_get(){
 
         console.log(title, content)
         console.log(category)
-        
+
         let temp_html_title=`
         <label for="exampleFormControlInput1" class="form-label"></label>
-        <input type="text" class="form-control" id="title" name='title' required value=${title}></input>
+        <input type="text" class="form-control" id="title" name='title' required value="${title}">
         `
         $('#post-title').append(temp_html_title)
         $('#img').attr('src', img)
@@ -38,30 +38,6 @@ function post_change_get(){
     })
 }
 
-// post_change_post =async()=>{
-//     title = document.getElementById('title').value
-//     content = document.getElementById('content').value
-
-//     console.log('포스트 수정 실행')
-//     console.log(post_id)
-//     const response = await fetch('http://127.0.0.1:8000/community/${post_id}/', {
-//         headers: {
-//             'content-type': 'application/json',
-//             "Authorization": "Bearer " + localStorage.getItem("access"),
-//         },
-//         method: 'PUT',
-//         body: JSON.stringify({
-//             "title":title,
-//             "category":category,
-//             "content":content
-//         })
-        
-//     })
-//     if(response.status == 200){
-//         window.location.href = 'http://127.0.0.1:5500/community/blind.html'
-//     }
-// }
-
 
 function post_put() {
     let content = $("#content").val()
@@ -73,8 +49,11 @@ function post_put() {
     formData.append("content", content)
     formData.append("category", category)
     formData.append("title", title)
-    formData.append("img",document.getElementById("img").files[0]);
-    console.log(document.getElementById("img").files[0]);
+    const formFile = $("#img")[0];
+    if (formFile.files.length === 0) {
+    } else {
+      formData.append("img", formFile.files[0]);
+    };
     console.log("제목",title)
     console.log("내용",content)
     console.log("폼데이터",formData)
@@ -94,11 +73,11 @@ function post_put() {
 
         success: function (result) {
         alert("작성완료", result);
-        location.href='index.html'
+        location.href='post_detail.html'
         },
-        error : function(request, status, error){
-        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
+        error : function(){
+          alert("게시글을 조건에 맞게 작성했는지 확인해주세요");
+          }
         
         }
       );

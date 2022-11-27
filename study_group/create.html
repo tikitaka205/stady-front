@@ -84,6 +84,56 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+    .toggleSwitch {
+  width: 165px;
+  height: 28px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+  cursor: pointer;
+}
+
+.toggleSwitch .toggleButton {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #f03d3d;
+}
+
+.toggleSwitch.active {
+  background: #f03d3d;
+  color: white;
+}
+.toggleSwitch.active #is-penalty-false{
+  display: none;
+}
+#is-penalty-true {
+  display: none;
+}
+.toggleSwitch.active #is-penalty-true{
+  display: block;
+}
+.toggleSwitch.active .toggleButton {
+  left: calc(100% - 26px);
+  background: #fff;
+}
+
+.toggleSwitch, .toggleButton {
+  transition: all 0.2s ease-in;
+}
+
+#toggle-form{
+  display: none;
+}
+#toggle-form.active{
+  display: block;
+}
   </style>
 </head>
 
@@ -131,6 +181,7 @@
       <div class="row">
         <h1 class='subject mb-5'>스터디 등록 페이지</h1>
         <form>
+          
           <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="1" checked>
             <label class="btn btn-outline-primary" for="btnradio1">온라인</label>
@@ -142,13 +193,54 @@
             <label for="exampleFormControlInput1" class="form-label"></label>
             <input type="text" class="form-control" id="title" placeholder="스터디 제목(최소 2자)" name='title' required>
           </div>
+          <div class="">
+            <!-- <input type="checkbox" id="toggle" hidden>  -->
+
+            <label for="toggle" class="toggleSwitch mb-3">
+              <span class="toggleButton"></span>
+              <div id="is-penalty-false" class="text-center" style="padding-top: 2px;">
+                벌금 없는 스터디
+              </div>
+              <div id="is-penalty-true" class="text-center" style="padding-top: 2px;">
+                벌금 있는 스터디
+              </div>
+            </label>
+          </div>
+          <!-- select 값 가져오기 -->
+          <!-- check 된 값들 다 가져오기 -->
+          <div id="toggle-form" class="text-center p-3" style="border: 1px solid black; border-radius: 15px;">
+            <h5 style="color: white;">체크할 유형</h5>
+            <select name="limit-type" id="limit-type" class="form-select mb-3">
+              <option value="TT">총 공부 시간</option>
+              <option value="CT">출석 체크 시간</option>
+            </select>
+            <h5 style="color: white;">체크할 제한 시간</h5>
+            <input type="text" placeholder="총 시간 혹은 출석 시간" id="limit-time" class="form-control mb-3" style="width: 40%;"
+              maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              required>
+            <h5 style="color: white;">체크할 요일</h5>
+            <div class="p-2 mb-3" style="background-color:lightcoral; border-radius: 15px; font-size: 25px">
+              <input type="checkbox" name="day" value="0" />월
+              <input class="m-1" type="checkbox" name="day" value="1" />화
+              <input class="m-1" type="checkbox" name="day" value="2" />수
+              <input class="m-1" type="checkbox" name="day" value="3" />목
+              <input class="m-1" type="checkbox" name="day" value="4" />금
+              <input class="m-1" type="checkbox" name="day" value="5" />토
+              <input class="m-1" type="checkbox" name="day" value="6" />일
+            </div>
+            <div class="row p-3">
+              <h5 style="color: white;">벌금 액수</h5>
+              <input class="form-control col-4" style="width: 40%;" type="number" min="500" max="50000" step="500" id="penalty" placeholder="벌금 액수 500 단위" >
+              <div class="col-7" style="font-size: 20px; color:crimson;" id="valid-message"></div>
+            </div>
+          </div>
           <div class="mb-3">
             <label for="formFile" class="form-label"></label>
             <input class="form-control" type="file" id="formFile" name="image" placeholder="썸네">
           </div>
 
           <div class="mb-3">
-            <input type="text" placeholder="인원수(0~99), 0 : 무제한" id="headcount" class="form-control" style="width: 40%;"
+            <input type="text" placeholder="인원수(0~99)" id="headcount" class="form-control" style="width: 40%;"
               maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
               required>
           </div>
@@ -215,7 +307,7 @@
       let headcount = $("#headcount").val()
       let tags = $("#tags").val()
       const formFile = $("#formFile")[0];
-      console.log(formFile)
+
       if (title.length < 2 || content.length < 30 || headcount.length === 0 || tags.length < 1) {
         alert('제목 : 최소 2자 \n내용 : 최소 30자 \n인원수 : 0~99(0은 무제한) \n태그 : 1~5개')
         return
@@ -231,9 +323,28 @@
       formData.append("title", title)
       formData.append("content", content)
       formData.append("headcount", Number(headcount))
-      formData.append("tags", tags)
+      formData.append("tags", tagSlice(tags))
 
-      // }
+
+      if (is_penalty === 1){
+
+        var limitType = $("#limit-type option:selected").val()
+        var limitTime = $("#limit-time").val()
+        var penalty = $("#penalty").val()
+        var days = ''
+        $('input[name=day]:checked').each(function(){
+          var chk = $(this).val();
+          days += chk
+        })
+
+
+        formData.append("is_penalty", true)
+        formData.append("days", days)
+        formData.append("penalty", Number(penalty)) // 패널티 금액 설정 제한 
+        formData.append("limit_type", limitType)
+        formData.append("limit_time", Number(limitTime)) // 시간 지정하기
+      }
+
 
       $.ajax({
         type: "POST",
@@ -252,6 +363,25 @@
           console.log("err:", err)
         }
       })
+    }
+
+    const $toggle = document.querySelector(".toggleSwitch");
+    const toggleForm = document.getElementById("toggle-form");
+    let is_penalty = -1
+    $toggle.onclick = () => {
+      $toggle.classList.toggle('active');
+      toggleForm.classList.toggle('active');
+      is_penalty *= -1
+      console.log(is_penalty)
+    }
+    $('#penalty').on('input', checkValidMoney);
+    function checkValidMoney() {
+      var money = $('#penalty').val()
+      if (money%500 !== 0) {
+        $('#valid-message').text('500단위로 입력해 주세요!')
+      }else{
+        $('#valid-message').text('')
+      }
     }
   </script>
 </body>

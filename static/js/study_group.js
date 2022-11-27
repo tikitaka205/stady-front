@@ -1,5 +1,5 @@
 const hostUrl = 'http://127.0.0.1:8000'
-console.log('안녕하세요 준호님')
+
 function loadStudy() {
 
     const mainWrap = document.getElementById('main-wrap');
@@ -16,6 +16,7 @@ function loadStudy() {
         url: `${hostUrl}/studies/`,
 
         success: function (result) {
+            console.log(result)
             console.log("------------------------")
             console.log('next:', result['results']['studies'].length);
             let allTemp = ``
@@ -162,7 +163,7 @@ function viewStudy(study_id) {
     const modal = document.getElementById('staticBackdrop');
     let tumbnailImg = document.getElementById('tumbnail-img');
     console.log(study_id)
-
+    $('#penalty-section').empty()
     $.ajax({
         type: 'GET',
 
@@ -193,13 +194,15 @@ function viewStudy(study_id) {
             let isStudent = studyDetail['is_student']
             let isAuthor = studyDetail['is_author']
             let sended = studyDetail['sended']
-            let onOffLine = studyDetail['on_off_line']
+            let isOnline = studyDetail['is_online']
             let isLike = studyDetail['is_like']
             let headCount = studyDetail['headcount']
             let nowCnt = studyDetail['now_cnt']
             let tags = studyDetail['tags']
-            
+            let isPenalty = studyDetail['is_penalty']
+
             let student = result['student']
+            console.log(isPenalty, isOnline, 'dd')
             console.log("---------------------------------------")
             console.log("student check: ", student)
 
@@ -212,49 +215,27 @@ function viewStudy(study_id) {
                 console.log("작성자입니다")
                 $('#status').text('수정 하기')
                 $('#status').attr('class', 'btn btn-outline-warning')
-                let temp_html = '';
-                if (student.length > 0) {
-                    for (let i = 0; i < student.length; i++) {
-                        let temp = ''
-                        console.log(student[i].user)
-                        if (student[i].is_accept == true) {
-                            temp = `
-                                <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, false)">신청 거절</button>
-                                </div>
-                            `
-                        } else {
-                            temp = `
-                                <div>${student[i].user}
-                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, true)" >신청 수락</button>
-                                    <button id="is_Student" type="button" onclick="isStudent(${student[i].user_id}, ${student[i].post}, false)" >신청 거절</button>
-                                </div>
-                            `
-                        }
-                        temp_html += temp;
-                    }
-                    console.log(temp_html)
-                }
-                $('#student_list').html(temp_html)
+                $('#student-btn').attr('style', 'display:inline;')
 
-                temp_html = `<textarea style="width: 100%; height: 500px; resize:none;">${studyDetail.content}</textarea>`
-
-
-                console.log("content: ", temp_html);
-                $('#content').html(temp_html)
-
+                $('#student-btn').text('전용 페이지 가기')
+                $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
 
             } else if (isStudent) {
                 $('#status').text('탈퇴 하기')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
+                $('#student-btn').attr('style', 'display:inline;')
+                $('#student-btn').text('전용 페이지 가기')
+                $('#student-btn').attr('onclick', `moveStudyPage(${studyDetail.id})`)
             } else if (sended) {
                 $('#status').html('<i class="fas fa-times">신청취소</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "cancle")`)
                 $('#status').attr('class', 'btn btn-outline-danger')
+                $('#student-btn').attr('style', 'display:none;')
             } else {
                 $('#status').html('<i class="fas fa-paper-plane">신청하기</i>')
                 $('#status').attr('onclick', `propose(${studyDetail.id}, "propose")`)
                 $('#status').attr('class', 'btn btn-primary')
+                $('#student-btn').attr('style', 'display:none;')
             }
 
             if (isLike) {
@@ -265,6 +246,54 @@ function viewStudy(study_id) {
             $('#star').attr('onclick', `studyLike(${studyDetail.id})`)
             if (recommendStudies) {
                 loadRecommendStudy(recommendStudies)
+            } else {
+                $('#tady-word').text('테디가 분석할 정보가 충분하지 않아요ㅠ')
+            }
+
+            if (isPenalty) {
+
+                var limitType = studyDetail["limit_type"]
+                var numDays = studyDetail["days"]
+
+                if (limitType === 'CT') {
+                    limitType = '출석 체크 스터디!'
+                } else {
+                    limitType = '공부 시간 스터디!'
+                }
+
+                // 이럴거면 숫자말고 '월화수' 이런 식으로 저장하는게 났지 않았냐?
+                var days = ``
+                for (var i = 0; i < numDays.length; i++) {
+                    var week = '월화수목금토일'
+                    var idx = Number(numDays[i])
+
+                    days += `
+                    <span class ="m-2 p-1" style="border-radius : 10px;border: 1px solid red;">${week[idx]}</span>
+                    `
+                }
+
+                var temp = `
+                <h5>벌금 정보</h5>
+                <div class = "p-3" style="border : 1px solid black;">
+                    <div>
+                        총 금액 : <span style="font-weight : 600;color:blue">${studyDetail['total_penalty']}</span>
+                    </div>
+                    <div>
+                        이번주 모인 벌금 : <span style="font-weight : 600;color:red">${studyDetail['week_penalty']}</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">제한 시간(시각)</span> : ${studyDetail['limit_time']} <span style="font-size:15px">( 시간 혹은 시각)</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">벌금</span> : <span style="font-weight : 600;color:green">${studyDetail['penalty']}</span>
+                    </div>
+                    <div>
+                        <span style = "font-size : 18px">확인할 요일</span> : ${days}
+                    </div>
+
+                </div>
+                `
+                $('#penalty-section').html(temp)
             }
         },
 
@@ -312,7 +341,7 @@ function propose(study_id, type) {
             "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
-        url: `${hostUrl}/studies/${study_id}/propose`,
+        url: `${hostUrl}/studies/${study_id}/propose/`,
 
         success: function (result) {
             if (type === "propose") {
@@ -363,7 +392,7 @@ function studyLike(study_id) {
             "Authorization": "Bearer " + localStorage.getItem("access"),
         },
 
-        url: `${hostUrl}/studies/${study_id}/like`,
+        url: `${hostUrl}/studies/${study_id}/like/`,
 
         success: function (result) {
             var starClass = $('#star').attr('class')
@@ -422,4 +451,12 @@ function search() {
     });
 }
 
+function moveStudyPage(studyId) {
+    // var dict1 = {'recent_study_id':1};
+    // localStorage.setItem('stady', JSON.stringify(dict1));
+    let stady = JSON.parse(localStorage.getItem('stady', ''))
+    stady["recent_study_id"] = studyId
+    localStorage.setItem('stady', JSON.stringify(stady));
 
+    window.location.href = '/study_group/study_detail.html'
+}
