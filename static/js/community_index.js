@@ -171,3 +171,56 @@ function page(page) {
         });
 }
 
+function search() {
+    let search_input = document.getElementById("search_input").value;
+    console.log('검색성공')
+
+    $.ajax({
+        type: 'GET',
+
+        data: {},
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+        },
+
+        url: `http://127.0.0.1:8000/community/search/?search=${search_input}`,
+
+        success: function (response) {
+            $('#post_list').empty()
+            console.log("여기가",response['results'].length)
+            console.log("여기가",response['next'])
+            console.log('성공:', response);
+            if (response['results'].length > 0) {
+                for (let i = 0; i < response['results'].length; i++) {
+                    let id = response['results'][i]['id']
+                    console.log(id)
+                    let title = response['results'][i]['title']
+                    let hits =response['results'][i]['hits']
+                    var time = response['results'][i]["created_date"] + "Z"
+                    let likes_count = response['results'][i]['likes_count']
+                    let user = response['results'][i]['user']
+                    let comments_count=response['results'][i]['comments_count']
+                    let next=response['next']
+                    let previous=response['previous']
+    
+    
+                    temp_html=` <tr>
+                    <td>${id}</td>
+                    <td>
+                    <div style = "cursor : pointer;" onclick="postid(${id})"> ${title} [${comments_count}] </div>
+                    </td>
+                    <td>${user}</td>
+                    <td><time class="timeago" datetime="${time}">  
+                    <td>${hits}</td>
+                    <td>${likes_count}</td>
+                    </td>
+                </tr>`
+                $('#post_list').append(temp_html)
+                $('#next').attr('onclick', `page("${next}")`)
+                $('#previous').attr('onclick', `page("${previous}")`)
+                $("time.timeago").timeago();
+            }
+            }
+            }
+            });
+    }

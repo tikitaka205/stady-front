@@ -10,7 +10,7 @@ function post_change_get(){
         url: `http://127.0.0.1:8000/community/${post_id}/`,
         data: {},
         success: function(response){
-        console.log(response)
+        console.log("여기 리스폰",response)
         let title = response['title']
         let content = response['content']
         let img = response['img']
